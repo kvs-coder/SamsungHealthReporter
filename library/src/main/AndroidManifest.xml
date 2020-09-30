@@ -1,5 +1,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kvs.samsunghealthreporter">
-
-    /
+    <application>
+        <meta-data
+            android:name="com.samsung.android.health.permission.read"
+            android:value="com.samsung.health.step_count;
+            com.samsung.health.heart_rate;
+            com.samsung.health.weight;
+            com.samsung.health.height;
+            com.samsung.health.floors_climbed;
+            com.samsung.health.sleep;
+            com.samsung.health.sleep_stage;
+            com.samsung.health.waist_circum;
+            com.samsung.health.total_protein;
+            com.samsung.health.body_muscle;
+            com.samsung.health.body_fat;
+            com.samsung.health.food_info;
+            com.samsung.health.food_intake;
+            com.samsung.health.exercise;
+            com.samsung.health.sleep_stage;
+            com.samsung.health.oxygen_saturation;
+            com.samsung.health.electrocardiogram;
+            com.samsung.health.body_temperature;
+            com.samsung.health.blood_pressure;
+            com.samsung.health.hba1c;
+            com.samsung.health.blood_glucose" />
+    </application>
 </manifest>
