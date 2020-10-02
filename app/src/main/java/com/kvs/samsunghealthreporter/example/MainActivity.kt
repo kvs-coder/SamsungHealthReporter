@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         override fun onConnectionFailed(
             exception: SamsungHealthConnectionException
         ) {
-            TODO("Not yet implemented")
+            println(exception.cause)
         }
 
     }
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val reporter = SamsungHealthReporter.Builder(this, mConnectionListener, listOf(), listOf())
+        val reporter = SamsungHealthReporter.Builder(this, mConnectionListener, listOf(SamsungHealthType.STEP_COUNT), listOf(SamsungHealthType.STEP_COUNT))
             .setReaderListener(mReaderListener)
             .setWriterListener(mWriterListener)
             .build()
