@@ -2,29 +2,28 @@ package com.kvs.samsunghealthreporter
 
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.util.Log
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
-import com.samsung.android.sdk.healthdata.HealthPermissionManager
 
 class SamsungHealthReporter(
+    toReadTypes: List<SamsungHealthType>,
+    toWriteTypes: List<SamsungHealthType>,
     private val activity: Activity,
     private val connectionListener: SamsungHealthConnectionListener,
     private val permissionListener: SamsungHealthPermissionListener,
-    toReadTypes: List<SamsungHealthType>,
-    toWriteTypes: List<SamsungHealthType>
+    private val readerListener: SamsungHealthReaderListener? = null,
+    private val writerListener: SamsungHealthWriterListener? = null,
+    private val observerListener: SamsungHealthObserverListener? = null
 ) {
     companion object {
         private const val SAMSUNG_HEALTH_PACKAGE = "com.sec.android.app.shealth"
     }
 
-    private var mManager: SamsungHealthManager? = null
-    private val mStore: HealthDataStore
-    private val mPermissionManager: HealthPermissionManager
+    private lateinit var mStore: HealthDataStore
     private val mIsSHealthAvailable: Boolean
         get() {
             try {
-                val packageInfo = activity.packageManager.getPackageInfo(
+                activity.packageManager.getPackageInfo(
                     SAMSUNG_HEALTH_PACKAGE,
                     PackageManager.GET_ACTIVITIES
                 )
@@ -36,7 +35,17 @@ class SamsungHealthReporter(
         }
     private val mConnectionListener = object : HealthDataStore.ConnectionListener {
         override fun onConnected() {
-            connectionListener.onConnected(mManager)
+            val manager = SamsungHealthManager(
+                activity,
+                mStore,
+                toReadTypes,
+                toWriteTypes,
+                permissionListener,
+                readerListener,
+                writerListener,
+                observerListener
+            )
+            connectionListener.onConnected(manager)
         }
 
         override fun onConnectionFailed(error: HealthConnectionErrorResult) {
@@ -53,14 +62,6 @@ class SamsungHealthReporter(
     init {
         if (mIsSHealthAvailable) {
             mStore = HealthDataStore(activity, mConnectionListener)
-            mPermissionManager = HealthPermissionManager(mStore)
-            mManager = SamsungHealthManager(
-                activity,
-                mStore,
-                toReadTypes,
-                toWriteTypes,
-                permissionListener
-            )
         } else {
             throw SamsungHealthInitializationException()
         }

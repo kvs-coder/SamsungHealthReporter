@@ -7,18 +7,25 @@ import com.samsung.android.sdk.healthdata.HealthResultHolder
 import java.util.HashSet
 
 interface SamsungHealthPermissionListener {
-    val reader: SamsungHealthReader
-    val writer: SamsungHealthWriter
-    fun onPermissionAcquired(types: List<SamsungHealthType>)
+    fun onPermissionAcquired(
+        reader: SamsungHealthReader?,
+        writer: SamsungHealthWriter?,
+        observer: SamsungHealthObserver?,
+        types: List<SamsungHealthType>
+    )
+
     fun onPermissionDeclined(types: List<SamsungHealthType>)
 }
 
 class SamsungHealthManager(
     private val activity: Activity,
-    store: HealthDataStore,
+    private val healthDataStore: HealthDataStore,
     private val toReadTypes: List<SamsungHealthType>,
     private val toWriteTypes: List<SamsungHealthType>,
-    private val permissionListener: SamsungHealthPermissionListener
+    private val permissionListener: SamsungHealthPermissionListener,
+    private val readerListener: SamsungHealthReaderListener?,
+    private val writerListener: SamsungHealthWriterListener?,
+    private val observerListener: SamsungHealthObserverListener?
 ) {
     private val permissionList: List<SamsungHealthType> get() {
         val permissions = mutableListOf<SamsungHealthType>()
@@ -46,7 +53,7 @@ class SamsungHealthManager(
         return permissions.toHashSet()
     }
 
-    private val mPermissionManager = HealthPermissionManager(store)
+    private val mPermissionManager = HealthPermissionManager(healthDataStore)
 
     private val mPermissionListener = HealthResultHolder.ResultListener<HealthPermissionManager.PermissionResult> { result ->
         val resultMap = result.resultMap
@@ -59,7 +66,7 @@ class SamsungHealthManager(
             }
             permissionListener.onPermissionDeclined(declinedTypes)
         } else {
-            permissionListener.onPermissionAcquired(permissionList)
+            setPermissionListener()
         }
     }
 
@@ -70,7 +77,25 @@ class SamsungHealthManager(
             mPermissionManager.requestPermissions(permissionHashSet, activity)
                 .setResultListener(mPermissionListener)
         } else {
-            permissionListener.onPermissionAcquired(permissionList)
+            setPermissionListener()
         }
+    }
+
+    private fun setPermissionListener() {
+        permissionListener.onPermissionAcquired(
+            reader = if (readerListener != null) SamsungHealthReader(
+                healthDataStore,
+                readerListener
+            ) else null,
+            writer = if (writerListener != null) SamsungHealthWriter(
+                healthDataStore,
+                writerListener
+            ) else null,
+            observer = if (observerListener != null) SamsungHealthObserver(
+                healthDataStore,
+                observerListener
+            ) else null,
+            permissionList
+        )
     }
 }
