@@ -1,21 +1,17 @@
-package com.kvs.samsunghealthreporter
+package com.kvs.samsunghealthreporter.manager
 
 import android.app.Activity
+import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
+import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
+import com.kvs.samsunghealthreporter.reader.SamsungHealthReaderListener
+import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
+import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
 import java.util.HashSet
-
-interface SamsungHealthPermissionListener {
-    fun onPermissionAcquired(
-        reader: SamsungHealthReader?,
-        writer: SamsungHealthWriter?,
-        observer: SamsungHealthObserver?,
-        types: List<SamsungHealthType>
-    )
-
-    fun onPermissionDeclined(types: List<SamsungHealthType>)
-}
 
 class SamsungHealthManager(
     private val activity: Activity,
@@ -33,7 +29,8 @@ class SamsungHealthManager(
         permissions.addAll(toWriteTypes)
         return permissions
     }
-    private val permissionHashSet: HashSet<HealthPermissionManager.PermissionKey> get() {
+    private val permissionHashSet: HashSet<HealthPermissionManager.PermissionKey>
+        get() {
         val keySetToRead = toReadTypes.map {
             HealthPermissionManager.PermissionKey(
                 it.stringValue,
@@ -82,19 +79,22 @@ class SamsungHealthManager(
     }
 
     private fun setPermissionListener() {
+        val reader = if (readerListener != null) SamsungHealthReader(
+            healthDataStore,
+            readerListener
+        ) else null
+        val writer = if (writerListener != null) SamsungHealthWriter(
+            healthDataStore,
+            writerListener
+        ) else null
+        val observer = if (observerListener != null) SamsungHealthObserver(
+            healthDataStore,
+            observerListener
+        ) else null
         permissionListener.onPermissionAcquired(
-            reader = if (readerListener != null) SamsungHealthReader(
-                healthDataStore,
-                readerListener
-            ) else null,
-            writer = if (writerListener != null) SamsungHealthWriter(
-                healthDataStore,
-                writerListener
-            ) else null,
-            observer = if (observerListener != null) SamsungHealthObserver(
-                healthDataStore,
-                observerListener
-            ) else null,
+            reader,
+            writer,
+            observer,
             permissionList
         )
     }

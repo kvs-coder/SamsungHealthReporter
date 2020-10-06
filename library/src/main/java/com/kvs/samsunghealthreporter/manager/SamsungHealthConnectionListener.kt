@@ -1,4 +1,6 @@
-package com.kvs.samsunghealthreporter
+package com.kvs.samsunghealthreporter.manager
+
+import com.kvs.samsunghealthreporter.SamsungHealthConnectionException
 
 interface SamsungHealthConnectionListener {
     fun onConnected(manager: SamsungHealthManager)

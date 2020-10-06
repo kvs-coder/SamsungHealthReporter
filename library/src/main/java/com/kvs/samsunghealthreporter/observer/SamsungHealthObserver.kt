@@ -1,11 +1,7 @@
-package com.kvs.samsunghealthreporter
+package com.kvs.samsunghealthreporter.observer
 
 import android.util.Log
 import com.samsung.android.sdk.healthdata.HealthDataStore
-
-interface SamsungHealthObserverListener {
-    fun onChange(dataTypeName: String)
-}
 
 class SamsungHealthObserver(
     private val healthDataStore: HealthDataStore,

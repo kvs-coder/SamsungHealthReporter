@@ -2,6 +2,12 @@ package com.kvs.samsunghealthreporter
 
 import android.app.Activity
 import android.content.pm.PackageManager
+import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
+import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
+import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
+import com.kvs.samsunghealthreporter.reader.SamsungHealthReaderListener
+import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 

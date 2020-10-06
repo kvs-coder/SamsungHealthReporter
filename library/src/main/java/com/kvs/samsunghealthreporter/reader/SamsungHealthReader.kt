@@ -1,12 +1,8 @@
-package com.kvs.samsunghealthreporter
+package com.kvs.samsunghealthreporter.reader
 
 import android.util.Log
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
-interface SamsungHealthReaderListener {
-    fun onReadResult()
-    fun onReadException(exception: SamsungHealthReadException)
-}
 class SamsungHealthReader(
     private val healthDataStore: HealthDataStore,
     private val listener: SamsungHealthReaderListener

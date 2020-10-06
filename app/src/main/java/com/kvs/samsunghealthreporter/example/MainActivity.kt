@@ -4,6 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.kvs.samsunghealthreporter.*
+import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
+import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
+import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
+import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
+import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
+import com.kvs.samsunghealthreporter.reader.SamsungHealthReaderListener
+import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
+import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -26,7 +36,6 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onConnectionFailed $exception")
         }
     }
-
     private val mPermissionListener = object : SamsungHealthPermissionListener {
         override fun onPermissionAcquired(
             reader: SamsungHealthReader?,
@@ -44,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onPermissionDeclined $types")
         }
     }
-
     private val mReaderListener = object : SamsungHealthReaderListener {
         override fun onReadResult() {
             Log.i(TAG, "onReadResult")
@@ -73,7 +81,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         reporter = SamsungHealthReporter(
             listOf(SamsungHealthType.STEP_COUNT),
             listOf(SamsungHealthType.STEP_COUNT),
