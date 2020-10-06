@@ -1,7 +1,9 @@
 package com.kvs.samsunghealthreporter
 
 interface SamsungHealthConnectionListener {
-    fun onConnected(reader: SamsungHealthReader?, writer: SamsungHealthWriter?)
+    fun onConnected(
+        manager: SamsungHealthManager?
+    )
 
     fun onConnectionFailed(
         exception: SamsungHealthConnectionException

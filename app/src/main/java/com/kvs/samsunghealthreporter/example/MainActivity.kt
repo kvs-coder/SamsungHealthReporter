@@ -2,47 +2,71 @@ package com.kvs.samsunghealthreporter.example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.kvs.samsunghealthreporter.*
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "SAMSUNG_HEALTH"
+    }
     private val mConnectionListener = object: SamsungHealthConnectionListener {
-        override fun onConnected(reader: SamsungHealthReader?, writer: SamsungHealthWriter?) {
-            reader?.authorize()
+        override fun onConnected(
+            manager: SamsungHealthManager?
+        ) {
+            Log.i(TAG, "onConnected")
+            manager?.authorize()
         }
 
         override fun onDisconnected() {
-            TODO("Not yet implemented")
+            Log.i(TAG, "onDisconnected")
         }
 
         override fun onConnectionFailed(
             exception: SamsungHealthConnectionException
         ) {
-            println(exception.cause)
+            Log.i(TAG, "onConnectionFailed $exception")
         }
 
     }
 
-    private val mReaderListener = object: SamsungHealthReaderListener {
-        override fun onReadingPermissionAcquired(types: List<SamsungHealthType>) {
-            TODO("Not yet implemented")
+    private val mPermissionListener = object : SamsungHealthPermissionListener {
+        override val reader: SamsungHealthReader
+            get() = SamsungHealthReader(object: SamsungHealthReaderListener {
+                override fun onReadResult() {
+                    Log.i(TAG, "onReadResult")
+                }
+            })
+        override val writer: SamsungHealthWriter
+            get() = SamsungHealthWriter(object: SamsungHealthWriterListener {
+                override fun onWriteResult() {
+                    Log.i(TAG, "onWriteResult")
+                }
+            })
+
+        override fun onPermissionAcquired(types: List<SamsungHealthType>) {
+            Log.i(TAG, "onPermissionAcquired $types")
+            reader.read()
+            writer.write()
         }
 
-        override fun onReadingPermissionDeclined(types: List<SamsungHealthType>) {
-            TODO("Not yet implemented")
+        override fun onPermissionDeclined(types: List<SamsungHealthType>) {
+            Log.i(TAG, "onPermissionDeclined $types")
         }
-    }
-
-    private val mWriterListener = object: SamsungHealthWriterListener {
 
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val reporter = SamsungHealthReporter.Builder(this, mConnectionListener, listOf(SamsungHealthType.STEP_COUNT), listOf(SamsungHealthType.STEP_COUNT))
-            .setReaderListener(mReaderListener)
-            .setWriterListener(mWriterListener)
-            .build()
+        val reporter = SamsungHealthReporter(
+            this,
+            mConnectionListener,
+            mPermissionListener,
+            listOf(SamsungHealthType.STEP_COUNT),
+            listOf(SamsungHealthType.STEP_COUNT)
+        )
     }
 }

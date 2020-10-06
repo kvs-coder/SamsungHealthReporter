@@ -1,12 +1,15 @@
 package com.kvs.samsunghealthreporter
 
 import android.app.Activity
+import android.util.Log
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
 import java.util.HashSet
 
 interface SamsungHealthPermissionListener {
+    val reader: SamsungHealthReader
+    val writer: SamsungHealthWriter
     fun onPermissionAcquired(types: List<SamsungHealthType>)
     fun onPermissionDeclined(types: List<SamsungHealthType>)
 }
@@ -15,9 +18,9 @@ class SamsungHealthManager(
     private val activity: Activity,
     store: HealthDataStore,
     private val toReadTypes: List<SamsungHealthType>,
-    private val toWriteTypes: List<SamsungHealthType>
+    private val toWriteTypes: List<SamsungHealthType>,
+    private val permissionListener: SamsungHealthPermissionListener
 ) {
-    var permissionListener: SamsungHealthPermissionListener? = null
 
     private val permissionList: List<SamsungHealthType> get() {
         val permissions = mutableListOf<SamsungHealthType>()
@@ -56,21 +59,20 @@ class SamsungHealthManager(
                     declinedTypes.add(it)
                 }
             }
-            permissionListener?.onPermissionDeclined(declinedTypes)
+            permissionListener.onPermissionDeclined(declinedTypes)
         } else {
-            permissionListener?.onPermissionAcquired(permissionList)
+            permissionListener.onPermissionAcquired(permissionList)
         }
     }
 
     fun authorize() {
-
         val isNotAllowed =
             mPermissionManager.isPermissionAcquired(permissionHashSet).containsValue(false)
         if (isNotAllowed) {
             mPermissionManager.requestPermissions(permissionHashSet, activity)
                 .setResultListener(mPermissionListener)
         } else {
-            permissionListener?.onPermissionAcquired(permissionList)
+            permissionListener.onPermissionAcquired(permissionList)
         }
     }
 }

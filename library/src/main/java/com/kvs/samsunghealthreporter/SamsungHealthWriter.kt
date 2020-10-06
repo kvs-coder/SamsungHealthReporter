@@ -1,10 +1,8 @@
 package com.kvs.samsunghealthreporter
 
 interface SamsungHealthWriterListener {
-
+    fun onWriteResult()
 }
-class SamsungHealthWriter {
-    fun authorize() {
-
-    }
+class SamsungHealthWriter(private val listener: SamsungHealthWriterListener) {
+    fun write() {}
 }
