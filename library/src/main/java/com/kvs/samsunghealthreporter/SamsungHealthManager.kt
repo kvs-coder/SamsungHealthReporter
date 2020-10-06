@@ -1,7 +1,6 @@
 package com.kvs.samsunghealthreporter
 
 import android.app.Activity
-import android.util.Log
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
@@ -21,7 +20,6 @@ class SamsungHealthManager(
     private val toWriteTypes: List<SamsungHealthType>,
     private val permissionListener: SamsungHealthPermissionListener
 ) {
-
     private val permissionList: List<SamsungHealthType> get() {
         val permissions = mutableListOf<SamsungHealthType>()
         permissions.addAll(toReadTypes)

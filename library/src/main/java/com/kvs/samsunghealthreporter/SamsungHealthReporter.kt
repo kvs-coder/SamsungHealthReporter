@@ -2,6 +2,7 @@ package com.kvs.samsunghealthreporter
 
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.util.Log
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
@@ -53,10 +54,34 @@ class SamsungHealthReporter(
         if (mIsSHealthAvailable) {
             mStore = HealthDataStore(activity, mConnectionListener)
             mPermissionManager = HealthPermissionManager(mStore)
-            mManager = SamsungHealthManager(activity, mStore, toReadTypes, toWriteTypes, permissionListener)
-            mStore.connectService()
+            mManager = SamsungHealthManager(
+                activity,
+                mStore,
+                toReadTypes,
+                toWriteTypes,
+                permissionListener
+            )
         } else {
             throw SamsungHealthInitializationException()
         }
     }
+
+    fun openConnection() {
+        try {
+            mStore.connectService()
+        } catch (exception: IllegalStateException) {
+            exception.printStackTrace()
+        }
+    }
+
+    fun closeConnection() {
+        try {
+            mStore.disconnectService()
+        } catch (exception: NullPointerException) {
+            exception.printStackTrace()
+        } catch (exception: IllegalArgumentException) {
+            exception.printStackTrace()
+        }
+    }
+
 }

@@ -36,11 +36,19 @@ class MainActivity : AppCompatActivity() {
                 override fun onReadResult() {
                     Log.i(TAG, "onReadResult")
                 }
+
+                override fun onReadException(exception: SamsungHealthReadException) {
+                    Log.e(TAG, "onReadException $exception")
+                }
             })
         override val writer: SamsungHealthWriter
             get() = SamsungHealthWriter(object: SamsungHealthWriterListener {
                 override fun onWriteResult() {
                     Log.i(TAG, "onWriteResult")
+                }
+
+                override fun onWriteException(exception: SamsungHealthWriteException) {
+                    Log.e(TAG, "onWriteException $exception")
                 }
             })
 
@@ -56,17 +64,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private lateinit var reporter: SamsungHealthReporter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val reporter = SamsungHealthReporter(
+        reporter = SamsungHealthReporter(
             this,
             mConnectionListener,
             mPermissionListener,
             listOf(SamsungHealthType.STEP_COUNT),
             listOf(SamsungHealthType.STEP_COUNT)
         )
+        reporter.openConnection()
+    }
+
+    override fun onDestroy() {
+        reporter.closeConnection()
+        super.onDestroy()
     }
 }
