@@ -19,9 +19,9 @@ interface Common {
     val startTimestamp: Long
     val offsetTimestamp: Long
     val deviceUuid: String
-    val packageName: String
-    val sourceDevice: String
-    val asJson get() = Gson().toJson(this)
+    val packageName: String?
+    val sourceDevice: String?
+    val json: String get() = Gson().toJson(this)
 }
 
 class StepCount(data: HealthData) : Session {
@@ -44,9 +44,9 @@ class StepCount(data: HealthData) : Session {
     override val startTimestamp = data.getLong(HealthConstants.StepCount.START_TIME)
     override val endTimestamp = data.getLong(HealthConstants.StepCount.END_TIME)
     override val offsetTimestamp = data.getLong(HealthConstants.StepCount.TIME_OFFSET)
-    override val deviceUuid = data.getString(HealthConstants.StepCount.DEVICE_UUID)
-    override val packageName = data.getString(HealthConstants.StepCount.PACKAGE_NAME)
-    override val sourceDevice = data.sourceDevice
+    override val deviceUuid: String = data.getString(HealthConstants.StepCount.DEVICE_UUID)
+    override val packageName: String? = data.getString(HealthConstants.StepCount.PACKAGE_NAME)
+    override val sourceDevice: String? = data.sourceDevice
     val count = Count(data.getDouble(HealthConstants.StepCount.COUNT), "count")
     val calorie = Calorie(data.getDouble(HealthConstants.StepCount.CALORIE), "kcal")
     val speed = Speed(data.getDouble(HealthConstants.StepCount.SPEED), "km/h")

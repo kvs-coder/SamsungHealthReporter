@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onReadResult")
             Log.d("FFF", result.size.toString())
             result.forEach {
-                Log.d("FFF", it.asJson)
+                Log.d("FFF", it.json)
             }
         }
 
