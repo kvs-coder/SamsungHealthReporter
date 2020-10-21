@@ -1,5 +1,7 @@
 package com.kvs.samsunghealthreporter.reader.resolver
 
+import android.os.Looper
+import android.util.Log
 import com.kvs.samsunghealthreporter.model.StepCount
 import com.samsung.android.sdk.healthdata.HealthConstants
 import com.samsung.android.sdk.healthdata.HealthDataResolver
@@ -7,12 +9,21 @@ import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
 class StepCountResolver(private val healthDataStore: HealthDataStore) {
+    companion object {
+        const val TAG = "StepCountResolver"
+    }
+    init {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
+    }
+
+    @Throws(IllegalArgumentException::class)
     fun readSteps(
         startTime: Date,
         endTime: Date,
-        onSuccess: (List<StepCount>) -> Unit,
-        onError: (IllegalArgumentException) -> Unit
-    ) {
+    ): List<StepCount> {
+        val list = mutableListOf<StepCount>()
         val request = HealthDataResolver.ReadRequest.Builder()
             .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
             .setProperties(
@@ -35,18 +46,13 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
             )
             .build()
         val resolver = HealthDataResolver(healthDataStore, null)
-        try {
-            val result = resolver.read(request).await()
-            val iterator = result.iterator()
-            val list = mutableListOf<StepCount>()
-            while (iterator.hasNext()) {
-                val data = iterator.next()
-                val stepCount = StepCount(data)
-                list.add(stepCount)
-            }
-            onSuccess(list)
-        } catch (exception: IllegalArgumentException) {
-            onError(exception)
+        val result = resolver.read(request).await()
+        val iterator = result.iterator()
+        while (iterator.hasNext()) {
+            val data = iterator.next()
+            val stepCount = StepCount(data)
+            list.add(stepCount)
         }
+        return list
     }
 }

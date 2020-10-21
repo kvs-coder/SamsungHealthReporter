@@ -2,12 +2,14 @@ package com.kvs.samsunghealthreporter.example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import com.kvs.samsunghealthreporter.*
 import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.model.Common
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
@@ -44,9 +46,11 @@ class MainActivity : AppCompatActivity() {
             types: List<SamsungHealthType>
         ) {
             Log.i(TAG, "onPermissionAcquired $types")
-            reader?.read()
-            writer?.write()
-            observer?.observe()
+            Thread {
+                reader?.read()
+                writer?.write()
+                observer?.observe()
+            }.start()
         }
 
         override fun onPermissionDeclined(types: List<SamsungHealthType>) {
@@ -54,8 +58,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private val mReaderListener = object : SamsungHealthReaderListener {
-        override fun onReadResult() {
+        override fun onReadResult(result: List<Common>) {
             Log.i(TAG, "onReadResult")
+            Log.d("FFF", result.size.toString())
+            result.forEach {
+                Log.d("FFF", it.asJson)
+            }
         }
 
         override fun onReadException(exception: SamsungHealthReadException) {
