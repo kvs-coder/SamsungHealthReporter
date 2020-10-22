@@ -12,6 +12,7 @@ import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
 import com.kvs.samsunghealthreporter.model.StepCount
+import com.kvs.samsunghealthreporter.model.TimeGroup
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 //                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
 //                            Log.d(TAG, it.json)
 //                        }
-                        resolver.aggregate(Date().dayStart, Date().dayEnd)?.let {
+                        resolver.aggregate(Date().dayStart, Date().dayEnd, TimeGroup.DAILY)?.let {
                             Log.i(TAG, it.json)
                         }
                         val stepCount = StepCount(

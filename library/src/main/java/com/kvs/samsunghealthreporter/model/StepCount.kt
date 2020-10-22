@@ -43,6 +43,7 @@ data class StepCount(
         private const val CALORIE_UNIT = "kcal"
         private const val SPEED_UNIT = "km/h"
 
+        const val ALIAS_HOUR = "hour"
         const val ALIAS_DAY = "day"
         const val ALIAS_TOTAL_COUNT = "count_sum"
         const val ALIAS_TOTAL_CALORIES = "calories_sum"
