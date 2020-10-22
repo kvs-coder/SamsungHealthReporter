@@ -17,7 +17,6 @@ class SamsungHealthReporter(
     private val activity: Activity,
     private val connectionListener: SamsungHealthConnectionListener,
     private val permissionListener: SamsungHealthPermissionListener,
-    private val readerListener: SamsungHealthReaderListener? = null,
     private val writerListener: SamsungHealthWriterListener? = null,
     private val observerListener: SamsungHealthObserverListener? = null
 ) {
@@ -47,7 +46,6 @@ class SamsungHealthReporter(
                 toReadTypes,
                 toWriteTypes,
                 permissionListener,
-                readerListener,
                 writerListener,
                 observerListener
             )

@@ -19,7 +19,6 @@ class SamsungHealthManager(
     private val toReadTypes: List<SamsungHealthType>,
     private val toWriteTypes: List<SamsungHealthType>,
     private val permissionListener: SamsungHealthPermissionListener,
-    private val readerListener: SamsungHealthReaderListener?,
     private val writerListener: SamsungHealthWriterListener?,
     private val observerListener: SamsungHealthObserverListener?
 ) {
@@ -79,10 +78,6 @@ class SamsungHealthManager(
     }
 
     private fun setPermissionListener() {
-        val reader = if (readerListener != null) SamsungHealthReader(
-            healthDataStore,
-            readerListener
-        ) else null
         val writer = if (writerListener != null) SamsungHealthWriter(
             healthDataStore,
             writerListener
@@ -92,7 +87,9 @@ class SamsungHealthManager(
             observerListener
         ) else null
         permissionListener.onPermissionAcquired(
-            reader,
+            SamsungHealthReader(
+                healthDataStore,
+            ),
             writer,
             observer,
             permissionList

@@ -9,6 +9,8 @@ import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.decorator.dayEnd
+import com.kvs.samsunghealthreporter.decorator.dayStart
 import com.kvs.samsunghealthreporter.model.Common
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
@@ -16,6 +18,7 @@ import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReaderListener
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -47,7 +50,18 @@ class MainActivity : AppCompatActivity() {
         ) {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
-                reader?.read()
+                try {
+                    reader?.stepCountResolver?.let { resolver ->
+                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
+                            Log.d(TAG, it.json)
+                        }
+                        resolver.aggregate(Date().dayStart, Date().dayEnd)?.let {
+                            Log.i(TAG, it.json)
+                        }
+                    }
+                } catch (exception: SamsungHealthReadException) {
+                    Log.e(TAG, exception.stackTraceToString())
+                }
                 writer?.write()
                 observer?.observe()
             }.start()
@@ -55,19 +69,6 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPermissionDeclined(types: List<SamsungHealthType>) {
             Log.i(TAG, "onPermissionDeclined $types")
-        }
-    }
-    private val mReaderListener = object : SamsungHealthReaderListener {
-        override fun onReadResult(result: List<Common>) {
-            Log.i(TAG, "onReadResult")
-            Log.d("FFF", result.size.toString())
-            result.forEach {
-                Log.d("FFF", it.json)
-            }
-        }
-
-        override fun onReadException(exception: SamsungHealthReadException) {
-            Log.e(TAG, "onReadException $exception")
         }
     }
     private val mWriterListener = object : SamsungHealthWriterListener {
@@ -95,7 +96,6 @@ class MainActivity : AppCompatActivity() {
             this,
             connectionListener = mConnectionListener,
             permissionListener = mPermissionListener,
-            readerListener = mReaderListener,
             writerListener = mWriterListener,
             observerListener = mObserverListener
         )
