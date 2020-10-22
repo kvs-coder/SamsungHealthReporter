@@ -2,15 +2,16 @@ package com.kvs.samsunghealthreporter.example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import com.kvs.samsunghealthreporter.*
 import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
+import com.kvs.samsunghealthreporter.model.StepCount
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
@@ -51,12 +52,21 @@ class MainActivity : AppCompatActivity() {
             Thread {
                 try {
                     reader?.stepCountResolver?.let { resolver ->
-                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
-                            Log.d(TAG, it.json)
-                        }
+//                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
+//                            Log.d(TAG, it.json)
+//                        }
                         resolver.aggregate(Date().dayStart, Date().dayEnd)?.let {
                             Log.i(TAG, it.json)
                         }
+                        val stepCount = StepCount(
+                            Date(),
+                            7200000,
+                            Date().addMinutes(1),
+                            applicationContext.packageName,
+                            StepCount.InsertResult(999, 20.0, 2.5, 80.0)
+                        )
+                        //val success = resolver.insert(stepCount)
+                        //Log.i(TAG, "Insert success: $success")
                     }
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())

@@ -1,6 +1,9 @@
 package com.kvs.samsunghealthreporter.reader.resolver
 
 import android.os.Looper
+import android.util.Log
+import com.kvs.samsunghealthreporter.SamsungHealthWriteException
+import com.kvs.samsunghealthreporter.decorator.roundedDecimal
 import com.kvs.samsunghealthreporter.decorator.string
 import com.kvs.samsunghealthreporter.model.StepCount
 import com.samsung.android.sdk.healthdata.*
@@ -57,6 +60,7 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
             val stepCount = StepCount.fromReadData(data)
             list.add(stepCount)
         }
+        Log.i("MMM", list.size.toString())
         result.close()
         return list
     }
@@ -102,15 +106,6 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                 StepCount.ALIAS_TOTAL_DISTANCE
             )
             .addGroup(
-                HealthConstants.StepCount.START_TIME, StepCount.ALIAS_START_TIME
-            )
-            .addGroup(
-                HealthConstants.StepCount.TIME_OFFSET, StepCount.ALIAS_TIME_OFFSET
-            )
-            .addGroup(
-                HealthConstants.StepCount.END_TIME, StepCount.ALIAS_END_TIME
-            )
-            .addGroup(
                 HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME
             )
             .addGroup(
@@ -121,7 +116,7 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                 1,
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET,
-                timeGroup.string
+                StepCount.ALIAS_DAY
             )
             .setLocalTimeRange(
                 HealthConstants.StepCount.START_TIME,
@@ -129,6 +124,8 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                 startTime.time,
                 endTime.time
             )
+        Log.i("LLL", startTime.toString())
+        Log.i("LLL", endTime.toString())
         filter?.let {
             requestBuilder.setFilter(filter)
         }
@@ -139,11 +136,26 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         val resolver = HealthDataResolver(healthDataStore, null)
         val result = resolver.aggregate(request).await()
         val iterator = result.iterator()
-        return if (iterator.hasNext()) {
+        var i = 0
+        while (iterator.hasNext()) {
             val data = iterator.next()
-            StepCount.fromAggregateData(data)
-        } else {
-            null
+            val step = StepCount.fromAggregateData(data)
+            Log.e("HHH", step.json)
+            i++
         }
+        Log.i("LLL", i.toString())
+        return null
+    }
+
+    @Throws(IllegalArgumentException::class, IllegalStateException::class, SamsungHealthWriteException::class)
+    fun insert(value: StepCount): Boolean {
+        val request = HealthDataResolver.InsertRequest.Builder()
+            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+            .build()
+        val data = value.asOriginal(healthDataStore)
+        request.addHealthData(data)
+        val resolver = HealthDataResolver(healthDataStore, null)
+        val result = resolver.insert(request).await()
+        return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
     }
 }

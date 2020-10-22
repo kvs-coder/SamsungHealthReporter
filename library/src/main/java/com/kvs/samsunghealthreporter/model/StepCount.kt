@@ -1,15 +1,16 @@
 package com.kvs.samsunghealthreporter.model
 
+import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.decorator.roundedDecimal
 import com.samsung.android.sdk.healthdata.*
+import java.util.*
 
 data class StepCount(
-    override var startTimestamp: Long,
-    override var timeOffset: Long,
-    override var endTimestamp: Long,
-    override var deviceUuid: String,
-    override var packageName: String
-) : Session<StepCount.ReadResult, StepCount.AggregateResult> {
+    override val startTimestamp: Long,
+    override val timeOffset: Long,
+    override val endTimestamp: Long,
+    override val packageName: String,
+) : Session<StepCount.ReadResult, StepCount.AggregateResult, StepCount.InsertResult> {
     data class Count(val value: Long, val unit: String)
     data class Calorie(val value: Double, val unit: String)
     data class Speed(val value: Double, val unit: String)
@@ -20,6 +21,7 @@ data class StepCount(
         val speed: Speed,
         val distance: Distance
     )
+
     data class AggregateResult(
         val totalCount: Count,
         val totalCalories: Calorie,
@@ -29,11 +31,19 @@ data class StepCount(
         val totalDistance: Distance
     )
 
+    data class InsertResult(
+        val count: Long,
+        val calorie: Double,
+        val speed: Double,
+        val distance: Double
+    )
+
     companion object {
         private const val COUNT_UNIT = "count"
         private const val CALORIE_UNIT = "kcal"
         private const val SPEED_UNIT = "km/h"
 
+        const val ALIAS_DAY = "day"
         const val ALIAS_TOTAL_COUNT = "count_sum"
         const val ALIAS_TOTAL_CALORIES = "calories_sum"
         const val ALIAS_AVERAGE_SPEED = "speed_avg"
@@ -47,17 +57,12 @@ data class StepCount(
         const val ALIAS_DEVICE_UUID = "aggregate_device_uuid"
 
         fun fromReadData(data: HealthData): StepCount {
-            val startTimestamp = data.getLong(HealthConstants.StepCount.START_TIME)
-            val timeOffset = data.getLong(HealthConstants.StepCount.TIME_OFFSET)
-            val endTimestamp = data.getLong(HealthConstants.StepCount.END_TIME)
-            val deviceUuid = data.getString(HealthConstants.StepCount.DEVICE_UUID)
-            val packageName = data.getString(HealthConstants.StepCount.PACKAGE_NAME)
             return StepCount(
-                startTimestamp,
-                timeOffset,
-                endTimestamp,
-                deviceUuid,
-                packageName
+                data.getLong(HealthConstants.StepCount.START_TIME),
+                data.getLong(HealthConstants.StepCount.TIME_OFFSET),
+                data.getLong(HealthConstants.StepCount.END_TIME),
+                data.getString(HealthConstants.StepCount.DEVICE_UUID),
+                data.getString(HealthConstants.StepCount.PACKAGE_NAME)
             ).apply {
                 readResult = ReadResult(
                     Count(data.getLong(HealthConstants.StepCount.COUNT), COUNT_UNIT),
@@ -78,21 +83,16 @@ data class StepCount(
         }
 
         fun fromAggregateData(data: HealthData): StepCount {
-            val startTimestamp = data.getLong(ALIAS_START_TIME)
-            val timeOffset = data.getLong(ALIAS_TIME_OFFSET)
-            val endTimestamp = data.getLong(ALIAS_END_TIME)
-            val deviceUuid = data.getString(ALIAS_DEVICE_UUID)
-            val packageName = data.getString(ALIAS_PACKAGE_NAME)
             return StepCount(
-                startTimestamp,
-                timeOffset,
-                endTimestamp,
-                deviceUuid,
-                packageName
+                data.getLong(ALIAS_DAY),
+                data.getLong(ALIAS_TIME_OFFSET),
+                data.getLong(ALIAS_END_TIME),
+                data.getString(ALIAS_DEVICE_UUID),
+                data.getString(ALIAS_PACKAGE_NAME)
             ).apply {
                 aggregateResult = AggregateResult(
                     Count(data.getLong(ALIAS_TOTAL_COUNT), COUNT_UNIT),
-                    Calorie(data.getDouble(ALIAS_TOTAL_COUNT).roundedDecimal, CALORIE_UNIT),
+                    Calorie(data.getDouble(ALIAS_TOTAL_CALORIES).roundedDecimal, CALORIE_UNIT),
                     Speed(data.getDouble(ALIAS_AVERAGE_SPEED).roundedDecimal, SPEED_UNIT),
                     Speed(data.getDouble(ALIAS_MAX_SPEED).roundedDecimal, SPEED_UNIT),
                     Speed(data.getDouble(ALIAS_MIN_SPEED).roundedDecimal, SPEED_UNIT),
@@ -106,6 +106,58 @@ data class StepCount(
     }
 
     override val type = HealthConstants.StepCount.HEALTH_DATA_TYPE
+    override var deviceUuid: String? = null
     override var readResult: ReadResult? = null
     override var aggregateResult: AggregateResult? = null
+    override var insertResult: InsertResult? = null
+
+    constructor(
+        startTimestamp: Date,
+        timeOffset: Long,
+        endTimestamp: Date,
+        packageName: String,
+        insertResult: InsertResult
+    ) : this(
+        startTimestamp.time,
+        timeOffset,
+        endTimestamp.time,
+        packageName
+    ) {
+        this.insertResult = insertResult
+    }
+
+    private constructor(
+        startTimestamp: Long,
+        timeOffset: Long,
+        endTimestamp: Long,
+        deviceUuid: String,
+        packageName: String
+    ) : this(
+        startTimestamp,
+        timeOffset,
+        endTimestamp,
+        packageName
+    ) {
+        this.deviceUuid = deviceUuid
+    }
+
+    @Throws(SamsungHealthWriteException::class)
+    fun asOriginal(healthDataStore: HealthDataStore): HealthData {
+        val insertResult = this.insertResult ?: throw SamsungHealthWriteException(
+            "Insert result was null, nothing to write in Samsung Health"
+        )
+        val deviceUuid = HealthDeviceManager(healthDataStore).localDevice.uuid
+        return HealthData().apply {
+            sourceDevice = deviceUuid
+            putLong(HealthConstants.StepCount.COUNT, insertResult.count)
+            putDouble(HealthConstants.StepCount.CALORIE, insertResult.calorie)
+            putDouble(HealthConstants.StepCount.SPEED, insertResult.speed)
+            putDouble(HealthConstants.StepCount.DISTANCE, insertResult.distance)
+            putString(HealthConstants.StepCount.PACKAGE_NAME, packageName)
+            putString(HealthConstants.StepCount.DEVICE_UUID, deviceUuid)
+            putLong(HealthConstants.StepCount.START_TIME, startTimestamp)
+            putLong(HealthConstants.StepCount.TIME_OFFSET, timeOffset)
+            putLong(HealthConstants.StepCount.END_TIME, endTimestamp)
+        }
+    }
 }

@@ -18,6 +18,8 @@ val Date.dayEnd: Date
         return cal.time
     }
 
+fun Date.addMinutes(minutes: Int) = Date(this.time.plus(minutes * 60000L))
+
 internal fun Calendar.configureCalendar(
     hour: Int? = null,
     minute: Int? = null,

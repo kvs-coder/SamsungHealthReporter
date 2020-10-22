@@ -6,7 +6,7 @@ interface Common {
     val type: String
     val startTimestamp: Long
     val timeOffset: Long
-    val deviceUuid: String
+    val deviceUuid: String?
     val packageName: String
     val json: String get() = Gson().toJson(this)
 }
