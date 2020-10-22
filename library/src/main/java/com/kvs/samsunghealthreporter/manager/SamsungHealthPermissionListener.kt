@@ -4,6 +4,7 @@ import com.kvs.samsunghealthreporter.SamsungHealthType
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
+import java.lang.Exception
 
 interface SamsungHealthPermissionListener {
     fun onPermissionAcquired(
@@ -14,4 +15,6 @@ interface SamsungHealthPermissionListener {
     )
 
     fun onPermissionDeclined(types: List<SamsungHealthType>)
+
+    fun onException(exception: Exception)
 }

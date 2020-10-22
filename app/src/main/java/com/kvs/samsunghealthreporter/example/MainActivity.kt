@@ -11,13 +11,12 @@ import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.SamsungHealthType
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
-import com.kvs.samsunghealthreporter.model.Common
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
-import com.kvs.samsunghealthreporter.reader.SamsungHealthReaderListener
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
+import java.lang.Exception
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -59,16 +58,20 @@ class MainActivity : AppCompatActivity() {
                             Log.i(TAG, it.json)
                         }
                     }
-                } catch (exception: SamsungHealthReadException) {
+                } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
                 writer?.write()
-                observer?.observe()
+                observer?.subscribeOn(SamsungHealthSessionType.STEP_COUNT)
             }.start()
         }
 
         override fun onPermissionDeclined(types: List<SamsungHealthType>) {
             Log.i(TAG, "onPermissionDeclined $types")
+        }
+
+        override fun onException(exception: Exception) {
+            Log.e(TAG, "onPermissionDeclined $exception")
         }
     }
     private val mWriterListener = object : SamsungHealthWriterListener {
@@ -81,8 +84,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private val mObserverListener = object : SamsungHealthObserverListener {
-        override fun onChange(dataTypeName: String) {
-            Log.i(TAG, "onChange $dataTypeName")
+        override fun onSubscribed(type: SamsungHealthType) {
+            Log.i(TAG, "onChange ${type.string}")
+        }
+
+        override fun onDisposed() {
+            Log.i(TAG, "onDisposed")
+        }
+
+        override fun onChange(type: SamsungHealthType) {
+            Log.i(TAG, "onChange ${type.string}")
+        }
+
+        override fun onException(exception: Exception) {
+            Log.e(TAG, "onChange $exception")
         }
     }
     private lateinit var reporter: SamsungHealthReporter
@@ -90,16 +105,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        reporter = SamsungHealthReporter(
-            listOf(SamsungHealthType.STEP_COUNT),
-            listOf(SamsungHealthType.STEP_COUNT),
-            this,
-            connectionListener = mConnectionListener,
-            permissionListener = mPermissionListener,
-            writerListener = mWriterListener,
-            observerListener = mObserverListener
-        )
-        reporter.openConnection()
+        try {
+            reporter = SamsungHealthReporter(
+                listOf(SamsungHealthSessionType.STEP_COUNT),
+                listOf(SamsungHealthSessionType.STEP_COUNT),
+                this,
+                connectionListener = mConnectionListener,
+                permissionListener = mPermissionListener,
+                writerListener = mWriterListener,
+                observerListener = mObserverListener
+            )
+            reporter.openConnection()
+        } catch (exception: SamsungHealthInitializationException) {
+            Log.e(TAG, "onCreate $exception")
+        }
     }
 
     override fun onDestroy() {

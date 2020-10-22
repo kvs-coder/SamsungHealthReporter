@@ -6,7 +6,6 @@ import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
-import com.kvs.samsunghealthreporter.reader.SamsungHealthReaderListener
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
@@ -82,9 +81,7 @@ class SamsungHealthReporter(
     fun closeConnection() {
         try {
             mStore.disconnectService()
-        } catch (exception: NullPointerException) {
-            exception.printStackTrace()
-        } catch (exception: IllegalArgumentException) {
+        } catch (exception: java.lang.Exception) {
             exception.printStackTrace()
         }
     }
