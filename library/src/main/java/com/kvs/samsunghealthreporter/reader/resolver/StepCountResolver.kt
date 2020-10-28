@@ -100,7 +100,6 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET
             )
-
         Log.i("LLL", startTime.toString())
         Log.i("LLL", endTime.toString())
         filter?.let {
