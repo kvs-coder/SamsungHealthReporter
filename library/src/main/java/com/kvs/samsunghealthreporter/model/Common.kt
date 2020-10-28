@@ -8,9 +8,9 @@ interface Common {
         val packageName: String
     }
 
-    interface Factory {
-        fun fromReadData(data: HealthData): Common
-        fun fromAggregateData(data: HealthData, timeGroup: Time.Group): Common
+    interface Factory<Result> where Result : Common {
+        fun fromReadData(data: HealthData): Result
+        fun fromAggregateData(data: HealthData, timeGroup: Time.Group): Result
     }
 
     val type: String

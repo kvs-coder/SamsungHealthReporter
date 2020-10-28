@@ -54,34 +54,39 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
                 try {
-                    reader?.stepCountResolver?.let { resolver ->
+                    reader?.heartRateResolver?.let { resolver ->
                         resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
                             Log.d(TAG, it.json)
                         }
-                        resolver.aggregate(Date().dayStart, Date().dayEnd, Time.Group.DAILY, null, null).forEach {
-                            Log.i(TAG, it.json)
-                        }
-                        val stepCount = StepCount(
-                            StepCount.InsertResult(
-                                applicationContext.packageName,
-                                Date(),
-                                7200000,
-                                Date().addMinutes(1),
-                                1000,
-                                20.0,
-                                2.5,
-                                80.0
-                            )
-                        )
-                        //val insertSuccess = resolver.insert(stepCount)
-                        //Log.w(TAG, "Insert success: $insertSuccess")
-
-                        //val updateSuccess = resolver.update(stepCount, HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999))
-                        //Log.w(TAG, "Update success: $updateSuccess")
-
-                        //val deleteSuccess = resolver.delete(HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 1000))
-                        //Log.w(TAG, "Delete success: $deleteSuccess")
                     }
+//                    reader?.stepCountResolver?.let { resolver ->
+//                        resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
+//                            Log.d(TAG, it.json)
+//                        }
+//                        resolver.aggregate(Date().dayStart, Date().dayEnd, Time.Group.DAILY, null, null).forEach {
+//                            Log.i(TAG, it.json)
+//                        }
+//                        val stepCount = StepCount(
+//                            StepCount.InsertResult(
+//                                applicationContext.packageName,
+//                                Date(),
+//                                7200000,
+//                                Date().addMinutes(1),
+//                                1000,
+//                                20.0,
+//                                2.5,
+//                                80.0
+//                            )
+//                        )
+//                        //val insertSuccess = resolver.insert(stepCount)
+//                        //Log.w(TAG, "Insert success: $insertSuccess")
+//
+//                        //val updateSuccess = resolver.update(stepCount, HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999))
+//                        //Log.w(TAG, "Update success: $updateSuccess")
+//
+//                        //val deleteSuccess = resolver.delete(HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 1000))
+//                        //Log.w(TAG, "Delete success: $deleteSuccess")
+//                    }
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
@@ -131,8 +136,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         try {
             reporter = SamsungHealthReporter(
-                listOf(SamsungHealthSessionType.STEP_COUNT),
-                listOf(SamsungHealthSessionType.STEP_COUNT),
+                listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
+                listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
                 this,
                 connectionListener = mConnectionListener,
                 permissionListener = mPermissionListener,

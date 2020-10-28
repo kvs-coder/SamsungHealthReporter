@@ -15,7 +15,49 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         filter: HealthDataResolver.Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<HeartRate> {
-        return listOf()
+        val list = mutableListOf<HeartRate>()
+        val requestBuilder = HealthDataResolver.ReadRequest.Builder()
+            .setDataType(HealthConstants.HeartRate.HEALTH_DATA_TYPE)
+            .setProperties(
+                arrayOf(
+                    HealthConstants.HeartRate.HEART_RATE,
+                    HealthConstants.HeartRate.HEART_BEAT_COUNT,
+                    HealthConstants.HeartRate.COMMENT,
+                    HealthConstants.HeartRate.MIN,
+                    HealthConstants.HeartRate.MAX,
+                    HealthConstants.HeartRate.START_TIME,
+                    HealthConstants.HeartRate.TIME_OFFSET,
+                    HealthConstants.HeartRate.END_TIME,
+                    HealthConstants.HeartRate.UUID,
+                    HealthConstants.HeartRate.CREATE_TIME,
+                    HealthConstants.HeartRate.UPDATE_TIME,
+                    HealthConstants.HeartRate.PACKAGE_NAME,
+                    HealthConstants.HeartRate.DEVICE_UUID,
+                    HealthConstants.HeartRate.CUSTOM
+                )
+            )
+            .setLocalTimeRange(
+                HealthConstants.StepCount.START_TIME,
+                HealthConstants.StepCount.TIME_OFFSET,
+                startTime.time,
+                endTime.time
+            )
+        filter?.let {
+            requestBuilder.setFilter(filter)
+        }
+        sort?.let {
+            requestBuilder.setSort(it.first, it.second)
+        }
+        val request = requestBuilder.build()
+        val resolver = HealthDataResolver(healthDataStore, null)
+        val result = resolver.read(request).await()
+        val iterator = result.iterator()
+        while (iterator.hasNext()) {
+            val data = iterator.next()
+            val heartRate = HeartRate.fromReadData(data)
+            list.add(heartRate)
+        }
+        return list
     }
 
     override fun aggregate(

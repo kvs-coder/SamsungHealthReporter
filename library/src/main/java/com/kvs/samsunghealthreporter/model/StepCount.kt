@@ -52,7 +52,7 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         val distance: Double
     ) : Session.InsertResult
 
-    companion object : Common.Factory {
+    companion object : Common.Factory<StepCount> {
         private const val COUNT_UNIT = "count"
         private const val CALORIE_UNIT = "kcal"
         private const val SPEED_UNIT = "km/h"
@@ -113,8 +113,7 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         }
     }
 
-    override val type: String
-        get() = HealthConstants.StepCount.HEALTH_DATA_TYPE
+    override val type = HealthConstants.StepCount.HEALTH_DATA_TYPE
     override var readResult: ReadResult? = null
     override var aggregateResult: AggregateResult? = null
     override var insertResult: InsertResult? = null
