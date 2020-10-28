@@ -55,10 +55,10 @@ class MainActivity : AppCompatActivity() {
             Thread {
                 try {
                     reader?.stepCountResolver?.let { resolver ->
-                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
+                        resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
                             Log.d(TAG, it.json)
                         }
-                        resolver.aggregate(Date().dayStart, Date().dayEnd, Time.Group.DAILY).forEach {
+                        resolver.aggregate(Date().dayStart, Date().dayEnd, Time.Group.DAILY, null, null).forEach {
                             Log.i(TAG, it.json)
                         }
                         val stepCount = StepCount(

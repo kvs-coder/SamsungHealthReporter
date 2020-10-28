@@ -5,7 +5,7 @@ import com.kvs.samsunghealthreporter.decorator.roundedDecimal
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCount.InsertResult> {
+class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepCount.InsertResult> {
     data class Count(val value: Long, val unit: String)
 
     data class Calorie(val value: Double, val unit: String)
@@ -43,16 +43,16 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
 
     data class InsertResult(
         override val packageName: String,
-        val startDate: Date,
-        val timeOffset: Long,
-        val endDate: Date,
+        override val startDate: Date,
+        override val timeOffset: Long,
+        override val endDate: Date,
         val count: Long,
         val calorie: Double,
         val speed: Double,
         val distance: Double
     ) : Session.InsertResult
 
-    companion object {
+    companion object : Common.Factory {
         private const val COUNT_UNIT = "count"
         private const val CALORIE_UNIT = "kcal"
         private const val SPEED_UNIT = "km/h"
@@ -65,7 +65,7 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
 
         const val ALIAS_PACKAGE_NAME = "alias_package_name"
 
-        internal fun fromReadData(data: HealthData): StepCount {
+        override fun fromReadData(data: HealthData): StepCount {
             return StepCount().apply {
                 readResult = ReadResult(
                     data.getString(HealthConstants.StepCount.UUID),
@@ -94,7 +94,7 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
             }
         }
 
-        internal fun fromAggregateData(data: HealthData, timeGroup: Time.Group): StepCount {
+        override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): StepCount {
             return StepCount().apply {
                 aggregateResult = AggregateResult(
                     data.getString(ALIAS_PACKAGE_NAME),
@@ -113,7 +113,8 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
         }
     }
 
-    override val type: String = HealthConstants.StepCount.HEALTH_DATA_TYPE
+    override val type: String
+        get() = HealthConstants.StepCount.HEALTH_DATA_TYPE
     override var readResult: ReadResult? = null
     override var aggregateResult: AggregateResult? = null
     override var insertResult: InsertResult? = null
@@ -125,7 +126,7 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
     }
 
     @Throws(SamsungHealthWriteException::class)
-    internal fun asOriginal(healthDataStore: HealthDataStore): HealthData {
+    override fun asOriginal(healthDataStore: HealthDataStore): HealthData {
         val insertResult = this.insertResult ?: throw SamsungHealthWriteException(
             "Insert result was null, nothing to write in Samsung Health"
         )

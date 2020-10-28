@@ -1,31 +1,16 @@
 package com.kvs.samsunghealthreporter.reader.resolver
 
-import android.os.Looper
-import com.kvs.samsunghealthreporter.SamsungHealthWriteException
-import com.kvs.samsunghealthreporter.decorator.addAggregateFunction
-import com.kvs.samsunghealthreporter.decorator.setTimeUnit
-import com.kvs.samsunghealthreporter.model.AggregateFunction
-import com.kvs.samsunghealthreporter.model.StepCount
-import com.kvs.samsunghealthreporter.model.Time
-import com.samsung.android.sdk.healthdata.HealthConstants
-import com.samsung.android.sdk.healthdata.HealthDataResolver
-import com.samsung.android.sdk.healthdata.HealthDataStore
-import com.samsung.android.sdk.healthdata.HealthResultHolder
+import com.kvs.samsunghealthreporter.decorator.*
+import com.kvs.samsunghealthreporter.model.*
+import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-class StepCountResolver(private val healthDataStore: HealthDataStore) {
-    init {
-        if (Looper.myLooper() == null) {
-            Looper.prepare()
-        }
-    }
-
-    @Throws(IllegalArgumentException::class, IllegalStateException::class)
-    fun read(
+class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<StepCount>(healthDataStore) {
+    override fun read(
         startTime: Date,
         endTime: Date,
-        filter: HealthDataResolver.Filter? = null,
-        sort: Pair<String, HealthDataResolver.SortOrder>? = null
+        filter: HealthDataResolver.Filter?,
+        sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
@@ -71,13 +56,12 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         return list
     }
 
-    @Throws(IllegalArgumentException::class, IllegalStateException::class)
-    fun aggregate(
+    override fun aggregate(
         startTime: Date,
         endTime: Date,
         timeGroup: Time.Group,
-        filter: HealthDataResolver.Filter? = null,
-        sort: Pair<String, HealthDataResolver.SortOrder>? = null
+        filter: HealthDataResolver.Filter?,
+        sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
@@ -118,12 +102,7 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         return list
     }
 
-    @Throws(
-        IllegalArgumentException::class,
-        IllegalStateException::class,
-        SamsungHealthWriteException::class
-    )
-    fun insert(value: StepCount): Boolean {
+    override fun insert(value: StepCount): Boolean {
         val data = value.asOriginal(healthDataStore)
         val request = HealthDataResolver.InsertRequest.Builder()
             .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
@@ -134,12 +113,7 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
     }
 
-    @Throws(
-        IllegalArgumentException::class,
-        IllegalStateException::class,
-        SamsungHealthWriteException::class
-    )
-    fun update(value: StepCount, filter: HealthDataResolver.Filter): Boolean {
+    override fun update(value: StepCount, filter: HealthDataResolver.Filter): Boolean {
         val data = value.asOriginal(healthDataStore)
         val request = HealthDataResolver.UpdateRequest.Builder()
             .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
@@ -151,8 +125,7 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
     }
 
-    @Throws(IllegalArgumentException::class, IllegalStateException::class)
-    fun delete(filter: HealthDataResolver.Filter): Boolean {
+    override fun delete(filter: HealthDataResolver.Filter): Boolean {
         val request = HealthDataResolver.DeleteRequest.Builder()
             .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
             .setFilter(filter)
