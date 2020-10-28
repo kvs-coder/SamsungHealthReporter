@@ -90,24 +90,24 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
             .addAggregateFunction(AggregateFunction.MAX, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.MIN, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.DISTANCE)
-            .addGroup(
-                HealthConstants.StepCount.UUID, StepCount.ALIAS_UUID
-            )
-            .addGroup(
-                HealthConstants.StepCount.CREATE_TIME, StepCount.ALIAS_CREATE_TIME
-            )
-            .addGroup(
-                HealthConstants.StepCount.UPDATE_TIME, StepCount.ALIAS_UPDATE_TIME
-            )
-            .addGroup(
-                HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME
-            )
-            .addGroup(
-                HealthConstants.StepCount.DEVICE_UUID, StepCount.ALIAS_DEVICE_UUID
-            )
-            .addGroup(
-                HealthConstants.StepCount.CUSTOM, StepCount.ALIAS_CUSTOM
-            )
+//            .addGroup(
+//                HealthConstants.StepCount.UUID, StepCount.ALIAS_UUID
+//            )
+//            .addGroup(
+//                HealthConstants.StepCount.CUSTOM, StepCount.ALIAS_CUSTOM
+//            )
+//            .addGroup(
+//                HealthConstants.StepCount.CREATE_TIME, StepCount.ALIAS_CREATE_TIME
+//            )
+//            .addGroup(
+//                HealthConstants.StepCount.UPDATE_TIME, StepCount.ALIAS_UPDATE_TIME
+//            )
+//            .addGroup(
+//                HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME
+//            )
+//            .addGroup(
+//                HealthConstants.StepCount.DEVICE_UUID, StepCount.ALIAS_DEVICE_UUID
+//            )
             .setLocalTimeRange(
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET,
@@ -134,7 +134,7 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         var i = 0
         while (iterator.hasNext()) {
             val data = iterator.next()
-            val step = StepCount.fromAggregateData(data)
+            val step = StepCount.fromAggregateData(data, timeGroup)
             Log.e("HHH", step.json)
             Log.e("HHH", data.getString(timeGroup.alias))
             i++

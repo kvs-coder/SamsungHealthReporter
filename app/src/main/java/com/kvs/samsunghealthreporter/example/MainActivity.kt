@@ -53,21 +53,26 @@ class MainActivity : AppCompatActivity() {
             Thread {
                 try {
                     reader?.stepCountResolver?.let { resolver ->
-//                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
-//                            Log.d(TAG, it.json)
-//                        }
+                        resolver.read(Date().dayStart, Date().dayEnd).forEach {
+                            Log.d(TAG, it.json)
+                        }
                         resolver.aggregate(Date().dayStart, Date().dayEnd, TimeGroup.DAILY)?.let {
                             Log.i(TAG, it.json)
                         }
                         val stepCount = StepCount(
-                            Date(),
-                            7200000,
-                            Date().addMinutes(1),
-                            applicationContext.packageName,
-                            StepCount.InsertResult(999, 20.0, 2.5, 80.0)
+                            StepCount.InsertResult(
+                                applicationContext.packageName,
+                                Date(),
+                                7200000,
+                                Date().addMinutes(1),
+                                999,
+                                20.0,
+                                2.5,
+                                80.0
+                            )
                         )
-                        //val success = resolver.insert(stepCount)
-                        //Log.i(TAG, "Insert success: $success")
+                        val success = resolver.insert(stepCount)
+                        Log.w(TAG, "Insert success: $success")
                     }
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
