@@ -8,7 +8,10 @@ import com.kvs.samsunghealthreporter.decorator.setTimeUnit
 import com.kvs.samsunghealthreporter.model.AggregateFunction
 import com.kvs.samsunghealthreporter.model.StepCount
 import com.kvs.samsunghealthreporter.model.TimeGroup
-import com.samsung.android.sdk.healthdata.*
+import com.samsung.android.sdk.healthdata.HealthConstants
+import com.samsung.android.sdk.healthdata.HealthDataResolver
+import com.samsung.android.sdk.healthdata.HealthDataStore
+import com.samsung.android.sdk.healthdata.HealthResultHolder
 import java.util.*
 
 class StepCountResolver(private val healthDataStore: HealthDataStore) {
@@ -37,16 +40,20 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                     HealthConstants.StepCount.START_TIME,
                     HealthConstants.StepCount.TIME_OFFSET,
                     HealthConstants.StepCount.END_TIME,
+                    HealthConstants.StepCount.UUID,
+                    HealthConstants.StepCount.CREATE_TIME,
+                    HealthConstants.StepCount.UPDATE_TIME,
+                    HealthConstants.StepCount.PACKAGE_NAME,
                     HealthConstants.StepCount.DEVICE_UUID,
-                    HealthConstants.StepCount.PACKAGE_NAME
+                    HealthConstants.StepCount.CUSTOM
                 )
             )
             .setLocalTimeRange(
-                HealthConstants.StepCount.START_TIME,
-                HealthConstants.StepCount.TIME_OFFSET,
-                startTime.time,
-                endTime.time
-            )
+            HealthConstants.StepCount.START_TIME,
+            HealthConstants.StepCount.TIME_OFFSET,
+            startTime.time,
+            endTime.time
+        )
         filter?.let {
             requestBuilder.setFilter(filter)
         }
@@ -84,10 +91,22 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
             .addAggregateFunction(AggregateFunction.MIN, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.DISTANCE)
             .addGroup(
+                HealthConstants.StepCount.UUID, StepCount.ALIAS_UUID
+            )
+            .addGroup(
+                HealthConstants.StepCount.CREATE_TIME, StepCount.ALIAS_CREATE_TIME
+            )
+            .addGroup(
+                HealthConstants.StepCount.UPDATE_TIME, StepCount.ALIAS_UPDATE_TIME
+            )
+            .addGroup(
                 HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME
             )
             .addGroup(
                 HealthConstants.StepCount.DEVICE_UUID, StepCount.ALIAS_DEVICE_UUID
+            )
+            .addGroup(
+                HealthConstants.StepCount.CUSTOM, StepCount.ALIAS_CUSTOM
             )
             .setLocalTimeRange(
                 HealthConstants.StepCount.START_TIME,
@@ -124,15 +143,47 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         return null
     }
 
-    @Throws(IllegalArgumentException::class, IllegalStateException::class, SamsungHealthWriteException::class)
+    @Throws(
+        IllegalArgumentException::class,
+        IllegalStateException::class,
+        SamsungHealthWriteException::class
+    )
     fun insert(value: StepCount): Boolean {
+        val data = value.asOriginal(healthDataStore)
         val request = HealthDataResolver.InsertRequest.Builder()
             .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
             .build()
-        val data = value.asOriginal(healthDataStore)
         request.addHealthData(data)
         val resolver = HealthDataResolver(healthDataStore, null)
         val result = resolver.insert(request).await()
+        return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
+    }
+
+    @Throws(
+        IllegalArgumentException::class,
+        IllegalStateException::class,
+        SamsungHealthWriteException::class
+    )
+    fun update(value: StepCount, filter: HealthDataResolver.Filter): Boolean {
+        val data = value.asOriginal(healthDataStore)
+        val request = HealthDataResolver.UpdateRequest.Builder()
+            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+            .setFilter(filter)
+            .setHealthData(data)
+            .build()
+        val resolver = HealthDataResolver(healthDataStore, null)
+        val result = resolver.update(request).await()
+        return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
+    }
+
+    @Throws(IllegalArgumentException::class, IllegalStateException::class)
+    fun delete(filter: HealthDataResolver.Filter): Boolean {
+        val request = HealthDataResolver.DeleteRequest.Builder()
+            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+            .setFilter(filter)
+            .build()
+        val resolver = HealthDataResolver(healthDataStore, null)
+        val result = resolver.delete(request).await()
         return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
     }
 }
