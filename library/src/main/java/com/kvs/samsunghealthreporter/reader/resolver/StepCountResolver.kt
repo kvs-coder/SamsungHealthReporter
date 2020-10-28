@@ -1,13 +1,12 @@
 package com.kvs.samsunghealthreporter.reader.resolver
 
 import android.os.Looper
-import android.util.Log
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.decorator.addAggregateFunction
 import com.kvs.samsunghealthreporter.decorator.setTimeUnit
 import com.kvs.samsunghealthreporter.model.AggregateFunction
 import com.kvs.samsunghealthreporter.model.StepCount
-import com.kvs.samsunghealthreporter.model.TimeGroup
+import com.kvs.samsunghealthreporter.model.Time
 import com.samsung.android.sdk.healthdata.HealthConstants
 import com.samsung.android.sdk.healthdata.HealthDataResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
@@ -49,11 +48,11 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                 )
             )
             .setLocalTimeRange(
-            HealthConstants.StepCount.START_TIME,
-            HealthConstants.StepCount.TIME_OFFSET,
-            startTime.time,
-            endTime.time
-        )
+                HealthConstants.StepCount.START_TIME,
+                HealthConstants.StepCount.TIME_OFFSET,
+                startTime.time,
+                endTime.time
+            )
         filter?.let {
             requestBuilder.setFilter(filter)
         }
@@ -69,8 +68,6 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
             val stepCount = StepCount.fromReadData(data)
             list.add(stepCount)
         }
-        Log.i("MMM", list.size.toString())
-        result.close()
         return list
     }
 
@@ -78,36 +75,20 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
     fun aggregate(
         startTime: Date,
         endTime: Date,
-        timeGroup: TimeGroup,
+        timeGroup: Time.Group,
         filter: HealthDataResolver.Filter? = null,
         sort: Pair<String, HealthDataResolver.SortOrder>? = null
-    ): StepCount? {
+    ): List<StepCount> {
+        val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
             .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.COUNT)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.CALORIE)
+            .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.DISTANCE)
             .addAggregateFunction(AggregateFunction.AVG, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.MAX, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.MIN, HealthConstants.StepCount.SPEED)
-            .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.DISTANCE)
-//            .addGroup(
-//                HealthConstants.StepCount.UUID, StepCount.ALIAS_UUID
-//            )
-//            .addGroup(
-//                HealthConstants.StepCount.CUSTOM, StepCount.ALIAS_CUSTOM
-//            )
-//            .addGroup(
-//                HealthConstants.StepCount.CREATE_TIME, StepCount.ALIAS_CREATE_TIME
-//            )
-//            .addGroup(
-//                HealthConstants.StepCount.UPDATE_TIME, StepCount.ALIAS_UPDATE_TIME
-//            )
-//            .addGroup(
-//                HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME
-//            )
-//            .addGroup(
-//                HealthConstants.StepCount.DEVICE_UUID, StepCount.ALIAS_DEVICE_UUID
-//            )
+            .addGroup(HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME)
             .setLocalTimeRange(
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET,
@@ -119,8 +100,6 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET
             )
-        Log.i("LLL", startTime.toString())
-        Log.i("LLL", endTime.toString())
         filter?.let {
             requestBuilder.setFilter(filter)
         }
@@ -131,16 +110,12 @@ class StepCountResolver(private val healthDataStore: HealthDataStore) {
         val resolver = HealthDataResolver(healthDataStore, null)
         val result = resolver.aggregate(request).await()
         val iterator = result.iterator()
-        var i = 0
         while (iterator.hasNext()) {
             val data = iterator.next()
-            val step = StepCount.fromAggregateData(data, timeGroup)
-            Log.e("HHH", step.json)
-            Log.e("HHH", data.getString(timeGroup.alias))
-            i++
+            val stepCount = StepCount.fromAggregateData(data, timeGroup)
+            list.add(stepCount)
         }
-        Log.i("LLL", i.toString())
-        return null
+        return list
     }
 
     @Throws(

@@ -12,12 +12,14 @@ import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
 import com.kvs.samsunghealthreporter.model.StepCount
-import com.kvs.samsunghealthreporter.model.TimeGroup
+import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
+import com.samsung.android.sdk.healthdata.HealthConstants
+import com.samsung.android.sdk.healthdata.HealthDataResolver
 import java.lang.Exception
 import java.util.*
 
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                         resolver.read(Date().dayStart, Date().dayEnd).forEach {
                             Log.d(TAG, it.json)
                         }
-                        resolver.aggregate(Date().dayStart, Date().dayEnd, TimeGroup.DAILY)?.let {
+                        resolver.aggregate(Date().dayStart, Date().dayEnd, Time.Group.DAILY).forEach {
                             Log.i(TAG, it.json)
                         }
                         val stepCount = StepCount(
@@ -65,14 +67,20 @@ class MainActivity : AppCompatActivity() {
                                 Date(),
                                 7200000,
                                 Date().addMinutes(1),
-                                999,
+                                1000,
                                 20.0,
                                 2.5,
                                 80.0
                             )
                         )
-                        val success = resolver.insert(stepCount)
-                        Log.w(TAG, "Insert success: $success")
+                        //val insertSuccess = resolver.insert(stepCount)
+                        //Log.w(TAG, "Insert success: $insertSuccess")
+
+                        //val updateSuccess = resolver.update(stepCount, HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999))
+                        //Log.w(TAG, "Update success: $updateSuccess")
+
+                        //val deleteSuccess = resolver.delete(HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 1000))
+                        //Log.w(TAG, "Delete success: $deleteSuccess")
                     }
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())

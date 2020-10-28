@@ -1,9 +1,7 @@
 package com.kvs.samsunghealthreporter.decorator
 
 import com.kvs.samsunghealthreporter.model.AggregateFunction
-import com.kvs.samsunghealthreporter.model.StepCount
-import com.kvs.samsunghealthreporter.model.TimeGroup
-import com.samsung.android.sdk.healthdata.HealthConstants
+import com.kvs.samsunghealthreporter.model.Time
 import com.samsung.android.sdk.healthdata.HealthDataResolver
 
 val HealthDataResolver.AggregateRequest.TimeGroupUnit.string : String get() = "${this.name}_aggregate"
@@ -54,13 +52,13 @@ fun HealthDataResolver.AggregateRequest.Builder.addAggregateFunction(
 }
 
 fun HealthDataResolver.AggregateRequest.Builder.setTimeUnit(
-    timeGroup: TimeGroup,
+    timeGroup: Time.Group,
     timeProperty: String,
     offsetProperty: String,
 ): HealthDataResolver.AggregateRequest.Builder {
     return this.apply {
         when (timeGroup) {
-            TimeGroup.MINUTELY -> {
+            Time.Group.MINUTELY -> {
                 setTimeGroup(
                     HealthDataResolver.AggregateRequest.TimeGroupUnit.MINUTELY,
                     1,
@@ -69,7 +67,7 @@ fun HealthDataResolver.AggregateRequest.Builder.setTimeUnit(
                     timeGroup.alias
                 )
             }
-            TimeGroup.HOURLY -> {
+            Time.Group.HOURLY -> {
                 setTimeGroup(
                     HealthDataResolver.AggregateRequest.TimeGroupUnit.HOURLY,
                     1,
@@ -78,7 +76,7 @@ fun HealthDataResolver.AggregateRequest.Builder.setTimeUnit(
                     timeGroup.alias
                 )
             }
-            TimeGroup.DAILY -> {
+            Time.Group.DAILY -> {
                 setTimeGroup(
                     HealthDataResolver.AggregateRequest.TimeGroupUnit.DAILY,
                     1,
@@ -87,7 +85,7 @@ fun HealthDataResolver.AggregateRequest.Builder.setTimeUnit(
                     timeGroup.alias
                 )
             }
-            TimeGroup.WEEKLY -> {
+            Time.Group.WEEKLY -> {
                 setTimeGroup(
                     HealthDataResolver.AggregateRequest.TimeGroupUnit.WEEKLY,
                     1,
@@ -96,7 +94,7 @@ fun HealthDataResolver.AggregateRequest.Builder.setTimeUnit(
                     timeGroup.alias
                 )
             }
-            TimeGroup.MONTHLY -> {
+            Time.Group.MONTHLY -> {
                 setTimeGroup(
                     HealthDataResolver.AggregateRequest.TimeGroupUnit.MONTHLY,
                     1,

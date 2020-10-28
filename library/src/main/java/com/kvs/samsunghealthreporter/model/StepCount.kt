@@ -14,36 +14,35 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
 
     data class Distance(val value: Double, val unit: String)
 
-    data class Time(val value: String, val group: TimeGroup)
-
     data class ReadResult(
-        val uuid: String,
-        val packageName: String,
-        val deviceUuid: String,
-        val custom: String?,
-        val createTime: Long,
-        val updateTime: Long,
-        val startTime: Long,
-        val timeOffset: Long,
-        val endTime: Long,
+        override val uuid: String,
+        override val packageName: String,
+        override val deviceUuid: String,
+        override val custom: String?,
+        override val createTime: Long,
+        override val updateTime: Long,
+        override val startTime: Long,
+        override val timeOffset: Long,
+        override val endTime: Long,
         val count: Count,
         val calorie: Calorie,
         val speed: Speed,
         val distance: Distance
-    )
+    ) : Session.ReadResult
 
     data class AggregateResult(
-        val time: Time,
+        override val packageName: String,
+        override val time: Time,
         val totalCount: Count,
         val totalCalories: Calorie,
         val averageSpeed: Speed,
         val maxSpeed: Speed,
         val minSpeed: Speed,
         val totalDistance: Distance
-    )
+    ) : Session.AggregateResult
 
     data class InsertResult(
-        val packageName: String,
+        override val packageName: String,
         val startDate: Date,
         val timeOffset: Long,
         val endDate: Date,
@@ -51,7 +50,7 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
         val calorie: Double,
         val speed: Double,
         val distance: Double
-    )
+    ) : Session.InsertResult
 
     companion object {
         private const val COUNT_UNIT = "count"
@@ -76,7 +75,7 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
         const val ALIAS_UPDATE_TIME = "aggregate_update_time"
         const val ALIAS_CUSTOM = "aggregate_custom"
 
-        fun fromReadData(data: HealthData): StepCount {
+        internal fun fromReadData(data: HealthData): StepCount {
             return StepCount().apply {
                 readResult = ReadResult(
                     data.getString(HealthConstants.StepCount.UUID),
@@ -105,9 +104,10 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
             }
         }
 
-        fun fromAggregateData(data: HealthData, timeGroup: TimeGroup): StepCount {
+        internal fun fromAggregateData(data: HealthData, timeGroup: Time.Group): StepCount {
             return StepCount().apply {
                 aggregateResult = AggregateResult(
+                    data.getString(ALIAS_PACKAGE_NAME),
                     Time(data.getString(timeGroup.alias), timeGroup),
                     Count(data.getLong(ALIAS_TOTAL_COUNT), COUNT_UNIT),
                     Calorie(data.getDouble(ALIAS_TOTAL_CALORIES).roundedDecimal, CALORIE_UNIT),
@@ -135,7 +135,7 @@ class StepCount: Session<StepCount.ReadResult, StepCount.AggregateResult, StepCo
     }
 
     @Throws(SamsungHealthWriteException::class)
-    fun asOriginal(healthDataStore: HealthDataStore): HealthData {
+    internal fun asOriginal(healthDataStore: HealthDataStore): HealthData {
         val insertResult = this.insertResult ?: throw SamsungHealthWriteException(
             "Insert result was null, nothing to write in Samsung Health"
         )
