@@ -8,14 +8,14 @@ internal interface Session<ReadResult, AggregateResult, InsertResult> :
     Common where ReadResult : Session.ReadResult,
                  InsertResult : Session.InsertResult {
     interface ReadResult : Common.CommonResult {
+        val uuid: String
+        val deviceUuid: String?
+        val custom: String?
+        val createTime: Long
+        val updateTime: Long
         val startTime: Long
         val timeOffset: Long
         val endTime: Long
-        val uuid: String
-        val createTime: Long
-        val updateTime: Long
-        val deviceUuid: String?
-        val custom: String?
     }
 
     interface AggregateResult {
