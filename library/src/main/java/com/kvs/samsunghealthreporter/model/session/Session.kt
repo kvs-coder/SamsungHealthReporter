@@ -1,5 +1,7 @@
-package com.kvs.samsunghealthreporter.model
+package com.kvs.samsunghealthreporter.model.session
 
+import com.kvs.samsunghealthreporter.model.Common
+import com.kvs.samsunghealthreporter.model.Time
 import java.util.*
 
 internal interface Session<ReadResult, AggregateResult, InsertResult> :

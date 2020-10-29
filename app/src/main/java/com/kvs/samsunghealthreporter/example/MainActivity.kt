@@ -11,8 +11,8 @@ import com.kvs.samsunghealthreporter.SamsungHealthType
 import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
-import com.kvs.samsunghealthreporter.model.HeartRate
-import com.kvs.samsunghealthreporter.model.StepCount
+import com.kvs.samsunghealthreporter.model.session.HeartRate
+import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
@@ -55,89 +55,8 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
                 try {
-                    reader?.heartRateResolver?.let { resolver ->
-                        resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
-                            Log.d(TAG, it.json)
-                        }
-                        resolver.aggregate(
-                            Date().dayStart,
-                            Date().dayEnd,
-                            Time.Group.DAILY,
-                            null,
-                            null
-                        ).forEach {
-                            Log.i(TAG, it.json)
-                        }
-                        val now = Date()
-                        val heartRate = HeartRate(
-                            HeartRate.InsertResult(
-                                applicationContext.packageName,
-                                now,
-                                3600000,
-                                now,
-                                99.5f,
-                                1
-                            )
-                        )
-                        val insertSuccess = resolver.insert(heartRate)
-                        Log.w(TAG, "Insert success: $insertSuccess")
-
-                        val updateSuccess = resolver.update(
-                            heartRate,
-                            HealthDataResolver.Filter.eq(HealthConstants.HeartRate.HEART_RATE, 99.5f)
-                        )
-                        Log.w(TAG, "Update success: $updateSuccess")
-
-                        val deleteSuccess = resolver.delete(
-                            HealthDataResolver.Filter.eq(
-                                HealthConstants.HeartRate.HEART_RATE,
-                                100.0f
-                            )
-                        )
-                        Log.w(TAG, "Delete success: $deleteSuccess")
-                    }
-//                    reader?.stepCountResolver?.let { resolver ->
-//                        resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
-//                            Log.d(TAG, it.json)
-//                        }
-//                        resolver.aggregate(
-//                            Date().dayStart,
-//                            Date().dayEnd,
-//                            Time.Group.DAILY,
-//                            null,
-//                            null
-//                        ).forEach {
-//                            Log.i(TAG, it.json)
-//                        }
-//                        val stepCount = StepCount(
-//                            StepCount.InsertResult(
-//                                applicationContext.packageName,
-//                                Date(),
-//                                7200000,
-//                                Date().addMinutes(1),
-//                                1000,
-//                                20.0f,
-//                                2.5f,
-//                                80.0f
-//                            )
-//                        )
-//                        val insertSuccess = resolver.insert(stepCount)
-//                        Log.w(TAG, "Insert success: $insertSuccess")
-//
-//                        val updateSuccess = resolver.update(
-//                            stepCount,
-//                            HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999)
-//                        )
-//                        Log.w(TAG, "Update success: $updateSuccess")
-//
-//                        val deleteSuccess = resolver.delete(
-//                            HealthDataResolver.Filter.eq(
-//                                HealthConstants.StepCount.COUNT,
-//                                1000
-//                            )
-//                        )
-//                        Log.w(TAG, "Delete success: $deleteSuccess")
-//                    }
+                    //handleHeartRate(reader)
+                    handleStepCount(reader)
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
@@ -154,6 +73,96 @@ class MainActivity : AppCompatActivity() {
             Log.e(TAG, "onPermissionDeclined $exception")
         }
     }
+
+    private fun handleStepCount(reader: SamsungHealthReader?) {
+        reader?.stepCountResolver?.let { resolver ->
+            resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
+                Log.d(TAG, it.json)
+            }
+            resolver.aggregate(
+                Date().dayStart,
+                Date().dayEnd,
+                Time.Group.DAILY,
+                null,
+                null
+            ).forEach {
+                Log.i(TAG, it.json)
+            }
+            val stepCount = StepCount(
+                StepCount.InsertResult(
+                    applicationContext.packageName,
+                    Date(),
+                    7200000,
+                    Date().addMinutes(1),
+                    1000,
+                    20.0f,
+                    2.5f,
+                    80.0f
+                )
+            )
+            val insertSuccess = resolver.insert(stepCount)
+            Log.w(TAG, "Insert success: $insertSuccess")
+
+            val updateSuccess = resolver.update(
+                stepCount,
+                HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999)
+            )
+            Log.w(TAG, "Update success: $updateSuccess")
+
+            val deleteSuccess = resolver.delete(
+                HealthDataResolver.Filter.eq(
+                    HealthConstants.StepCount.COUNT,
+                    1000
+                )
+            )
+            Log.w(TAG, "Delete success: $deleteSuccess")
+        }
+    }
+
+    private fun handleHeartRate(reader: SamsungHealthReader?) {
+        reader?.heartRateResolver?.let { resolver ->
+            resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
+                Log.d(TAG, it.json)
+            }
+            resolver.aggregate(
+                Date().dayStart,
+                Date().dayEnd,
+                Time.Group.DAILY,
+                null,
+                null
+            ).forEach {
+                Log.i(TAG, it.json)
+            }
+            val now = Date()
+            val heartRate = HeartRate(
+                HeartRate.InsertResult(
+                    applicationContext.packageName,
+                    now,
+                    3600000,
+                    now,
+                    99.5f,
+                    1
+                )
+            )
+            val insertSuccess = resolver.insert(heartRate)
+            Log.w(TAG, "Insert success: $insertSuccess")
+
+            val updateSuccess = resolver.update(
+                heartRate,
+                HealthDataResolver.Filter.eq(HealthConstants.HeartRate.HEART_RATE, 99.5f)
+            )
+            Log.w(TAG, "Update success: $updateSuccess")
+
+            val deleteSuccess = resolver.delete(
+                HealthDataResolver.Filter.eq(
+                    HealthConstants.HeartRate.HEART_RATE,
+                    100.0f
+                )
+            )
+            Log.w(TAG, "Delete success: $deleteSuccess")
+        }
+    }
+
     private val mWriterListener = object : SamsungHealthWriterListener {
         override fun onWriteResult() {
             Log.i(TAG, "onWriteResult")

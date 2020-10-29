@@ -1,7 +1,9 @@
-package com.kvs.samsunghealthreporter.model
+package com.kvs.samsunghealthreporter.model.session
 
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.decorator.roundedDecimal
+import com.kvs.samsunghealthreporter.model.Common
+import com.kvs.samsunghealthreporter.model.Time
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
@@ -13,6 +15,16 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
     data class Speed(val value: Float, val unit: String)
 
     data class Distance(val value: Float, val unit: String)
+
+    data class Position(val id: Int) {
+        val type: String = when (id) {
+            HealthConstants.StepCount.SAMPLE_POSITION_TYPE_UNKNOWN -> "unknown"
+            HealthConstants.StepCount.SAMPLE_POSITION_TYPE_WRIST -> "wrist"
+            HealthConstants.StepCount.SAMPLE_POSITION_TYPE_ANKLE -> "ankle"
+            HealthConstants.StepCount.SAMPLE_POSITION_TYPE_ARM -> "arm"
+            else -> "na"
+        }
+    }
 
     data class ReadResult(
         override val uuid: String,
@@ -27,7 +39,8 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         val count: Count,
         val calorie: Calorie,
         val speed: Speed,
-        val distance: Distance
+        val distance: Distance,
+        val position: Position
     ) : Session.ReadResult
 
     data class AggregateResult(
@@ -62,8 +75,6 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         private const val ALIAS_MIN_SPEED = "speed_min"
         private const val ALIAS_TOTAL_DISTANCE = "distance_sum"
 
-        const val ALIAS_PACKAGE_NAME = "alias_package_name"
-
         override fun fromReadData(data: HealthData): StepCount {
             return StepCount().apply {
                 readResult = ReadResult(
@@ -88,7 +99,8 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
                     Distance(
                         data.getFloat(HealthConstants.StepCount.DISTANCE).roundedDecimal.toFloat(),
                         HealthDataUnit.METER.unitName
-                    )
+                    ),
+                    Position(data.getInt(HealthConstants.StepCount.SAMPLE_POSITION_TYPE))
                 )
             }
         }

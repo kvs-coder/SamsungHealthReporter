@@ -2,6 +2,7 @@ package com.kvs.samsunghealthreporter.reader.resolver
 
 import com.kvs.samsunghealthreporter.decorator.*
 import com.kvs.samsunghealthreporter.model.*
+import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
