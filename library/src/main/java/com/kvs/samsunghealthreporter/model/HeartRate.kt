@@ -8,7 +8,7 @@ import com.samsung.android.sdk.healthdata.HealthDeviceManager
 import java.util.*
 
 class HeartRate :
-    Session<HeartRate.ReadResult, HeartRate.AggregateResult, HeartRate.InsertRequest> {
+    Session<HeartRate.ReadResult, HeartRate.AggregateResult, HeartRate.InsertResult> {
     data class Rate(val value: Float, val unit: String)
 
     data class BeatCount(val value: Int, val unit: String)
@@ -69,17 +69,13 @@ class HeartRate :
         )
     }
 
-    data class InsertRequest(
+    data class InsertResult(
         override val packageName: String,
         override val startDate: Date,
         override val timeOffset: Long,
         override val endDate: Date,
-        val heartRate: Double,
-        val heartBeatCount: Double,
-        val comment: String,
-        val min: Double,
-        val max: Double,
-        val binningData: Double
+        val heartRate: Float,
+        val beatCount: Int
     ) : Session.InsertResult
 
     companion object : Common.Factory<HeartRate> {
@@ -131,7 +127,13 @@ class HeartRate :
     override val type = HealthConstants.HeartRate.HEALTH_DATA_TYPE
     override var readResult: ReadResult? = null
     override var aggregateResult: AggregateResult? = null
-    override var insertResult: InsertRequest? = null
+    override var insertResult: InsertResult? = null
+
+    private constructor()
+
+    constructor(insertResult: InsertResult) {
+        this.insertResult = insertResult
+    }
 
     override fun asOriginal(healthDataStore: HealthDataStore): HealthData {
         val insertResult = this.insertResult ?: throw SamsungHealthWriteException(
@@ -145,12 +147,8 @@ class HeartRate :
             putLong(HealthConstants.HeartRate.START_TIME, insertResult.startDate.time)
             putLong(HealthConstants.HeartRate.TIME_OFFSET, insertResult.timeOffset)
             putLong(HealthConstants.HeartRate.END_TIME, insertResult.endDate.time)
-            putDouble(HealthConstants.HeartRate.HEART_RATE, insertResult.heartRate)
-            putDouble(HealthConstants.HeartRate.HEART_BEAT_COUNT, insertResult.heartBeatCount)
-            putString(HealthConstants.HeartRate.COMMENT, insertResult.comment)
-            putDouble(HealthConstants.HeartRate.MIN, insertResult.min)
-            putDouble(HealthConstants.HeartRate.MAX, insertResult.max)
-            putDouble(HealthConstants.HeartRate.BINNING_DATA, insertResult.binningData)
+            putFloat(HealthConstants.HeartRate.HEART_RATE, insertResult.heartRate)
+            putInt(HealthConstants.HeartRate.HEART_BEAT_COUNT, insertResult.beatCount)
         }
     }
 }

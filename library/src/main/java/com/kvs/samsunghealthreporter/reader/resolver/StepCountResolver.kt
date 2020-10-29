@@ -6,6 +6,9 @@ import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
 class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<StepCount>(healthDataStore) {
+    override val type: String
+        get() = HealthConstants.StepCount.HEALTH_DATA_TYPE
+
     override fun read(
         startTime: Date,
         endTime: Date,
@@ -14,7 +17,7 @@ class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<Step
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
-            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+            .setDataType(type)
             .setProperties(
                 arrayOf(
                     HealthConstants.StepCount.COUNT,
@@ -65,7 +68,7 @@ class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<Step
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
-            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
+            .setDataType(type)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.COUNT)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.CALORIE)
             .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.DISTANCE)
@@ -99,38 +102,5 @@ class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<Step
             list.add(stepCount)
         }
         return list
-    }
-
-    override fun insert(value: StepCount): Boolean {
-        val data = value.asOriginal(healthDataStore)
-        val request = HealthDataResolver.InsertRequest.Builder()
-            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
-            .build()
-        request.addHealthData(data)
-        val resolver = HealthDataResolver(healthDataStore, null)
-        val result = resolver.insert(request).await()
-        return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
-    }
-
-    override fun update(value: StepCount, filter: HealthDataResolver.Filter): Boolean {
-        val data = value.asOriginal(healthDataStore)
-        val request = HealthDataResolver.UpdateRequest.Builder()
-            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
-            .setFilter(filter)
-            .setHealthData(data)
-            .build()
-        val resolver = HealthDataResolver(healthDataStore, null)
-        val result = resolver.update(request).await()
-        return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
-    }
-
-    override fun delete(filter: HealthDataResolver.Filter): Boolean {
-        val request = HealthDataResolver.DeleteRequest.Builder()
-            .setDataType(HealthConstants.StepCount.HEALTH_DATA_TYPE)
-            .setFilter(filter)
-            .build()
-        val resolver = HealthDataResolver(healthDataStore, null)
-        val result = resolver.delete(request).await()
-        return result.status == HealthResultHolder.BaseResult.STATUS_SUCCESSFUL
     }
 }

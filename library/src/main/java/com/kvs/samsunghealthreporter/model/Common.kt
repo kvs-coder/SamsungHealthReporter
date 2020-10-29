@@ -2,6 +2,7 @@ package com.kvs.samsunghealthreporter.model
 
 import com.google.gson.Gson
 import com.samsung.android.sdk.healthdata.HealthData
+import com.samsung.android.sdk.healthdata.HealthDataStore
 
 interface Common {
     interface CommonResult {
@@ -15,4 +16,6 @@ interface Common {
 
     val type: String
     val json: String get() = Gson().toJson(this)
+
+    fun asOriginal(healthDataStore: HealthDataStore): HealthData
 }

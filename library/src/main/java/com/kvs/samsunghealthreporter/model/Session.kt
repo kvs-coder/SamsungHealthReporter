@@ -1,7 +1,5 @@
 package com.kvs.samsunghealthreporter.model
 
-import com.samsung.android.sdk.healthdata.HealthData
-import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
 internal interface Session<ReadResult, AggregateResult, InsertResult> :
@@ -31,6 +29,4 @@ internal interface Session<ReadResult, AggregateResult, InsertResult> :
     var readResult: ReadResult?
     var aggregateResult: AggregateResult?
     var insertResult: InsertResult?
-
-    fun asOriginal(healthDataStore: HealthDataStore): HealthData
 }

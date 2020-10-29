@@ -1,18 +1,14 @@
 package com.kvs.samsunghealthreporter.reader.resolver
 
-import android.util.Log
-import com.kvs.samsunghealthreporter.decorator.addAggregateFunction
-import com.kvs.samsunghealthreporter.decorator.setTimeUnit
-import com.kvs.samsunghealthreporter.model.AggregateFunction
-import com.kvs.samsunghealthreporter.model.HeartRate
-import com.kvs.samsunghealthreporter.model.StepCount
-import com.kvs.samsunghealthreporter.model.Time
-import com.samsung.android.sdk.healthdata.HealthConstants
-import com.samsung.android.sdk.healthdata.HealthDataResolver
-import com.samsung.android.sdk.healthdata.HealthDataStore
+import com.kvs.samsunghealthreporter.decorator.*
+import com.kvs.samsunghealthreporter.model.*
+import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
 class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<HeartRate>(healthDataStore) {
+    override val type: String
+        get() = HealthConstants.HeartRate.HEALTH_DATA_TYPE
+
     override fun read(
         startTime: Date,
         endTime: Date,
@@ -21,7 +17,7 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
     ): List<HeartRate> {
         val list = mutableListOf<HeartRate>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
-            .setDataType(HealthConstants.HeartRate.HEALTH_DATA_TYPE)
+            .setDataType(type)
             .setProperties(
                 arrayOf(
                     HealthConstants.HeartRate.HEART_RATE,
@@ -71,10 +67,9 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         filter: HealthDataResolver.Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<HeartRate> {
-        Log.d("FFF", startTime.toString())
         val list = mutableListOf<HeartRate>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
-            .setDataType(HealthConstants.HeartRate.HEALTH_DATA_TYPE)
+            .setDataType(type)
             .addAggregateFunction(AggregateFunction.MAX, HealthConstants.HeartRate.HEART_RATE)
             .addAggregateFunction(AggregateFunction.MIN, HealthConstants.HeartRate.HEART_RATE)
             .addAggregateFunction(AggregateFunction.AVG, HealthConstants.HeartRate.HEART_RATE)
@@ -105,17 +100,5 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
             list.add(stepCount)
         }
         return list
-    }
-
-    override fun insert(value: HeartRate): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun update(value: HeartRate, filter: HealthDataResolver.Filter): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun delete(filter: HealthDataResolver.Filter): Boolean {
-        TODO("Not yet implemented")
     }
 }
