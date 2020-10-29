@@ -9,17 +9,36 @@ import java.util.*
 
 class HeartRate :
     Session<HeartRate.ReadResult, HeartRate.AggregateResult, HeartRate.InsertRequest> {
-    data class Rate(val value: Long, val unit: String)
+    data class Rate(val value: Float, val unit: String)
 
-    data class BeatCount(val value: Long, val unit: String)
+    data class BeatCount(val value: Int, val unit: String)
 
-    data class Comment(val value: String?)
+    data class BinningData(
+        val value: ByteArray?,
+        val max: Max,
+        val min: Min
+    ) {
+        data class Min(val value: Long, val unit: String)
+        data class Max(val value: Long, val unit: String)
 
-    data class Min(val value: Long, val unit: String)
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
 
-    data class Max(val value: Long, val unit: String)
+            other as BinningData
 
-    data class BinningData(val value: Long)
+            if (value != null) {
+                if (other.value == null) return false
+                if (!value.contentEquals(other.value)) return false
+            } else if (other.value != null) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            return value?.contentHashCode() ?: 0
+        }
+    }
 
     data class ReadResult(
         override val uuid: String,
@@ -32,16 +51,13 @@ class HeartRate :
         override val timeOffset: Long,
         override val endTime: Long,
         val rate: Rate,
-//        val beatCount: BeatCount,
-//        val comment: Comment,
-//        val min: Min,
-//        val max: Max,
-//        val binningData: BinningData
+        val beatCount: BeatCount,
+        val comment: String?,
+        val binningData: BinningData
     ) : Session.ReadResult
 
     data class AggregateResult(
-        override val time: Time,
-        //override val packageName: String,
+        override val time: Time
     ) :
         Session.AggregateResult
 
@@ -59,6 +75,9 @@ class HeartRate :
     ) : Session.InsertResult
 
     companion object : Common.Factory<HeartRate> {
+        const val BPM_UNIT = "bpm"
+        const val COUNT_UNIT = "count"
+
         override fun fromReadData(data: HealthData): HeartRate {
             return HeartRate().apply {
                 readResult = ReadResult(
@@ -71,12 +90,14 @@ class HeartRate :
                     data.getLong(HealthConstants.HeartRate.START_TIME),
                     data.getLong(HealthConstants.HeartRate.TIME_OFFSET),
                     data.getLong(HealthConstants.HeartRate.END_TIME),
-                    Rate(data.getLong(HealthConstants.HeartRate.HEART_RATE), "bpm"),
-//                    BeatCount(data.getLong(HealthConstants.HeartRate.HEART_BEAT_COUNT), "count"),
-//                    Comment(data.getString(HealthConstants.HeartRate.COMMENT)),
-//                    Min(data.getLong(HealthConstants.HeartRate.MIN), "count/min"),
-//                    Max(data.getLong(HealthConstants.HeartRate.MAX), "count/min"),
-//                    BinningData(data.getLong(HealthConstants.HeartRate.BINNING_DATA))
+                    Rate(data.getFloat(HealthConstants.HeartRate.HEART_RATE), BPM_UNIT),
+                    BeatCount(data.getInt(HealthConstants.HeartRate.HEART_BEAT_COUNT), COUNT_UNIT),
+                    data.getString(HealthConstants.HeartRate.COMMENT),
+                    BinningData(
+                        data.getBlob(HealthConstants.HeartRate.BINNING_DATA),
+                        BinningData.Max(data.getLong(HealthConstants.HeartRate.MAX), BPM_UNIT),
+                        BinningData.Min(data.getLong(HealthConstants.HeartRate.MIN), BPM_UNIT)
+                    )
                 )
             }
         }
