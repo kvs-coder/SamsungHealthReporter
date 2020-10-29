@@ -58,6 +58,15 @@ class MainActivity : AppCompatActivity() {
                         resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
                             Log.d(TAG, it.json)
                         }
+                        resolver.aggregate(
+                            Date().dayStart,
+                            Date().dayEnd,
+                            Time.Group.DAILY,
+                            null,
+                            null
+                        ).forEach {
+                            Log.i(TAG, it.json)
+                        }
                     }
 //                    reader?.stepCountResolver?.let { resolver ->
 //                        resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {

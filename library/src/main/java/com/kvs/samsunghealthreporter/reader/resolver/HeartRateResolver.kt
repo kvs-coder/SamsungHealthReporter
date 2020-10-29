@@ -1,5 +1,9 @@
 package com.kvs.samsunghealthreporter.reader.resolver
 
+import android.util.Log
+import com.kvs.samsunghealthreporter.decorator.addAggregateFunction
+import com.kvs.samsunghealthreporter.decorator.setTimeUnit
+import com.kvs.samsunghealthreporter.model.AggregateFunction
 import com.kvs.samsunghealthreporter.model.HeartRate
 import com.kvs.samsunghealthreporter.model.StepCount
 import com.kvs.samsunghealthreporter.model.Time
@@ -67,7 +71,40 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         filter: HealthDataResolver.Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<HeartRate> {
-        TODO("Not yet implemented")
+        Log.d("FFF", startTime.toString())
+        val list = mutableListOf<HeartRate>()
+        val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
+            .setDataType(HealthConstants.HeartRate.HEALTH_DATA_TYPE)
+            .addAggregateFunction(AggregateFunction.MAX, HealthConstants.HeartRate.HEART_RATE)
+            .addAggregateFunction(AggregateFunction.MIN, HealthConstants.HeartRate.HEART_RATE)
+            .addAggregateFunction(AggregateFunction.AVG, HealthConstants.HeartRate.HEART_RATE)
+            .setLocalTimeRange(
+                HealthConstants.StepCount.START_TIME,
+                HealthConstants.StepCount.TIME_OFFSET,
+                startTime.time,
+                endTime.time
+            )
+            .setTimeUnit(
+                timeGroup,
+                HealthConstants.StepCount.START_TIME,
+                HealthConstants.StepCount.TIME_OFFSET
+            )
+        filter?.let {
+            requestBuilder.setFilter(filter)
+        }
+        sort?.let {
+            requestBuilder.setSort(it.first, it.second)
+        }
+        val request = requestBuilder.build()
+        val resolver = HealthDataResolver(healthDataStore, null)
+        val result = resolver.aggregate(request).await()
+        val iterator = result.iterator()
+        while (iterator.hasNext()) {
+            val data = iterator.next()
+            val stepCount = HeartRate.fromAggregateData(data, timeGroup)
+            list.add(stepCount)
+        }
+        return list
     }
 
     override fun insert(value: HeartRate): Boolean {

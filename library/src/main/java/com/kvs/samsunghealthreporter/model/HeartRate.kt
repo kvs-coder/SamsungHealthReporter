@@ -57,9 +57,17 @@ class HeartRate :
     ) : Session.ReadResult
 
     data class AggregateResult(
-        override val time: Time
+        override val time: Time,
+        val rate: Rate
     ) :
-        Session.AggregateResult
+        Session.AggregateResult {
+        data class Rate(
+            val max: Float,
+            val min: Float,
+            val avg: Float,
+            val unit: String
+        )
+    }
 
     data class InsertRequest(
         override val packageName: String,
@@ -75,8 +83,11 @@ class HeartRate :
     ) : Session.InsertResult
 
     companion object : Common.Factory<HeartRate> {
-        const val BPM_UNIT = "bpm"
-        const val COUNT_UNIT = "count"
+        private const val BPM_UNIT = "bpm"
+        private const val COUNT_UNIT = "count"
+        private const val ALIAS_MAX_HEART_RATE = "heart_rate_max"
+        private const val ALIAS_MIN_HEART_RATE = "heart_rate_min"
+        private const val ALIAS_AVG_HEART_RATE = "heart_rate_avg"
 
         override fun fromReadData(data: HealthData): HeartRate {
             return HeartRate().apply {
@@ -103,7 +114,17 @@ class HeartRate :
         }
 
         override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): HeartRate {
-            return HeartRate()
+            return HeartRate().apply {
+                aggregateResult = AggregateResult(
+                    Time(data.getString(timeGroup.alias), timeGroup),
+                    AggregateResult.Rate(
+                        data.getFloat(ALIAS_MAX_HEART_RATE),
+                        data.getFloat(ALIAS_MIN_HEART_RATE),
+                        data.getFloat(ALIAS_AVG_HEART_RATE),
+                        BPM_UNIT
+                    )
+                )
+            }
         }
     }
 
@@ -124,8 +145,6 @@ class HeartRate :
             putLong(HealthConstants.HeartRate.START_TIME, insertResult.startDate.time)
             putLong(HealthConstants.HeartRate.TIME_OFFSET, insertResult.timeOffset)
             putLong(HealthConstants.HeartRate.END_TIME, insertResult.endDate.time)
-
-
             putDouble(HealthConstants.HeartRate.HEART_RATE, insertResult.heartRate)
             putDouble(HealthConstants.HeartRate.HEART_BEAT_COUNT, insertResult.heartBeatCount)
             putString(HealthConstants.HeartRate.COMMENT, insertResult.comment)
