@@ -72,6 +72,12 @@ class Sleep : Session<Sleep.ReadResult, Sleep.AggregateResult, Sleep.InsertResul
     override var insertResult: InsertResult? = null
     override val type = HealthConstants.Sleep.HEALTH_DATA_TYPE
 
+    private constructor()
+
+    constructor(insertResult: InsertResult) {
+        this.insertResult = insertResult
+    }
+
     override fun asOriginal(healthDataStore: HealthDataStore): HealthData {
         val insertResult = this.insertResult ?: throw SamsungHealthWriteException(
             "Insert result was null, nothing to write in Samsung Health"
