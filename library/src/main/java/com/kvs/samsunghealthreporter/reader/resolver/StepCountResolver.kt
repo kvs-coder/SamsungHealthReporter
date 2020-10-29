@@ -72,7 +72,6 @@ class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<Step
             .addAggregateFunction(AggregateFunction.AVG, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.MAX, HealthConstants.StepCount.SPEED)
             .addAggregateFunction(AggregateFunction.MIN, HealthConstants.StepCount.SPEED)
-            .addGroup(HealthConstants.StepCount.PACKAGE_NAME, StepCount.ALIAS_PACKAGE_NAME)
             .setLocalTimeRange(
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET,

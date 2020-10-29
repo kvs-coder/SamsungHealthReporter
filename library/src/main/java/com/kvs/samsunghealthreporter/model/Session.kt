@@ -18,7 +18,7 @@ internal interface Session<ReadResult, AggregateResult, InsertResult> :
         val custom: String?
     }
 
-    interface AggregateResult : Common.CommonResult {
+    interface AggregateResult {
         val time: Time
     }
 

@@ -31,7 +31,6 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
     ) : Session.ReadResult
 
     data class AggregateResult(
-        override val packageName: String,
         override val time: Time,
         val totalCount: Count,
         val totalCalories: Calorie,
@@ -97,7 +96,6 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): StepCount {
             return StepCount().apply {
                 aggregateResult = AggregateResult(
-                    data.getString(ALIAS_PACKAGE_NAME),
                     Time(data.getString(timeGroup.alias), timeGroup),
                     Count(data.getInt(ALIAS_TOTAL_COUNT), COUNT_UNIT),
                     Calorie(data.getFloat(ALIAS_TOTAL_CALORIE).roundedDecimal.toFloat(), CALORIE_UNIT),

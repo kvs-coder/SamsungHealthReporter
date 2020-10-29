@@ -41,7 +41,7 @@ class HeartRate :
 
     data class AggregateResult(
         override val time: Time,
-        override val packageName: String,
+        //override val packageName: String,
     ) :
         Session.AggregateResult
 
