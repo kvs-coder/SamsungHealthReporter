@@ -1,6 +1,6 @@
 package com.kvs.samsunghealthreporter.decorator
 
-val Double.roundedDecimal: Double
+val Number.roundedDecimal: Number
     get() {
         val string = String.format("%.3f", this)
         return if (string.contains(",")) {

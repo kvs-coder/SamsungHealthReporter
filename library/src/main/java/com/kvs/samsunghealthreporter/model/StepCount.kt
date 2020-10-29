@@ -6,13 +6,13 @@ import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
 class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepCount.InsertResult> {
-    data class Count(val value: Long, val unit: String)
+    data class Count(val value: Int, val unit: String)
 
-    data class Calorie(val value: Double, val unit: String)
+    data class Calorie(val value: Float, val unit: String)
 
-    data class Speed(val value: Double, val unit: String)
+    data class Speed(val value: Float, val unit: String)
 
-    data class Distance(val value: Double, val unit: String)
+    data class Distance(val value: Float, val unit: String)
 
     data class ReadResult(
         override val uuid: String,
@@ -46,10 +46,10 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         override val startDate: Date,
         override val timeOffset: Long,
         override val endDate: Date,
-        val count: Long,
-        val calorie: Double,
-        val speed: Double,
-        val distance: Double
+        val count: Int,
+        val calorie: Float,
+        val speed: Float,
+        val distance: Float
     ) : Session.InsertResult
 
     companion object : Common.Factory<StepCount> {
@@ -57,7 +57,7 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
         private const val CALORIE_UNIT = "kcal"
         private const val SPEED_UNIT = "km/h"
         private const val ALIAS_TOTAL_COUNT = "count_sum"
-        private const val ALIAS_TOTAL_CALORIES = "calories_sum"
+        private const val ALIAS_TOTAL_CALORIE = "calorie_sum"
         private const val ALIAS_AVERAGE_SPEED = "speed_avg"
         private const val ALIAS_MAX_SPEED = "speed_max"
         private const val ALIAS_MIN_SPEED = "speed_min"
@@ -77,17 +77,17 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
                     data.getLong(HealthConstants.StepCount.START_TIME),
                     data.getLong(HealthConstants.StepCount.TIME_OFFSET),
                     data.getLong(HealthConstants.StepCount.END_TIME),
-                    Count(data.getLong(HealthConstants.StepCount.COUNT), COUNT_UNIT),
+                    Count(data.getInt(HealthConstants.StepCount.COUNT), COUNT_UNIT),
                     Calorie(
-                        data.getDouble(HealthConstants.StepCount.CALORIE).roundedDecimal,
+                        data.getFloat(HealthConstants.StepCount.CALORIE).roundedDecimal.toFloat(),
                         CALORIE_UNIT
                     ),
                     Speed(
-                        data.getDouble(HealthConstants.StepCount.SPEED).roundedDecimal,
+                        data.getFloat(HealthConstants.StepCount.SPEED).roundedDecimal.toFloat(),
                         SPEED_UNIT
                     ),
                     Distance(
-                        data.getDouble(HealthConstants.StepCount.DISTANCE).roundedDecimal,
+                        data.getFloat(HealthConstants.StepCount.DISTANCE).roundedDecimal.toFloat(),
                         HealthDataUnit.METER.unitName
                     )
                 )
@@ -99,13 +99,13 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
                 aggregateResult = AggregateResult(
                     data.getString(ALIAS_PACKAGE_NAME),
                     Time(data.getString(timeGroup.alias), timeGroup),
-                    Count(data.getLong(ALIAS_TOTAL_COUNT), COUNT_UNIT),
-                    Calorie(data.getDouble(ALIAS_TOTAL_CALORIES).roundedDecimal, CALORIE_UNIT),
-                    Speed(data.getDouble(ALIAS_AVERAGE_SPEED).roundedDecimal, SPEED_UNIT),
-                    Speed(data.getDouble(ALIAS_MAX_SPEED).roundedDecimal, SPEED_UNIT),
-                    Speed(data.getDouble(ALIAS_MIN_SPEED).roundedDecimal, SPEED_UNIT),
+                    Count(data.getInt(ALIAS_TOTAL_COUNT), COUNT_UNIT),
+                    Calorie(data.getFloat(ALIAS_TOTAL_CALORIE).roundedDecimal.toFloat(), CALORIE_UNIT),
+                    Speed(data.getFloat(ALIAS_AVERAGE_SPEED).roundedDecimal.toFloat(), SPEED_UNIT),
+                    Speed(data.getFloat(ALIAS_MAX_SPEED).roundedDecimal.toFloat(), SPEED_UNIT),
+                    Speed(data.getFloat(ALIAS_MIN_SPEED).roundedDecimal.toFloat(), SPEED_UNIT),
                     Distance(
-                        data.getDouble(ALIAS_TOTAL_DISTANCE).roundedDecimal,
+                        data.getFloat(ALIAS_TOTAL_DISTANCE).roundedDecimal.toFloat(),
                         HealthDataUnit.METER.unitName
                     )
                 )
@@ -137,10 +137,10 @@ class StepCount : Session<StepCount.ReadResult, StepCount.AggregateResult, StepC
             putLong(HealthConstants.StepCount.START_TIME, insertResult.startDate.time)
             putLong(HealthConstants.StepCount.TIME_OFFSET, insertResult.timeOffset)
             putLong(HealthConstants.StepCount.END_TIME, insertResult.endDate.time)
-            putLong(HealthConstants.StepCount.COUNT, insertResult.count)
-            putDouble(HealthConstants.StepCount.CALORIE, insertResult.calorie)
-            putDouble(HealthConstants.StepCount.SPEED, insertResult.speed)
-            putDouble(HealthConstants.StepCount.DISTANCE, insertResult.distance)
+            putInt(HealthConstants.StepCount.COUNT, insertResult.count)
+            putFloat(HealthConstants.StepCount.CALORIE, insertResult.calorie)
+            putFloat(HealthConstants.StepCount.SPEED, insertResult.speed)
+            putFloat(HealthConstants.StepCount.DISTANCE, insertResult.distance)
         }
     }
 }
