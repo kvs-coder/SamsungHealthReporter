@@ -37,6 +37,10 @@ class Sleep : Session<Sleep.ReadResult, Sleep.AggregateResult, Sleep.InsertResul
     ) : Session.InsertResult
 
     companion object : Common.Factory<Sleep> {
+        private const val MINUTE_UNIT = "min"
+        const val ALIAS_END_TIME = "alias_end_time"
+        const val ALIAS_START_TIME = "alias_start_time"
+
         override fun fromReadData(data: HealthData): Sleep {
             return Sleep().apply {
                 readResult = ReadResult(
@@ -56,12 +60,12 @@ class Sleep : Session<Sleep.ReadResult, Sleep.AggregateResult, Sleep.InsertResul
 
         override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): Sleep {
             return Sleep().apply {
-                val endTime = data.getLong(HealthConstants.Sleep.END_TIME)
-                val startTime = data.getLong(HealthConstants.Sleep.START_TIME)
+                val endTime = data.getLong(ALIAS_END_TIME)
+                val startTime = data.getLong(ALIAS_START_TIME)
                 val totalMinutes = endTime.minus(startTime)
                 aggregateResult = AggregateResult(
                     Time(data.getString(timeGroup.alias), timeGroup),
-                    AggregateResult.Sleep(totalMinutes.toInt(), "min")
+                    AggregateResult.Sleep(totalMinutes.toInt(), MINUTE_UNIT)
                 )
             }
         }

@@ -1,10 +1,12 @@
 package com.kvs.samsunghealthreporter.model.session
 
+import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.model.Common
 import com.kvs.samsunghealthreporter.model.Time
 import com.samsung.android.sdk.healthdata.HealthConstants
 import com.samsung.android.sdk.healthdata.HealthData
 import com.samsung.android.sdk.healthdata.HealthDataStore
+import com.samsung.android.sdk.healthdata.HealthDeviceManager
 import java.util.*
 
 class SleepStage :
@@ -35,7 +37,7 @@ class SleepStage :
 
     data class AggregateResult(
         override val time: Time,
-        val description: String,
+        val stage: String,
         val sleep: Sleep
     ) : Session.AggregateResult {
         data class Sleep(
@@ -51,7 +53,8 @@ class SleepStage :
         override val startDate: Date,
         override val timeOffset: Long,
         override val endDate: Date,
-        override val packageName: String
+        override val packageName: String,
+        val stage: Int
     ) : Session.InsertResult
 
     companion object : Common.Factory<SleepStage> {
@@ -124,6 +127,18 @@ class SleepStage :
     }
 
     override fun asOriginal(healthDataStore: HealthDataStore): HealthData {
-        TODO("Not yet implemented")
+        val insertResult = this.insertResult ?: throw SamsungHealthWriteException(
+            "Insert result was null, nothing to write in Samsung Health"
+        )
+        val deviceUuid = HealthDeviceManager(healthDataStore).localDevice.uuid
+        return HealthData().apply {
+            sourceDevice = deviceUuid
+            putString(HealthConstants.SleepStage.DEVICE_UUID, deviceUuid)
+            putString(HealthConstants.SleepStage.PACKAGE_NAME, insertResult.packageName)
+            putLong(HealthConstants.SleepStage.START_TIME, insertResult.startDate.time)
+            putLong(HealthConstants.SleepStage.TIME_OFFSET, insertResult.timeOffset)
+            putLong(HealthConstants.SleepStage.END_TIME, insertResult.endDate.time)
+            putInt(HealthConstants.SleepStage.STAGE, insertResult.stage)
+        }
     }
 }
