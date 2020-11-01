@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
                 try {
-                    //handleHeartRate(reader)
-                    handleStepCount(reader)
+                    handleHeartRate(reader)
+                    //handleStepCount(reader)
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
@@ -121,11 +121,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleHeartRate(reader: SamsungHealthReader?) {
         reader?.heartRateResolver?.let { resolver ->
-            resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
+            resolver.read(Date().dayStart.dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)
             }
             resolver.aggregate(
-                Date().dayStart,
+                Date().dayStart.dayStart,
                 Date().dayEnd,
                 Time.Group.DAILY,
                 null,

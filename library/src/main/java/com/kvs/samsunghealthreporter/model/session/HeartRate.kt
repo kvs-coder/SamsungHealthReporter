@@ -1,47 +1,16 @@
 package com.kvs.samsunghealthreporter.model.session
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.model.Common
 import com.kvs.samsunghealthreporter.model.Time
-import com.samsung.android.sdk.healthdata.HealthConstants
-import com.samsung.android.sdk.healthdata.HealthData
-import com.samsung.android.sdk.healthdata.HealthDataStore
-import com.samsung.android.sdk.healthdata.HealthDeviceManager
+import com.samsung.android.sdk.healthdata.*
 import java.util.*
+
 
 class HeartRate :
     Session<HeartRate.ReadResult, HeartRate.AggregateResult, HeartRate.InsertResult> {
-    data class Rate(val value: Float, val unit: String)
-
-    data class BeatCount(val value: Int, val unit: String)
-
-    data class BinningData(
-        val value: ByteArray?,
-        val min: Min,
-        val max: Max
-    ) {
-        data class Min(val value: Long, val unit: String)
-        data class Max(val value: Long, val unit: String)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) return true
-            if (javaClass != other?.javaClass) return false
-
-            other as BinningData
-
-            if (value != null) {
-                if (other.value == null) return false
-                if (!value.contentEquals(other.value)) return false
-            } else if (other.value != null) return false
-
-            return true
-        }
-
-        override fun hashCode(): Int {
-            return value?.contentHashCode() ?: 0
-        }
-    }
-
     data class ReadResult(
         override val uuid: String,
         override val packageName: String,
@@ -54,9 +23,44 @@ class HeartRate :
         override val endTime: Long,
         val rate: Rate,
         val beatCount: BeatCount,
+        val binningData: BinningData?,
         val comment: String?,
-        val binningData: BinningData
-    ) : Session.ReadResult
+    ) : Session.ReadResult {
+        data class Rate(val value: Float, val unit: String)
+
+        data class BeatCount(val value: Int, val unit: String)
+
+        data class BinningData(
+            val raw: List<Raw>,
+            val min: Min,
+            val max: Max
+        ) {
+            class Raw {
+                @SerializedName("heart_rate")
+                @Expose
+                var heartRate: Float? = null
+
+                @SerializedName("heart_rate_min")
+                @Expose
+                var heartRateMin: Float? = null
+
+                @SerializedName("heart_rate_max")
+                @Expose
+                var heartRateMax: Float? = null
+
+                @SerializedName("start_time")
+                @Expose
+                var startTime: Long? = null
+
+                @SerializedName("end_time")
+                @Expose
+                var endTime: Long? = null
+            }
+
+            data class Min(val value: Long, val unit: String)
+            data class Max(val value: Long, val unit: String)
+        }
+    }
 
     data class AggregateResult(
         override val time: Time,
@@ -89,6 +93,21 @@ class HeartRate :
 
         override fun fromReadData(data: HealthData): HeartRate {
             return HeartRate().apply {
+                val binningData =
+                    if (data.getBlob(HealthConstants.HeartRate.BINNING_DATA) != null) ReadResult.BinningData(
+                        HealthDataUtil.getStructuredDataList(
+                            data.getBlob(HealthConstants.HeartRate.BINNING_DATA),
+                            ReadResult.BinningData.Raw::class.java
+                        ),
+                        ReadResult.BinningData.Min(
+                            data.getLong(HealthConstants.HeartRate.MIN),
+                            BPM_UNIT
+                        ),
+                        ReadResult.BinningData.Max(
+                            data.getLong(HealthConstants.HeartRate.MAX),
+                            BPM_UNIT
+                        )
+                    ) else null
                 readResult = ReadResult(
                     data.getString(HealthConstants.HeartRate.UUID),
                     data.getString(HealthConstants.HeartRate.PACKAGE_NAME),
@@ -99,14 +118,13 @@ class HeartRate :
                     data.getLong(HealthConstants.HeartRate.START_TIME),
                     data.getLong(HealthConstants.HeartRate.TIME_OFFSET),
                     data.getLong(HealthConstants.HeartRate.END_TIME),
-                    Rate(data.getFloat(HealthConstants.HeartRate.HEART_RATE), BPM_UNIT),
-                    BeatCount(data.getInt(HealthConstants.HeartRate.HEART_BEAT_COUNT), COUNT_UNIT),
-                    data.getString(HealthConstants.HeartRate.COMMENT),
-                    BinningData(
-                        data.getBlob(HealthConstants.HeartRate.BINNING_DATA),
-                        BinningData.Min(data.getLong(HealthConstants.HeartRate.MIN), BPM_UNIT),
-                        BinningData.Max(data.getLong(HealthConstants.HeartRate.MAX), BPM_UNIT)
-                    )
+                    ReadResult.Rate(data.getFloat(HealthConstants.HeartRate.HEART_RATE), BPM_UNIT),
+                    ReadResult.BeatCount(
+                        data.getInt(HealthConstants.HeartRate.HEART_BEAT_COUNT),
+                        COUNT_UNIT
+                    ),
+                    binningData,
+                    data.getString(HealthConstants.HeartRate.COMMENT)
                 )
             }
         }
