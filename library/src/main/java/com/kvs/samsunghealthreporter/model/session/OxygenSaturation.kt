@@ -1,8 +1,7 @@
 package com.kvs.samsunghealthreporter.model.session
 
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
-import com.kvs.samsunghealthreporter.model.Common
-import com.kvs.samsunghealthreporter.model.Time
+import com.kvs.samsunghealthreporter.model.*
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 

@@ -1,12 +1,8 @@
 package com.kvs.samsunghealthreporter.model.session
 
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
-import com.kvs.samsunghealthreporter.model.Common
-import com.kvs.samsunghealthreporter.model.Time
-import com.samsung.android.sdk.healthdata.HealthConstants
-import com.samsung.android.sdk.healthdata.HealthData
-import com.samsung.android.sdk.healthdata.HealthDataStore
-import com.samsung.android.sdk.healthdata.HealthDeviceManager
+import com.kvs.samsunghealthreporter.model.*
+import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
 class Sleep : Session<Sleep.ReadResult, Sleep.AggregateResult, Sleep.InsertResult> {

@@ -17,8 +17,8 @@ class HeartRate :
 
     data class BinningData(
         val value: ByteArray?,
-        val max: Max,
-        val min: Min
+        val min: Min,
+        val max: Max
     ) {
         data class Min(val value: Long, val unit: String)
         data class Max(val value: Long, val unit: String)
@@ -64,8 +64,8 @@ class HeartRate :
     ) :
         Session.AggregateResult {
         data class Rate(
-            val max: Float,
             val min: Float,
+            val max: Float,
             val avg: Float,
             val unit: String
         )
@@ -83,8 +83,8 @@ class HeartRate :
     companion object : Common.Factory<HeartRate> {
         private const val BPM_UNIT = "bpm"
         private const val COUNT_UNIT = "count"
-        private const val ALIAS_MAX_HEART_RATE = "heart_rate_max"
         private const val ALIAS_MIN_HEART_RATE = "heart_rate_min"
+        private const val ALIAS_MAX_HEART_RATE = "heart_rate_max"
         private const val ALIAS_AVG_HEART_RATE = "heart_rate_avg"
 
         override fun fromReadData(data: HealthData): HeartRate {
@@ -104,8 +104,8 @@ class HeartRate :
                     data.getString(HealthConstants.HeartRate.COMMENT),
                     BinningData(
                         data.getBlob(HealthConstants.HeartRate.BINNING_DATA),
-                        BinningData.Max(data.getLong(HealthConstants.HeartRate.MAX), BPM_UNIT),
-                        BinningData.Min(data.getLong(HealthConstants.HeartRate.MIN), BPM_UNIT)
+                        BinningData.Min(data.getLong(HealthConstants.HeartRate.MIN), BPM_UNIT),
+                        BinningData.Max(data.getLong(HealthConstants.HeartRate.MAX), BPM_UNIT)
                     )
                 )
             }
@@ -116,8 +116,8 @@ class HeartRate :
                 aggregateResult = AggregateResult(
                     Time(data.getString(timeGroup.alias), timeGroup),
                     AggregateResult.Rate(
-                        data.getFloat(ALIAS_MAX_HEART_RATE),
                         data.getFloat(ALIAS_MIN_HEART_RATE),
+                        data.getFloat(ALIAS_MAX_HEART_RATE),
                         data.getFloat(ALIAS_AVG_HEART_RATE),
                         BPM_UNIT
                     )
