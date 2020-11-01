@@ -9,6 +9,16 @@ import java.util.*
 
 class SleepStage :
     Session<SleepStage.ReadResult, SleepStage.AggregateResult, SleepStage.InsertResult> {
+    data class Stage(val id: Int) {
+        val description = when (id) {
+            HealthConstants.SleepStage.STAGE_AWAKE -> "awake"
+            HealthConstants.SleepStage.STAGE_LIGHT -> "light"
+            HealthConstants.SleepStage.STAGE_DEEP -> "deep"
+            HealthConstants.SleepStage.STAGE_REM -> "rem"
+            else -> "unknown"
+        }
+    }
+
     data class ReadResult(
         override val uuid: String,
         override val packageName: String,
@@ -21,25 +31,18 @@ class SleepStage :
         override val endTime: Long,
         val id: String,
         val stage: Stage
-    ) : Session.ReadResult {
-        data class Stage(val id: Int) {
-            val description = when (id) {
-                HealthConstants.SleepStage.STAGE_AWAKE -> "awake"
-                HealthConstants.SleepStage.STAGE_LIGHT -> "light"
-                HealthConstants.SleepStage.STAGE_DEEP -> "deep"
-                HealthConstants.SleepStage.STAGE_REM -> "rem"
-                else -> "unknown"
-            }
-        }
-    }
+    ) : Session.ReadResult
 
-    data class AggregateResult(override val time: Time, val sleep: Sleep) :
-        Session.AggregateResult {
+    data class AggregateResult(
+        override val time: Time,
+        val description: String,
+        val sleep: Sleep
+    ) : Session.AggregateResult {
         data class Sleep(
-            val awake: Int,
-            val light: Int,
-            val deep: Int,
-            val rem: Int,
+            var awake: Long? = null,
+            var light: Long? = null,
+            var deep: Long? = null,
+            var rem: Long? = null,
             val unit: String
         )
     }
@@ -52,6 +55,11 @@ class SleepStage :
     ) : Session.InsertResult
 
     companion object : Common.Factory<SleepStage> {
+        private const val MINUTE_UNIT = "min"
+        const val ALIAS_END_TIME = "alias_end_time"
+        const val ALIAS_START_TIME = "alias_start_time"
+        const val ALIAS_STAGE = "alias_stage"
+
         override fun fromReadData(data: HealthData): SleepStage {
             return SleepStage().apply {
                 readResult = ReadResult(
@@ -65,13 +73,42 @@ class SleepStage :
                     data.getLong(HealthConstants.SleepStage.TIME_OFFSET),
                     data.getLong(HealthConstants.SleepStage.END_TIME),
                     data.getString(HealthConstants.SleepStage.SLEEP_ID),
-                    ReadResult.Stage(data.getInt(HealthConstants.SleepStage.STAGE))
+                    Stage(data.getInt(HealthConstants.SleepStage.STAGE))
                 )
             }
         }
 
         override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): SleepStage {
-            return SleepStage()
+            return SleepStage().apply {
+                val endTime = data.getLong(ALIAS_END_TIME)
+                val startTime = data.getLong(ALIAS_START_TIME)
+                val totalMinutes = endTime.minus(startTime)
+                val stage = Stage(data.getInt(ALIAS_STAGE))
+                val sleep = when (stage.id) {
+                    HealthConstants.SleepStage.STAGE_AWAKE -> AggregateResult.Sleep(
+                        awake = totalMinutes,
+                        unit = MINUTE_UNIT
+                    )
+                    HealthConstants.SleepStage.STAGE_LIGHT -> AggregateResult.Sleep(
+                        light = totalMinutes,
+                        unit = MINUTE_UNIT
+                    )
+                    HealthConstants.SleepStage.STAGE_DEEP -> AggregateResult.Sleep(
+                        deep = totalMinutes,
+                        unit = MINUTE_UNIT
+                    )
+                    HealthConstants.SleepStage.STAGE_REM -> AggregateResult.Sleep(
+                        rem = totalMinutes,
+                        unit = MINUTE_UNIT
+                    )
+                    else -> AggregateResult.Sleep(0, 0, 0, 0, MINUTE_UNIT)
+                }
+                aggregateResult = AggregateResult(
+                    Time(data.getString(timeGroup.alias), timeGroup),
+                    stage.description,
+                    sleep
+                )
+            }
         }
     }
 
