@@ -1,13 +1,11 @@
 package com.kvs.samsunghealthreporter.model.session
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.*
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.model.Common
 import com.kvs.samsunghealthreporter.model.Time
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
-
 
 class HeartRate :
     Session<HeartRate.ReadResult, HeartRate.AggregateResult, HeartRate.InsertResult> {
