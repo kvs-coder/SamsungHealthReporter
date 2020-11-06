@@ -19,6 +19,7 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         override val endTime: Long,
         val type: Int,
         val customType: String,
+        val speed: Speed,
         val distance: Distance,
         val calorie: Calorie,
         val duration: Duration,
@@ -33,6 +34,12 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         val location: Location?,
         val additional: Additional?
     ) : Session.ReadResult {
+        data class Speed(
+            val mean: Float,
+            val max: Float,
+            val unit: String
+        )
+
         data class Distance(
             val value: Float,
             val incline: Float,
@@ -187,7 +194,43 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
 
     data class AggregateResult(
         override val time: Time,
-    ) : Session.AggregateResult
+        val calorie: Calorie,
+        val speed: Speed,
+        val distance: Distance,
+        val heartRate: HeartRate
+    ) : Session.AggregateResult {
+        data class Calorie(
+            val min: Float,
+            val max: Float,
+            val avg: Float,
+            val sum: Float,
+            val count: Float,
+            val unit: String
+        )
+
+        data class Speed(
+            val min: Float,
+            val max: Float,
+            val avg: Float,
+            val unit: String
+        )
+
+        data class Distance(
+            val min: Float,
+            val max: Float,
+            val avg: Float,
+            val sum: Float,
+            val count: Float,
+            val unit: String
+        )
+
+        data class HeartRate(
+            val min: Float,
+            val max: Float,
+            val avg: Float,
+            val unit: String
+        )
+    }
 
     data class InsertResult(
         override val packageName: String,
@@ -197,6 +240,7 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
     ) : Session.InsertResult
 
     companion object : Common.Factory<Exercise> {
+        private const val SPEED_UNIT = "m/s"
         private const val REVOLUTIONS_MIN_UNIT = "revolutions/min"
         private const val MILLIS_UNIT = "millis"
         private const val WATT_UNIT = "watt"
@@ -207,6 +251,19 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         private const val ALIAS_MIN_HEART_RATE = "heart_rate_min"
         private const val ALIAS_MAX_HEART_RATE = "heart_rate_max"
         private const val ALIAS_AVG_HEART_RATE = "heart_rate_avg"
+        private const val ALIAS_MIN_CALORIE = "calorie_min"
+        private const val ALIAS_MAX_CALORIE = "calorie_max"
+        private const val ALIAS_AVG_CALORIE = "calorie_avg"
+        private const val ALIAS_SUM_CALORIE = "calorie_sum"
+        private const val ALIAS_COUNT_CALORIE = "calorie_count"
+        private const val ALIAS_MIN_SPEED = "speed_min"
+        private const val ALIAS_MAX_SPEED = "speed_max"
+        private const val ALIAS_AVG_SPEED = "speed_avg"
+        private const val ALIAS_MIN_DISTANCE = "distance_min"
+        private const val ALIAS_MAX_DISTANCE = "distance_max"
+        private const val ALIAS_AVG_DISTANCE = "distance_avg"
+        private const val ALIAS_SUM_DISTANCE = "distance_sum"
+        private const val ALIAS_COUNT_DISTANCE = "distance_count"
 
         override fun fromReadData(data: HealthData): Exercise {
             return Exercise().apply {
@@ -239,6 +296,11 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
                     data.getLong(HealthConstants.Exercise.END_TIME),
                     data.getInt(HealthConstants.Exercise.EXERCISE_TYPE),
                     data.getString(HealthConstants.Exercise.EXERCISE_CUSTOM_TYPE),
+                    ReadResult.Speed(
+                        data.getFloat(HealthConstants.Exercise.MEAN_SPEED),
+                        data.getFloat(HealthConstants.Exercise.MAX_SPEED),
+                        SPEED_UNIT
+                    ),
                     ReadResult.Distance(
                         data.getFloat(HealthConstants.Exercise.DISTANCE),
                         data.getFloat(HealthConstants.Exercise.INCLINE_DISTANCE),
@@ -300,6 +362,34 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
             return Exercise().apply {
                 aggregateResult = AggregateResult(
                     Time(data.getString(timeGroup.alias), timeGroup),
+                    AggregateResult.Calorie(
+                        data.getFloat(ALIAS_MIN_CALORIE),
+                        data.getFloat(ALIAS_MAX_CALORIE),
+                        data.getFloat(ALIAS_AVG_CALORIE),
+                        data.getFloat(ALIAS_SUM_CALORIE),
+                        data.getFloat(ALIAS_COUNT_CALORIE),
+                        CALORIE_UNIT
+                    ),
+                    AggregateResult.Speed(
+                        data.getFloat(ALIAS_MIN_SPEED),
+                        data.getFloat(ALIAS_MAX_SPEED),
+                        data.getFloat(ALIAS_AVG_SPEED),
+                        SPEED_UNIT
+                    ),
+                    AggregateResult.Distance(
+                        data.getFloat(ALIAS_MIN_DISTANCE),
+                        data.getFloat(ALIAS_MAX_DISTANCE),
+                        data.getFloat(ALIAS_AVG_DISTANCE),
+                        data.getFloat(ALIAS_SUM_DISTANCE),
+                        data.getFloat(ALIAS_COUNT_DISTANCE),
+                        HealthDataUnit.METER.unitName
+                    ),
+                    AggregateResult.HeartRate(
+                        data.getFloat(ALIAS_MIN_HEART_RATE),
+                        data.getFloat(ALIAS_MAX_HEART_RATE),
+                        data.getFloat(ALIAS_AVG_HEART_RATE),
+                        BPM_UNIT
+                    )
                 )
             }
         }
