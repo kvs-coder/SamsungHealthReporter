@@ -52,16 +52,17 @@ class Electrocardiogram :
             val count: Count
         ) {
             data class Frequency(
-                val min: Float,
-                val max: Float,
-                val avg: Float,
+                val min: Int,
+                val max: Int,
+                val avg: Int,
                 val unit: String
             )
 
             data class Count(
-                val min: Float,
-                val max: Float,
-                val avg: Float, val unit: String
+                val min: Int,
+                val max: Int,
+                val avg: Int,
+                val unit: String
             )
         }
 
@@ -141,15 +142,15 @@ class Electrocardiogram :
                     Time(data.getString(timeGroup.alias), timeGroup),
                     AggregateResult.Sample(
                         AggregateResult.Sample.Frequency(
-                            data.getFloat(ALIAS_MIN_SAMPLE_FREQUENCY),
-                            data.getFloat(ALIAS_MAX_SAMPLE_FREQUENCY),
-                            data.getFloat(ALIAS_AVG_SAMPLE_FREQUENCY),
+                            data.getInt(ALIAS_MIN_SAMPLE_FREQUENCY),
+                            data.getInt(ALIAS_MAX_SAMPLE_FREQUENCY),
+                            data.getInt(ALIAS_AVG_SAMPLE_FREQUENCY),
                             HERTZ_UNIT
                         ),
                         AggregateResult.Sample.Count(
-                            data.getFloat(ALIAS_MIN_SAMPLE_COUNT),
-                            data.getFloat(ALIAS_MAX_SAMPLE_COUNT),
-                            data.getFloat(ALIAS_AVG_SAMPLE_COUNT),
+                            data.getInt(ALIAS_MIN_SAMPLE_COUNT),
+                            data.getInt(ALIAS_MAX_SAMPLE_COUNT),
+                            data.getInt(ALIAS_AVG_SAMPLE_COUNT),
                             COUNT_UNIT
                         )
                     ),
