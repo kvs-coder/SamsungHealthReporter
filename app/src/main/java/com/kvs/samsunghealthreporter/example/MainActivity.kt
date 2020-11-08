@@ -15,7 +15,6 @@ import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
-import com.kvs.samsunghealthreporter.observer.SamsungHealthObserverListener
 import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
 import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
@@ -56,12 +55,22 @@ class MainActivity : AppCompatActivity() {
             Thread {
                 try {
                     handleHeartRate(reader)
-                    //handleStepCount(reader)
+                    handleStepCount(reader)
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
                 writer?.write()
-                observer?.subscribeOn(SamsungHealthSessionType.STEP_COUNT)
+                observer?.apply {
+                    observe(SamsungHealthSessionType.STEP_COUNT)
+                        .subscribe(
+                            onNext = {
+                                Log.d(TAG, "onNext: ${it.string}")
+                            },
+                            onError = {
+                                Log.e(TAG, "onError: $it")
+                            }
+                        )
+                }
             }.start()
         }
 
@@ -172,23 +181,6 @@ class MainActivity : AppCompatActivity() {
             Log.e(TAG, "onWriteException $exception")
         }
     }
-    private val mObserverListener = object : SamsungHealthObserverListener {
-        override fun onSubscribed(type: SamsungHealthType) {
-            Log.i(TAG, "onChange ${type.string}")
-        }
-
-        override fun onDisposed() {
-            Log.i(TAG, "onDisposed")
-        }
-
-        override fun onChange(type: SamsungHealthType) {
-            Log.i(TAG, "onChange ${type.string}")
-        }
-
-        override fun onException(exception: Exception) {
-            Log.e(TAG, "onChange $exception")
-        }
-    }
     private lateinit var reporter: SamsungHealthReporter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -201,8 +193,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 connectionListener = mConnectionListener,
                 permissionListener = mPermissionListener,
-                writerListener = mWriterListener,
-                observerListener = mObserverListener
+                writerListener = mWriterListener
             )
             reporter.openConnection()
         } catch (exception: SamsungHealthInitializationException) {

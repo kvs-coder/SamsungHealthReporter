@@ -4,35 +4,43 @@ import com.kvs.samsunghealthreporter.*
 import com.samsung.android.sdk.healthdata.*
 
 class SamsungHealthObserver(
-    private val healthDataStore: HealthDataStore,
-    private val listener: SamsungHealthObserverListener
+    private val healthDataStore: HealthDataStore
 ) {
     private val mDataObserver: HealthDataObserver = object : HealthDataObserver(null) {
         override fun onChange(dataTypeName: String) {
             try {
                 val type = SamsungHealthType.initWith(dataTypeName)
-                listener.onChange(type)
+                mOnNext?.let { it(type) }
             } catch (exception: SamsungHealthTypeException) {
-                listener.onException(exception)
+                mOnError?.let { it(exception) }
             }
         }
     }
 
-    fun subscribeOn(type: SamsungHealthType) {
-        try {
-            HealthDataObserver.addObserver(healthDataStore, type.string, mDataObserver)
-            listener.onSubscribed(type)
-        } catch (exception: RuntimeException) {
-            listener.onException(exception)
+    private var mOnNext: ((SamsungHealthType) -> Unit)? = null
+    private var mOnError: ((Exception) -> Unit)? = null
+
+    fun observe(type: SamsungHealthType): SamsungHealthObserver {
+        return this.apply {
+            try {
+                HealthDataObserver.addObserver(healthDataStore, type.string, mDataObserver)
+            } catch (exception: RuntimeException) {
+                mOnError?.let { it(exception) }
+            }
         }
     }
 
+    fun subscribe(
+        onNext: (SamsungHealthType) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        this.mOnNext = { onNext(it) }
+        this.mOnError = { onError(it) }
+    }
+
     fun dispose() {
-        try {
-            HealthDataObserver.removeObserver(healthDataStore, mDataObserver)
-            listener.onDisposed()
-        } catch (exception: IllegalStateException) {
-            listener.onException(exception)
-        }
+        HealthDataObserver.removeObserver(healthDataStore, mDataObserver)
+        this.mOnNext = null
+        this.mOnError = null
     }
 }

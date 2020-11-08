@@ -33,7 +33,6 @@ class SleepStage :
 
     data class AggregateResult(
         override val time: Time,
-        val stage: String,
         val sleep: Sleep
     ) : Session.AggregateResult {
         data class Sleep(
@@ -104,7 +103,6 @@ class SleepStage :
                 }
                 aggregateResult = AggregateResult(
                     Time(data.getString(timeGroup.alias), timeGroup),
-                    stage.description,
                     sleep
                 )
             }
