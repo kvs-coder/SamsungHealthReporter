@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
-import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
@@ -14,8 +13,7 @@ class SamsungHealthReporter(
     toWriteTypes: List<SamsungHealthType>,
     private val activity: Activity,
     private val connectionListener: SamsungHealthConnectionListener,
-    private val permissionListener: SamsungHealthPermissionListener,
-    private val writerListener: SamsungHealthWriterListener? = null
+    private val permissionListener: SamsungHealthPermissionListener
 ) {
     companion object {
         private const val SAMSUNG_HEALTH_PACKAGE = "com.sec.android.app.shealth"
@@ -42,8 +40,7 @@ class SamsungHealthReporter(
                 mStore,
                 toReadTypes,
                 toWriteTypes,
-                permissionListener,
-                writerListener
+                permissionListener
             )
             connectionListener.onConnected(manager)
         }

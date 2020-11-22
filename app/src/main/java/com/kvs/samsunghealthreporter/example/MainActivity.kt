@@ -15,9 +15,7 @@ import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
-import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
-import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
-import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
+import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthConstants
 import com.samsung.android.sdk.healthdata.HealthDataResolver
 import java.lang.Exception
@@ -46,20 +44,18 @@ class MainActivity : AppCompatActivity() {
     }
     private val mPermissionListener = object : SamsungHealthPermissionListener {
         override fun onPermissionAcquired(
-            reader: SamsungHealthReader?,
-            writer: SamsungHealthWriter?,
-            observer: SamsungHealthObserver?,
-            types: List<SamsungHealthType>
+            types: List<SamsungHealthType>,
+            resolver: SamsungHealthResolver?,
+            observer: SamsungHealthObserver?
         ) {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
                 try {
-                    handleHeartRate(reader)
-                    handleStepCount(reader)
+                    handleHeartRate(resolver)
+                    handleStepCount(resolver)
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
-                writer?.write()
                 observer?.apply {
                     observe(SamsungHealthSessionType.STEP_COUNT)
                         .subscribe(
@@ -83,12 +79,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleStepCount(reader: SamsungHealthReader?) {
-        reader?.stepCountResolver?.let { resolver ->
-            resolver.read(Date().dayStart, Date().dayEnd, null, null).forEach {
+    private fun handleStepCount(resolver: SamsungHealthResolver?) {
+        resolver?.stepCountResolver?.let { r ->
+            r.read(Date().dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)
             }
-            resolver.aggregate(
+            r.aggregate(
                 Date().dayStart,
                 Date().dayEnd,
                 Time.Group.DAILY,
@@ -109,16 +105,16 @@ class MainActivity : AppCompatActivity() {
                     80.0f
                 )
             )
-            val insertSuccess = resolver.insert(stepCount)
+            val insertSuccess = r.insert(stepCount)
             Log.w(TAG, "Insert success: $insertSuccess")
 
-            val updateSuccess = resolver.update(
+            val updateSuccess = r.update(
                 stepCount,
                 HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999)
             )
             Log.w(TAG, "Update success: $updateSuccess")
 
-            val deleteSuccess = resolver.delete(
+            val deleteSuccess = r.delete(
                 HealthDataResolver.Filter.eq(
                     HealthConstants.StepCount.COUNT,
                     1000
@@ -128,12 +124,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleHeartRate(reader: SamsungHealthReader?) {
-        reader?.heartRateResolver?.let { resolver ->
-            resolver.read(Date().dayStart.dayStart, Date().dayEnd, null, null).forEach {
+    private fun handleHeartRate(resolver: SamsungHealthResolver?) {
+        resolver?.heartRateResolver?.let { r ->
+            r.read(Date().dayStart.dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)
             }
-            resolver.aggregate(
+            r.aggregate(
                 Date().dayStart.dayStart,
                 Date().dayEnd,
                 Time.Group.DAILY,
@@ -153,16 +149,16 @@ class MainActivity : AppCompatActivity() {
                     1
                 )
             )
-            val insertSuccess = resolver.insert(heartRate)
+            val insertSuccess = r.insert(heartRate)
             Log.w(TAG, "Insert success: $insertSuccess")
 
-            val updateSuccess = resolver.update(
+            val updateSuccess = r.update(
                 heartRate,
                 HealthDataResolver.Filter.eq(HealthConstants.HeartRate.HEART_RATE, 99.5f)
             )
             Log.w(TAG, "Update success: $updateSuccess")
 
-            val deleteSuccess = resolver.delete(
+            val deleteSuccess = r.delete(
                 HealthDataResolver.Filter.eq(
                     HealthConstants.HeartRate.HEART_RATE,
                     100.0f
@@ -172,15 +168,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val mWriterListener = object : SamsungHealthWriterListener {
-        override fun onWriteResult() {
-            Log.i(TAG, "onWriteResult")
-        }
-
-        override fun onWriteException(exception: SamsungHealthWriteException) {
-            Log.e(TAG, "onWriteException $exception")
-        }
-    }
     private lateinit var reporter: SamsungHealthReporter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -192,8 +179,7 @@ class MainActivity : AppCompatActivity() {
                 listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
                 this,
                 connectionListener = mConnectionListener,
-                permissionListener = mPermissionListener,
-                writerListener = mWriterListener
+                permissionListener = mPermissionListener
             )
             reporter.openConnection()
         } catch (exception: SamsungHealthInitializationException) {

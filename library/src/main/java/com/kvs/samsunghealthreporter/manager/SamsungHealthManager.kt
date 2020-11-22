@@ -4,9 +4,7 @@ import android.app.Activity
 import com.kvs.samsunghealthreporter.SamsungHealthType
 import com.kvs.samsunghealthreporter.SamsungHealthTypeException
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
-import com.kvs.samsunghealthreporter.reader.SamsungHealthReader
-import com.kvs.samsunghealthreporter.writer.SamsungHealthWriter
-import com.kvs.samsunghealthreporter.writer.SamsungHealthWriterListener
+import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
@@ -17,8 +15,7 @@ class SamsungHealthManager(
     private val healthDataStore: HealthDataStore,
     private val toReadTypes: List<SamsungHealthType>,
     private val toWriteTypes: List<SamsungHealthType>,
-    private val permissionListener: SamsungHealthPermissionListener,
-    private val writerListener: SamsungHealthWriterListener?
+    private val permissionListener: SamsungHealthPermissionListener
 ) {
     private val permissionList: List<SamsungHealthType> get() {
         val permissions = mutableListOf<SamsungHealthType>()
@@ -87,17 +84,10 @@ class SamsungHealthManager(
     }
 
     private fun setPermissionListener() {
-        val writer = if (writerListener != null) SamsungHealthWriter(
-            healthDataStore,
-            writerListener
-        ) else null
         permissionListener.onPermissionAcquired(
-            SamsungHealthReader(
-                healthDataStore,
-            ),
-            writer,
+            permissionList,
+            SamsungHealthResolver(healthDataStore),
             SamsungHealthObserver(healthDataStore),
-            permissionList
         )
     }
 }

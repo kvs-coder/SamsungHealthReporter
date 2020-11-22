@@ -1,7 +1,6 @@
-package com.kvs.samsunghealthreporter.reader.resolver
+package com.kvs.samsunghealthreporter.resolver
 
 import android.os.Looper
-import android.util.Log
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.model.*
 import com.samsung.android.sdk.healthdata.*

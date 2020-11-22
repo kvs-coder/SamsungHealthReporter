@@ -1,40 +1,39 @@
-package com.kvs.samsunghealthreporter.reader.resolver
+package com.kvs.samsunghealthreporter.resolver
 
 import com.kvs.samsunghealthreporter.decorator.*
 import com.kvs.samsunghealthreporter.model.*
-import com.kvs.samsunghealthreporter.model.session.HeartRate
+import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<HeartRate>(healthDataStore) {
+class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<StepCount>(healthDataStore) {
     override val type: String
-        get() = HealthConstants.HeartRate.HEALTH_DATA_TYPE
+        get() = HealthConstants.StepCount.HEALTH_DATA_TYPE
 
     override fun read(
         startTime: Date,
         endTime: Date,
         filter: HealthDataResolver.Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
-    ): List<HeartRate> {
-        val list = mutableListOf<HeartRate>()
+    ): List<StepCount> {
+        val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
             .setDataType(type)
             .setProperties(
                 arrayOf(
-                    HealthConstants.HeartRate.HEART_RATE,
-                    HealthConstants.HeartRate.HEART_BEAT_COUNT,
-                    HealthConstants.HeartRate.COMMENT,
-                    HealthConstants.HeartRate.MIN,
-                    HealthConstants.HeartRate.MAX,
-                    HealthConstants.HeartRate.START_TIME,
-                    HealthConstants.HeartRate.TIME_OFFSET,
-                    HealthConstants.HeartRate.END_TIME,
-                    HealthConstants.HeartRate.UUID,
-                    HealthConstants.HeartRate.CREATE_TIME,
-                    HealthConstants.HeartRate.UPDATE_TIME,
-                    HealthConstants.HeartRate.PACKAGE_NAME,
-                    HealthConstants.HeartRate.DEVICE_UUID,
-                    HealthConstants.HeartRate.CUSTOM
+                    HealthConstants.StepCount.COUNT,
+                    HealthConstants.StepCount.CALORIE,
+                    HealthConstants.StepCount.SPEED,
+                    HealthConstants.StepCount.DISTANCE,
+                    HealthConstants.StepCount.START_TIME,
+                    HealthConstants.StepCount.TIME_OFFSET,
+                    HealthConstants.StepCount.END_TIME,
+                    HealthConstants.StepCount.UUID,
+                    HealthConstants.StepCount.CREATE_TIME,
+                    HealthConstants.StepCount.UPDATE_TIME,
+                    HealthConstants.StepCount.PACKAGE_NAME,
+                    HealthConstants.StepCount.DEVICE_UUID,
+                    HealthConstants.StepCount.CUSTOM
                 )
             )
             .setLocalTimeRange(
@@ -55,8 +54,8 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         val iterator = result.iterator()
         while (iterator.hasNext()) {
             val data = iterator.next()
-            val heartRate = HeartRate.fromReadData(data)
-            list.add(heartRate)
+            val stepCount = StepCount.fromReadData(data)
+            list.add(stepCount)
         }
         return list
     }
@@ -67,13 +66,16 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         timeGroup: Time.Group,
         filter: HealthDataResolver.Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
-    ): List<HeartRate> {
-        val list = mutableListOf<HeartRate>()
+    ): List<StepCount> {
+        val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
             .setDataType(type)
-            .addAggregateFunction(AggregateFunction.MAX, HealthConstants.HeartRate.HEART_RATE)
-            .addAggregateFunction(AggregateFunction.MIN, HealthConstants.HeartRate.HEART_RATE)
-            .addAggregateFunction(AggregateFunction.AVG, HealthConstants.HeartRate.HEART_RATE)
+            .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.COUNT)
+            .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.CALORIE)
+            .addAggregateFunction(AggregateFunction.SUM, HealthConstants.StepCount.DISTANCE)
+            .addAggregateFunction(AggregateFunction.AVG, HealthConstants.StepCount.SPEED)
+            .addAggregateFunction(AggregateFunction.MAX, HealthConstants.StepCount.SPEED)
+            .addAggregateFunction(AggregateFunction.MIN, HealthConstants.StepCount.SPEED)
             .setLocalTimeRange(
                 HealthConstants.StepCount.START_TIME,
                 HealthConstants.StepCount.TIME_OFFSET,
@@ -97,7 +99,7 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         val iterator = result.iterator()
         while (iterator.hasNext()) {
             val data = iterator.next()
-            val stepCount = HeartRate.fromAggregateData(data, timeGroup)
+            val stepCount = StepCount.fromAggregateData(data, timeGroup)
             list.add(stepCount)
         }
         return list
