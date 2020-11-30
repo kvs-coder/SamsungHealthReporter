@@ -6,9 +6,7 @@ Project's **build.gradle**
 ```groovy
 allprojects {
     repositories {
-        ...
         maven { url 'https://jitpack.io' }
-        ...
     }
 }
 ```
@@ -16,9 +14,7 @@ allprojects {
 In app's **build.gradle**
 ```groovy
 dependencies {
-    ...
     implementation 'com.github.victorkachalov:samsunghealthreporter:0.0.1'
-    ...
 }
 ```
 
