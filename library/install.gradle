@@ -1,0 +1,39 @@
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.kvs.samsunghealthreporter'
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                groupId 'com.kvs.samsunghealthreporter'
+                artifactId 'samsunghealthreporter'
+                name 'samsunghealthreporter'
+                description 'A wrapper for Samsung Health framework. Helps to write or read data from Samsung Health via Samsung Health framework.'
+                url 'https://github.com/VictorKachalov/SamsungHealthReporter'
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://github.com/VictorKachalov/SamsungHealthReporter/blob/master/LICENSE'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'kvs'
+                        name 'Victor Kachalov'
+                        email 'victorkachalov@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection 'https://github.com/VictorKachalov/SamsungHealthReporter.git'
+                    developerConnection 'https://github.com/VictorKachalov/SamsungHealthReporter.git'
+                    url 'https://github.com/VictorKachalov/SamsungHealthReporter'
+                }
+            }
+        }
+    }
+}
