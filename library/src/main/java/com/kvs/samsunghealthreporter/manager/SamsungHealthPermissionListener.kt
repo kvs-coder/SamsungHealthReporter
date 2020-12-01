@@ -7,12 +7,12 @@ import java.lang.Exception
 
 interface SamsungHealthPermissionListener {
     fun onPermissionAcquired(
-        types: List<SamsungHealthType>,
+        types: Set<SamsungHealthType>,
         resolver: SamsungHealthResolver?,
         observer: SamsungHealthObserver?,
     )
 
-    fun onPermissionDeclined(types: List<SamsungHealthType>)
+    fun onPermissionDeclined(types: Set<SamsungHealthType>)
 
     fun onException(exception: Exception)
 }

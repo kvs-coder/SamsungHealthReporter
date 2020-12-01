@@ -1,5 +1,7 @@
 package com.kvs.samsunghealthreporter
 
+import com.samsung.android.sdk.healthdata.HealthPermissionManager
+
 interface SamsungHealthType {
     val string: String
 
@@ -31,5 +33,9 @@ interface SamsungHealthType {
                 )
             }
         }
+    }
+
+    fun asOriginal(permissionType: HealthPermissionManager.PermissionType): HealthPermissionManager.PermissionKey {
+        return HealthPermissionManager.PermissionKey(string, permissionType)
     }
 }

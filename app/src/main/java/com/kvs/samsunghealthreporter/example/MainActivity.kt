@@ -29,7 +29,16 @@ class MainActivity : AppCompatActivity() {
     private val mConnectionListener = object : SamsungHealthConnectionListener {
         override fun onConnected(manager: SamsungHealthManager) {
             Log.i(TAG, "onConnected")
-            manager.authorize()
+            manager.authorize(
+                toReadTypes = setOf(
+                    SamsungHealthSessionType.STEP_COUNT,
+                    SamsungHealthSessionType.HEART_RATE
+                ),
+                toWriteTypes = setOf(
+                    SamsungHealthSessionType.STEP_COUNT,
+                    SamsungHealthSessionType.HEART_RATE
+                )
+            )
         }
 
         override fun onDisconnected() {
@@ -44,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
     private val mPermissionListener = object : SamsungHealthPermissionListener {
         override fun onPermissionAcquired(
-            types: List<SamsungHealthType>,
+            types: Set<SamsungHealthType>,
             resolver: SamsungHealthResolver?,
             observer: SamsungHealthObserver?
         ) {
@@ -70,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             }.start()
         }
 
-        override fun onPermissionDeclined(types: List<SamsungHealthType>) {
+        override fun onPermissionDeclined(types: Set<SamsungHealthType>) {
             Log.i(TAG, "onPermissionDeclined $types")
         }
 
@@ -175,8 +184,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         try {
             reporter = SamsungHealthReporter(
-                listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
-                listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
                 this,
                 connectionListener = mConnectionListener,
                 permissionListener = mPermissionListener

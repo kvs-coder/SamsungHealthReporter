@@ -9,8 +9,6 @@ import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
 class SamsungHealthReporter(
-    toReadTypes: List<SamsungHealthType>,
-    toWriteTypes: List<SamsungHealthType>,
     private val activity: Activity,
     private val connectionListener: SamsungHealthConnectionListener,
     private val permissionListener: SamsungHealthPermissionListener
@@ -38,8 +36,6 @@ class SamsungHealthReporter(
             val manager = SamsungHealthManager(
                 activity,
                 mStore,
-                toReadTypes,
-                toWriteTypes,
                 permissionListener
             )
             connectionListener.onConnected(manager)
