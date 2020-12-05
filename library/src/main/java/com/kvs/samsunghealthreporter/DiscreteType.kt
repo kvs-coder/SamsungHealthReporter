@@ -2,7 +2,7 @@ package com.kvs.samsunghealthreporter
 
 import com.samsung.android.sdk.healthdata.HealthConstants
 
-enum class HealthDiscreteType(override val string: String): HealthType {
+enum class DiscreteType(override val string: String): HealthType {
     WEIGHT(HealthConstants.Weight.HEALTH_DATA_TYPE),
     HEIGHT(HealthConstants.Height.HEALTH_DATA_TYPE),
     WAIST_CIRCUMFERENCE(HealthConstants.WaistCircumference.HEALTH_DATA_TYPE),

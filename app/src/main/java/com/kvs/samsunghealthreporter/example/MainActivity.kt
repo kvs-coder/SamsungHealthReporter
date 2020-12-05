@@ -33,12 +33,12 @@ class MainActivity : AppCompatActivity() {
             manager.authorize(
                 this@MainActivity,
                 toReadTypes = setOf(
-                    HealthSessionType.STEP_COUNT,
-                    HealthSessionType.HEART_RATE
+                    SessionType.STEP_COUNT,
+                    SessionType.HEART_RATE
                 ),
                 toWriteTypes = setOf(
-                    HealthSessionType.STEP_COUNT,
-                    HealthSessionType.HEART_RATE
+                    SessionType.STEP_COUNT,
+                    SessionType.HEART_RATE
                 )
             )
         }
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private val mPermissionListener = object : SamsungHealthPermissionListener {
-        override fun onPermissionAcquired(
+        override fun onAcquired(
             types: Set<HealthType>,
             resolver: SamsungHealthResolver,
             observer: SamsungHealthObserver
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, exception.stackTraceToString())
                 }
                 observer.apply {
-                    observe(HealthSessionType.STEP_COUNT)
+                    observe(SessionType.STEP_COUNT)
                         .subscribe(
                             onNext = {
                                 Log.d(TAG, "onNext: ${it.string}")

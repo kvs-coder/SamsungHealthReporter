@@ -6,7 +6,7 @@ import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import java.lang.Exception
 
 interface SamsungHealthPermissionListener {
-    fun onPermissionAcquired(
+    fun onAcquired(
         types: Set<HealthType>,
         resolver: SamsungHealthResolver,
         observer: SamsungHealthObserver,

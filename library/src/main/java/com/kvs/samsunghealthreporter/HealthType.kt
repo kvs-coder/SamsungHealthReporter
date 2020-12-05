@@ -8,26 +8,26 @@ interface HealthType {
     companion object {
         fun initWith(string: String): HealthType {
             return when (string) {
-                HealthDiscreteType.WEIGHT.string -> HealthDiscreteType.WEIGHT
-                HealthDiscreteType.HEIGHT.string -> HealthDiscreteType.HEIGHT
-                HealthDiscreteType.WAIST_CIRCUMFERENCE.string -> HealthDiscreteType.WAIST_CIRCUMFERENCE
-                HealthDiscreteType.TOTAL_PROTEIN.string -> HealthDiscreteType.TOTAL_PROTEIN
-                HealthDiscreteType.BODY_MUSCLE.string -> HealthDiscreteType.BODY_MUSCLE
-                HealthDiscreteType.BODY_FAT.string -> HealthDiscreteType.BODY_FAT
-                HealthDiscreteType.FOOD_INTAKE.string -> HealthDiscreteType.FOOD_INTAKE
-                HealthDiscreteType.FOOD_INFO.string -> HealthDiscreteType.FOOD_INFO
-                HealthDiscreteType.BODY_TEMPERATURE.string -> HealthDiscreteType.BODY_TEMPERATURE
-                HealthDiscreteType.BLOOD_PRESSURE.string -> HealthDiscreteType.BLOOD_PRESSURE
-                HealthDiscreteType.HBA1C.string -> HealthDiscreteType.HBA1C
-                HealthDiscreteType.BLOOD_GLUCOSE.string -> HealthDiscreteType.BLOOD_GLUCOSE
-                HealthSessionType.SLEEP_STAGE.string -> HealthSessionType.SLEEP_STAGE
-                HealthSessionType.STEP_COUNT.string -> HealthSessionType.STEP_COUNT
-                HealthSessionType.HEART_RATE.string -> HealthSessionType.HEART_RATE
-                HealthSessionType.FLOORS_CLIMBED.string -> HealthSessionType.FLOORS_CLIMBED
-                HealthSessionType.SLEEP.string -> HealthSessionType.SLEEP
-                HealthSessionType.EXERCISE.string -> HealthSessionType.EXERCISE
-                HealthSessionType.OXYGEN_SATURATION.string -> HealthSessionType.OXYGEN_SATURATION
-                HealthSessionType.ELECTROCARDIOGRAM.string -> HealthSessionType.ELECTROCARDIOGRAM
+                DiscreteType.WEIGHT.string -> DiscreteType.WEIGHT
+                DiscreteType.HEIGHT.string -> DiscreteType.HEIGHT
+                DiscreteType.WAIST_CIRCUMFERENCE.string -> DiscreteType.WAIST_CIRCUMFERENCE
+                DiscreteType.TOTAL_PROTEIN.string -> DiscreteType.TOTAL_PROTEIN
+                DiscreteType.BODY_MUSCLE.string -> DiscreteType.BODY_MUSCLE
+                DiscreteType.BODY_FAT.string -> DiscreteType.BODY_FAT
+                DiscreteType.FOOD_INTAKE.string -> DiscreteType.FOOD_INTAKE
+                DiscreteType.FOOD_INFO.string -> DiscreteType.FOOD_INFO
+                DiscreteType.BODY_TEMPERATURE.string -> DiscreteType.BODY_TEMPERATURE
+                DiscreteType.BLOOD_PRESSURE.string -> DiscreteType.BLOOD_PRESSURE
+                DiscreteType.HBA1C.string -> DiscreteType.HBA1C
+                DiscreteType.BLOOD_GLUCOSE.string -> DiscreteType.BLOOD_GLUCOSE
+                SessionType.SLEEP_STAGE.string -> SessionType.SLEEP_STAGE
+                SessionType.STEP_COUNT.string -> SessionType.STEP_COUNT
+                SessionType.HEART_RATE.string -> SessionType.HEART_RATE
+                SessionType.FLOORS_CLIMBED.string -> SessionType.FLOORS_CLIMBED
+                SessionType.SLEEP.string -> SessionType.SLEEP
+                SessionType.EXERCISE.string -> SessionType.EXERCISE
+                SessionType.OXYGEN_SATURATION.string -> SessionType.OXYGEN_SATURATION
+                SessionType.ELECTROCARDIOGRAM.string -> SessionType.ELECTROCARDIOGRAM
                 else -> throw SamsungHealthTypeException(
                     "The string: $string can not be represented as SamsungHealthType"
                 )

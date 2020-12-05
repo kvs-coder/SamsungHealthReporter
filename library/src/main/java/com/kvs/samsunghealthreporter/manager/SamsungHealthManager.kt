@@ -28,7 +28,7 @@ class SamsungHealthManager(
                     permissionListener.onException(exception)
                 }
             }
-            permissionListener.onPermissionAcquired(
+            permissionListener.onAcquired(
                 permissions,
                 SamsungHealthResolver(healthDataStore),
                 SamsungHealthObserver(healthDataStore),
@@ -74,7 +74,7 @@ class SamsungHealthManager(
             toWriteTypes.forEach {
                 permissionList.add(it)
             }
-            permissionListener.onPermissionAcquired(
+            permissionListener.onAcquired(
                 permissionList,
                 SamsungHealthResolver(healthDataStore),
                 SamsungHealthObserver(healthDataStore),
