@@ -4,8 +4,6 @@ import android.app.Activity
 import com.kvs.samsunghealthreporter.HealthType
 import com.kvs.samsunghealthreporter.SamsungHealthTypeException
 import com.kvs.samsunghealthreporter.decorator.parsed
-import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
-import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder

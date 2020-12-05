@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.kvs.samsunghealthreporter.*
 import com.kvs.samsunghealthreporter.SamsungHealthConnectionListener
-import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
-import com.kvs.samsunghealthreporter.HealthType
 import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
@@ -15,7 +13,6 @@ import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time
-import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthConstants
 
