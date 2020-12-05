@@ -9,7 +9,7 @@ class SamsungHealthObserver(
     private val mDataObserver: HealthDataObserver = object : HealthDataObserver(null) {
         override fun onChange(dataTypeName: String) {
             try {
-                val type = SamsungHealthType.initWith(dataTypeName)
+                val type = HealthType.initWith(dataTypeName)
                 mOnNext?.let { it(type) }
             } catch (exception: SamsungHealthTypeException) {
                 mOnError?.let { it(exception) }
@@ -17,10 +17,10 @@ class SamsungHealthObserver(
         }
     }
 
-    private var mOnNext: ((SamsungHealthType) -> Unit)? = null
+    private var mOnNext: ((HealthType) -> Unit)? = null
     private var mOnError: ((Exception) -> Unit)? = null
 
-    fun observe(type: SamsungHealthType): SamsungHealthObserver {
+    fun observe(type: HealthType): SamsungHealthObserver {
         return this.apply {
             try {
                 HealthDataObserver.addObserver(healthDataStore, type.string, mDataObserver)
@@ -31,7 +31,7 @@ class SamsungHealthObserver(
     }
 
     fun subscribe(
-        onNext: (SamsungHealthType) -> Unit,
+        onNext: (HealthType) -> Unit,
         onError: (Exception) -> Unit
     ) {
         this.mOnNext = { onNext(it) }

@@ -7,17 +7,18 @@ import com.kvs.samsunghealthreporter.*
 import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
-import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.HealthType
 import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
+import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthConstants
-import com.samsung.android.sdk.healthdata.HealthDataResolver
+
 import java.lang.Exception
 import java.util.*
 
@@ -29,7 +30,17 @@ class MainActivity : AppCompatActivity() {
     private val mConnectionListener = object : SamsungHealthConnectionListener {
         override fun onConnected(manager: SamsungHealthManager) {
             Log.i(TAG, "onConnected")
-            manager.authorize()
+            manager.authorize(
+                this@MainActivity,
+                toReadTypes = setOf(
+                    SessionType.STEP_COUNT,
+                    SessionType.HEART_RATE
+                ),
+                toWriteTypes = setOf(
+                    SessionType.STEP_COUNT,
+                    SessionType.HEART_RATE
+                )
+            )
         }
 
         override fun onDisconnected() {
@@ -43,10 +54,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private val mPermissionListener = object : SamsungHealthPermissionListener {
-        override fun onPermissionAcquired(
-            types: List<SamsungHealthType>,
-            resolver: SamsungHealthResolver?,
-            observer: SamsungHealthObserver?
+        override fun onAcquired(
+            types: Set<HealthType>,
+            resolver: SamsungHealthResolver,
+            observer: SamsungHealthObserver
         ) {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
@@ -56,8 +67,8 @@ class MainActivity : AppCompatActivity() {
                 } catch (exception: Exception) {
                     Log.e(TAG, exception.stackTraceToString())
                 }
-                observer?.apply {
-                    observe(SamsungHealthSessionType.STEP_COUNT)
+                observer.apply {
+                    observe(SessionType.STEP_COUNT)
                         .subscribe(
                             onNext = {
                                 Log.d(TAG, "onNext: ${it.string}")
@@ -70,17 +81,13 @@ class MainActivity : AppCompatActivity() {
             }.start()
         }
 
-        override fun onPermissionDeclined(types: List<SamsungHealthType>) {
-            Log.i(TAG, "onPermissionDeclined $types")
-        }
-
         override fun onException(exception: Exception) {
             Log.e(TAG, "onPermissionDeclined $exception")
         }
     }
 
-    private fun handleStepCount(resolver: SamsungHealthResolver?) {
-        resolver?.stepCountResolver?.let { r ->
+    private fun handleStepCount(resolver: SamsungHealthResolver) {
+        resolver.stepCountResolver.let { r ->
             r.read(Date().dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)
             }
@@ -110,12 +117,12 @@ class MainActivity : AppCompatActivity() {
 
             val updateSuccess = r.update(
                 stepCount,
-                HealthDataResolver.Filter.eq(HealthConstants.StepCount.COUNT, 999)
+                Filter.eq(HealthConstants.StepCount.COUNT, 999)
             )
             Log.w(TAG, "Update success: $updateSuccess")
 
             val deleteSuccess = r.delete(
-                HealthDataResolver.Filter.eq(
+                Filter.eq(
                     HealthConstants.StepCount.COUNT,
                     1000
                 )
@@ -124,8 +131,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleHeartRate(resolver: SamsungHealthResolver?) {
-        resolver?.heartRateResolver?.let { r ->
+    private fun handleHeartRate(resolver: SamsungHealthResolver) {
+        resolver.heartRateResolver.let { r ->
             r.read(Date().dayStart.dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)
             }
@@ -154,12 +161,12 @@ class MainActivity : AppCompatActivity() {
 
             val updateSuccess = r.update(
                 heartRate,
-                HealthDataResolver.Filter.eq(HealthConstants.HeartRate.HEART_RATE, 99.5f)
+                Filter.eq(HealthConstants.HeartRate.HEART_RATE, 99.5f)
             )
             Log.w(TAG, "Update success: $updateSuccess")
 
             val deleteSuccess = r.delete(
-                HealthDataResolver.Filter.eq(
+                Filter.eq(
                     HealthConstants.HeartRate.HEART_RATE,
                     100.0f
                 )
@@ -174,14 +181,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         try {
-            reporter = SamsungHealthReporter(
-                listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
-                listOf(SamsungHealthSessionType.STEP_COUNT, SamsungHealthSessionType.HEART_RATE),
+            val reporter = SamsungHealthReporter(
                 this,
                 connectionListener = mConnectionListener,
                 permissionListener = mPermissionListener
             )
             reporter.openConnection()
+            //reporter.closeConnection()
         } catch (exception: SamsungHealthInitializationException) {
             Log.e(TAG, "onCreate $exception")
         }

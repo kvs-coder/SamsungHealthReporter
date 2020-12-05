@@ -1,6 +1,6 @@
 package com.kvs.samsunghealthreporter
 
-import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
@@ -9,9 +9,7 @@ import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
 class SamsungHealthReporter(
-    toReadTypes: List<SamsungHealthType>,
-    toWriteTypes: List<SamsungHealthType>,
-    private val activity: Activity,
+    private val context: Context,
     private val connectionListener: SamsungHealthConnectionListener,
     private val permissionListener: SamsungHealthPermissionListener
 ) {
@@ -23,7 +21,7 @@ class SamsungHealthReporter(
     private val mIsSHealthAvailable: Boolean
         get() {
             try {
-                activity.packageManager.getPackageInfo(
+                context.packageManager.getPackageInfo(
                     SAMSUNG_HEALTH_PACKAGE,
                     PackageManager.GET_ACTIVITIES
                 )
@@ -36,10 +34,7 @@ class SamsungHealthReporter(
     private val mConnectionListener = object : HealthDataStore.ConnectionListener {
         override fun onConnected() {
             val manager = SamsungHealthManager(
-                activity,
                 mStore,
-                toReadTypes,
-                toWriteTypes,
                 permissionListener
             )
             connectionListener.onConnected(manager)
@@ -58,7 +53,7 @@ class SamsungHealthReporter(
 
     init {
         if (mIsSHealthAvailable) {
-            mStore = HealthDataStore(activity, mConnectionListener)
+            mStore = HealthDataStore(context, mConnectionListener)
         } else {
             throw SamsungHealthInitializationException()
         }

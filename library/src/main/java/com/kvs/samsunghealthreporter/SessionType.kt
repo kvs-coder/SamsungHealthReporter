@@ -2,7 +2,7 @@ package com.kvs.samsunghealthreporter
 
 import com.samsung.android.sdk.healthdata.HealthConstants
 
-enum class SamsungHealthSessionType(override val string: String): SamsungHealthType {
+enum class SessionType(override val string: String): HealthType {
     SLEEP(HealthConstants.Sleep.HEALTH_DATA_TYPE),
     SLEEP_STAGE(HealthConstants.SleepStage.HEALTH_DATA_TYPE),
     STEP_COUNT(HealthConstants.StepCount.HEALTH_DATA_TYPE),
