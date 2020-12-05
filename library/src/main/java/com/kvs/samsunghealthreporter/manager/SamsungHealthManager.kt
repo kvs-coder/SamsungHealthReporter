@@ -10,10 +10,9 @@ import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
 
-class SamsungHealthManager(
-    private val healthDataStore: HealthDataStore,
-    private val permissionListener: SamsungHealthPermissionListener
-) {
+class SamsungHealthManager(healthDataStore: HealthDataStore) {
+    var permissionListener: SamsungHealthPermissionListener? = null
+
     private val mPermissionManager = HealthPermissionManager(healthDataStore)
     private val mPermissionListener = HealthResultHolder.ResultListener<HealthPermissionManager.PermissionResult> { result ->
         val resultMap = result.resultMap
@@ -25,16 +24,13 @@ class SamsungHealthManager(
                     permissions.add(type)
                 }
                 catch (exception: SamsungHealthTypeException) {
-                    permissionListener.onException(exception)
+                    permissionListener?.onException(exception)
                 }
             }
-            permissionListener.onAcquired(
-                permissions,
-                SamsungHealthResolver(healthDataStore),
-                SamsungHealthObserver(healthDataStore),
-            )
+            permissionListener?.onAcquired(true)
         } else {
-            permissionListener.onException(
+            permissionListener?.onAcquired(false)
+            permissionListener?.onException(
                 SamsungHealthTypeException(
                     "User declined authorization, ${
                         resultMap.map {
@@ -67,18 +63,7 @@ class SamsungHealthManager(
             mPermissionManager.requestPermissions(permissionHashSet, activity)
                 .setResultListener(mPermissionListener)
         } else {
-            val permissionList = mutableSetOf<HealthType>()
-            toReadTypes.forEach {
-                permissionList.add(it)
-            }
-            toWriteTypes.forEach {
-                permissionList.add(it)
-            }
-            permissionListener.onAcquired(
-                permissionList,
-                SamsungHealthResolver(healthDataStore),
-                SamsungHealthObserver(healthDataStore),
-            )
+            permissionListener?.onAcquired(true)
         }
     }
 }

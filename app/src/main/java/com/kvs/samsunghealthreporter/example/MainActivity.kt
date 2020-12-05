@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.kvs.samsunghealthreporter.*
-import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
+import com.kvs.samsunghealthreporter.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
 import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.HealthType
@@ -25,65 +25,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "SAMSUNG_HEALTH"
-    }
-
-    private val mConnectionListener = object : SamsungHealthConnectionListener {
-        override fun onConnected(manager: SamsungHealthManager) {
-            Log.i(TAG, "onConnected")
-            manager.authorize(
-                this@MainActivity,
-                toReadTypes = setOf(
-                    SessionType.STEP_COUNT,
-                    SessionType.HEART_RATE
-                ),
-                toWriteTypes = setOf(
-                    SessionType.STEP_COUNT,
-                    SessionType.HEART_RATE
-                )
-            )
-        }
-
-        override fun onDisconnected() {
-            Log.i(TAG, "onDisconnected")
-        }
-
-        override fun onConnectionFailed(
-            exception: SamsungHealthConnectionException
-        ) {
-            Log.i(TAG, "onConnectionFailed $exception")
-        }
-    }
-    private val mPermissionListener = object : SamsungHealthPermissionListener {
-        override fun onAcquired(
-            types: Set<HealthType>,
-            resolver: SamsungHealthResolver,
-            observer: SamsungHealthObserver
-        ) {
-            Log.i(TAG, "onPermissionAcquired $types")
-            Thread {
-                try {
-                    handleHeartRate(resolver)
-                    handleStepCount(resolver)
-                } catch (exception: Exception) {
-                    Log.e(TAG, exception.stackTraceToString())
-                }
-                observer.apply {
-                    observe(SessionType.STEP_COUNT)
-                        .subscribe(
-                            onNext = {
-                                Log.d(TAG, "onNext: ${it.string}")
-                            },
-                            onError = {
-                                Log.e(TAG, "onError: $it")
-                            }
-                        )
-                }
-            }.start()
-        }
-
-        override fun onException(exception: Exception) {
-            Log.e(TAG, "onPermissionDeclined $exception")
-        }
     }
 
     private fun handleStepCount(resolver: SamsungHealthResolver) {
@@ -181,13 +122,67 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         try {
-            val reporter = SamsungHealthReporter(
-                this,
-                connectionListener = mConnectionListener,
-                permissionListener = mPermissionListener
-            )
+            reporter = SamsungHealthReporter(this)
+            reporter.connectionListener = object : SamsungHealthConnectionListener {
+                override fun onConnected() {
+                    Log.i(TAG, "onConnected")
+                    reporter.manager.authorize(
+                        this@MainActivity,
+                        toReadTypes = setOf(
+                            SessionType.STEP_COUNT,
+                            SessionType.HEART_RATE
+                        ),
+                        toWriteTypes = setOf(
+                            SessionType.STEP_COUNT,
+                            SessionType.HEART_RATE
+                        )
+                    )
+                }
+
+                override fun onDisconnected() {
+                    Log.i(TAG, "onDisconnected")
+                }
+
+                override fun onConnectionFailed(
+                    exception: SamsungHealthConnectionException
+                ) {
+                    Log.i(TAG, "onConnectionFailed $exception")
+                }
+            }
+            reporter.manager.permissionListener = object : SamsungHealthPermissionListener {
+                override fun onAcquired(success: Boolean) {
+                    Log.i(TAG, "onPermissionAcquired: $success")
+                    if (success) {
+                        Thread {
+                            try {
+                                val resolver = reporter.resolver
+                                handleHeartRate(resolver)
+                                handleStepCount(resolver)
+                            } catch (exception: Exception) {
+                                Log.e(TAG, exception.stackTraceToString())
+                            }
+                            reporter.observer.apply {
+                                observe(SessionType.STEP_COUNT)
+                                    .subscribe(
+                                        onNext = {
+                                            Log.d(TAG, "onNext: ${it.string}")
+                                        },
+                                        onError = {
+                                            Log.e(TAG, "onError: $it")
+                                        }
+                                    )
+                            }
+                        }.start()
+                    } else {
+                        Log.e(TAG, "onPermissionAcquired: FALSE")
+                    }
+                }
+
+                override fun onException(exception: Exception) {
+                    Log.e(TAG, "onPermissionDeclined $exception")
+                }
+            }
             reporter.openConnection()
-            //reporter.closeConnection()
         } catch (exception: SamsungHealthInitializationException) {
             Log.e(TAG, "onCreate $exception")
         }
