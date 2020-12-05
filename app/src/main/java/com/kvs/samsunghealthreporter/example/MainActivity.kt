@@ -9,6 +9,7 @@ import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
+import com.kvs.samsunghealthreporter.decorator.toJson
 import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
@@ -26,18 +27,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleStepCount(resolver: SamsungHealthResolver) {
         resolver.stepCountResolver.let { r ->
-            r.read(Date().dayStart, Date().dayEnd, null, null).forEach {
-                Log.d(TAG, it.json)
-            }
-            r.aggregate(
+            val readResult = r.read(Date().dayStart, Date().dayEnd, null, null)
+            Log.i(TAG, readResult.toJson())
+            val aggregateResult = r.aggregate(
                 Date().dayStart,
                 Date().dayEnd,
                 Time.Group.DAILY,
                 null,
                 null
-            ).forEach {
-                Log.i(TAG, it.json)
-            }
+            )
+            Log.i(TAG, aggregateResult.toJson())
             val stepCount = StepCount(
                 StepCount.InsertResult(
                     applicationContext.packageName,
@@ -71,18 +70,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleHeartRate(resolver: SamsungHealthResolver) {
         resolver.heartRateResolver.let { r ->
-            r.read(Date().dayStart.dayStart, Date().dayEnd, null, null).forEach {
-                Log.d(TAG, it.json)
-            }
-            r.aggregate(
+            val readResult = r.read(
+                Date().dayStart.dayStart,
+                Date().dayEnd,
+                null,
+                null
+            )
+            Log.i(TAG, readResult.toJson())
+            val aggregateResult = r.aggregate(
                 Date().dayStart.dayStart,
                 Date().dayEnd,
                 Time.Group.DAILY,
                 null,
                 null
-            ).forEach {
-                Log.i(TAG, it.json)
-            }
+            )
+            Log.i(TAG, aggregateResult.toJson())
             val now = Date()
             val heartRate = HeartRate(
                 HeartRate.InsertResult(
@@ -113,13 +115,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var reporter: SamsungHealthReporter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         try {
-            reporter = SamsungHealthReporter(this)
+            val reporter = SamsungHealthReporter(this)
             reporter.connectionListener = object : SamsungHealthConnectionListener {
                 override fun onConnected() {
                     Log.i(TAG, "onConnected")
@@ -183,10 +183,5 @@ class MainActivity : AppCompatActivity() {
         } catch (exception: SamsungHealthInitializationException) {
             Log.e(TAG, "onCreate $exception")
         }
-    }
-
-    override fun onDestroy() {
-        reporter.closeConnection()
-        super.onDestroy()
     }
 }

@@ -7,6 +7,8 @@ import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
 import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
+import java.lang.IllegalStateException
+import kotlin.jvm.Throws
 
 class SamsungHealthReporter(
     private val context: Context
@@ -61,20 +63,14 @@ class SamsungHealthReporter(
         }
     }
 
+    @Throws(IllegalStateException::class)
     fun openConnection() {
-        try {
-            mStore.connectService()
-        } catch (exception: IllegalStateException) {
-            exception.printStackTrace()
-        }
+        mStore.connectService()
     }
 
+    @Throws(IllegalStateException::class)
     fun closeConnection() {
-        try {
-            mStore.disconnectService()
-        } catch (exception: java.lang.Exception) {
-            exception.printStackTrace()
-        }
+        mStore.disconnectService()
     }
 
 }
