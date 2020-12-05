@@ -2,22 +2,27 @@ package com.kvs.samsunghealthreporter
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
-import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
+import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
+import java.lang.IllegalStateException
+import kotlin.jvm.Throws
 
 class SamsungHealthReporter(
-    private val context: Context,
-    private val connectionListener: SamsungHealthConnectionListener,
-    private val permissionListener: SamsungHealthPermissionListener
+    private val context: Context
 ) {
     companion object {
         private const val SAMSUNG_HEALTH_PACKAGE = "com.sec.android.app.shealth"
     }
 
-    private lateinit var mStore: HealthDataStore
+    var connectionListener: SamsungHealthConnectionListener? = null
+    val manager: SamsungHealthManager
+    val resolver: SamsungHealthResolver
+    val observer: SamsungHealthObserver
+
+    private val mStore: HealthDataStore
     private val mIsSHealthAvailable: Boolean
         get() {
             try {
@@ -33,46 +38,39 @@ class SamsungHealthReporter(
         }
     private val mConnectionListener = object : HealthDataStore.ConnectionListener {
         override fun onConnected() {
-            val manager = SamsungHealthManager(
-                mStore,
-                permissionListener
-            )
-            connectionListener.onConnected(manager)
+            connectionListener?.onConnected()
         }
 
         override fun onConnectionFailed(error: HealthConnectionErrorResult) {
-            connectionListener.onConnectionFailed(
+            connectionListener?.onConnectionFailed(
                 SamsungHealthConnectionException(error.errorCode.toString())
             )
         }
 
         override fun onDisconnected() {
-            connectionListener.onDisconnected()
+            connectionListener?.onDisconnected()
         }
     }
 
     init {
         if (mIsSHealthAvailable) {
             mStore = HealthDataStore(context, mConnectionListener)
+            manager = SamsungHealthManager(mStore)
+            resolver = SamsungHealthResolver(mStore)
+            observer = SamsungHealthObserver(mStore)
         } else {
             throw SamsungHealthInitializationException()
         }
     }
 
+    @Throws(IllegalStateException::class)
     fun openConnection() {
-        try {
-            mStore.connectService()
-        } catch (exception: IllegalStateException) {
-            exception.printStackTrace()
-        }
+        mStore.connectService()
     }
 
+    @Throws(IllegalStateException::class)
     fun closeConnection() {
-        try {
-            mStore.disconnectService()
-        } catch (exception: java.lang.Exception) {
-            exception.printStackTrace()
-        }
+        mStore.disconnectService()
     }
 
 }

@@ -1,0 +1,45 @@
+apply plugin: 'com.jfrog.bintray'
+
+version = '0.0.1'
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load( new FileInputStream("local.properties"))
+
+// Bintray
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    pkg {
+        repo = 'SamsungHealthReporter'
+        name = 'com.kvs.samsunghealthreporter'
+        userOrg = 'kvs'
+        configurations = ['archives']
+        desc = 'A wrapper for Samsung Health framework. Helps to write or read data from Samsung Health via Samsung Health framework.'
+        websiteUrl = 'https://github.com/VictorKachalov/SamsungHealthReporter'
+        vcsUrl = 'https://github.com/VictorKachalov/SamsungHealthReporter.git'
+        licenses = ["MIT"]
+        publish = true
+        publicDownloadNumbers = true
+    }
+}
