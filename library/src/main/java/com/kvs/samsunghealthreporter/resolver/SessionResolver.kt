@@ -19,7 +19,7 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
     abstract fun read(
         startTime: Date,
         endTime: Date,
-        filter: HealthDataResolver.Filter?,
+        filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<SessionResult>
 
@@ -28,7 +28,7 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
         startTime: Date,
         endTime: Date,
         timeGroup: Time.Group,
-        filter: HealthDataResolver.Filter?,
+        filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<SessionResult>
 
@@ -53,7 +53,7 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
         IllegalStateException::class,
         SamsungHealthWriteException::class
     )
-    fun update(value: SessionResult, filter: HealthDataResolver.Filter): Boolean {
+    fun update(value: SessionResult, filter: Filter): Boolean {
         val data = value.asOriginal(healthDataStore)
         val request = HealthDataResolver.UpdateRequest.Builder()
             .setDataType(type)
@@ -66,7 +66,7 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
     }
 
     @Throws(IllegalArgumentException::class, IllegalStateException::class)
-    fun delete(filter: HealthDataResolver.Filter): Boolean {
+    fun delete(filter: Filter): Boolean {
         val request = HealthDataResolver.DeleteRequest.Builder()
             .setDataType(type)
             .setFilter(filter)

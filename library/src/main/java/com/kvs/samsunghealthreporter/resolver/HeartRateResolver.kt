@@ -13,7 +13,7 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
     override fun read(
         startTime: Date,
         endTime: Date,
-        filter: HealthDataResolver.Filter?,
+        filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<HeartRate> {
         val list = mutableListOf<HeartRate>()
@@ -65,7 +65,7 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<Hear
         startTime: Date,
         endTime: Date,
         timeGroup: Time.Group,
-        filter: HealthDataResolver.Filter?,
+        filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<HeartRate> {
         val list = mutableListOf<HeartRate>()

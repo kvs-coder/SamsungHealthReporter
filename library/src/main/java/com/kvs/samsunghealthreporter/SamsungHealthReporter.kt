@@ -1,17 +1,17 @@
 package com.kvs.samsunghealthreporter
 
-import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
-import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
+import com.kvs.samsunghealthreporter.manager.ConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
-import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
+import com.kvs.samsunghealthreporter.manager.PermissionListener
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
 class SamsungHealthReporter(
-    private val activity: Activity,
-    private val connectionListener: SamsungHealthConnectionListener,
-    private val permissionListener: SamsungHealthPermissionListener
+    private val context: Context,
+    private val connectionListener: ConnectionListener,
+    private val permissionListener: PermissionListener
 ) {
     companion object {
         private const val SAMSUNG_HEALTH_PACKAGE = "com.sec.android.app.shealth"
@@ -21,7 +21,7 @@ class SamsungHealthReporter(
     private val mIsSHealthAvailable: Boolean
         get() {
             try {
-                activity.packageManager.getPackageInfo(
+                context.packageManager.getPackageInfo(
                     SAMSUNG_HEALTH_PACKAGE,
                     PackageManager.GET_ACTIVITIES
                 )
@@ -34,7 +34,6 @@ class SamsungHealthReporter(
     private val mConnectionListener = object : HealthDataStore.ConnectionListener {
         override fun onConnected() {
             val manager = SamsungHealthManager(
-                activity,
                 mStore,
                 permissionListener
             )
@@ -54,7 +53,7 @@ class SamsungHealthReporter(
 
     init {
         if (mIsSHealthAvailable) {
-            mStore = HealthDataStore(activity, mConnectionListener)
+            mStore = HealthDataStore(context, mConnectionListener)
         } else {
             throw SamsungHealthInitializationException()
         }

@@ -1,37 +1,24 @@
 package com.kvs.samsunghealthreporter.manager
 
 import android.app.Activity
-import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.HealthType
 import com.kvs.samsunghealthreporter.SamsungHealthTypeException
 import com.kvs.samsunghealthreporter.decorator.parsed
-import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
-import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
+import com.kvs.samsunghealthreporter.observer.Observer
+import com.kvs.samsunghealthreporter.resolver.Resolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
 
 class SamsungHealthManager(
-    private val activity: Activity,
     private val healthDataStore: HealthDataStore,
-    private val permissionListener: SamsungHealthPermissionListener
+    private val permissionListener: PermissionListener
 ) {
     private val mPermissionManager = HealthPermissionManager(healthDataStore)
     private val mPermissionListener = HealthResultHolder.ResultListener<HealthPermissionManager.PermissionResult> { result ->
         val resultMap = result.resultMap
-        if (resultMap.containsValue(false)) {
-            val declinedTypes = mutableSetOf<SamsungHealthType>()
-            resultMap.forEach { entry ->
-                try {
-                    val type = entry.key.parsed
-                    declinedTypes.add(type)
-                }
-                catch (exception: SamsungHealthTypeException) {
-                    permissionListener.onException(exception)
-                }
-            }
-            permissionListener.onPermissionDeclined(declinedTypes)
-        } else {
-            val permissions = mutableSetOf<SamsungHealthType>()
+        if (!resultMap.containsValue(false)) {
+            val permissions = mutableSetOf<HealthType>()
             resultMap.forEach { entry ->
                 try {
                     val type = entry.key.parsed
@@ -43,15 +30,26 @@ class SamsungHealthManager(
             }
             permissionListener.onPermissionAcquired(
                 permissions,
-                SamsungHealthResolver(healthDataStore),
-                SamsungHealthObserver(healthDataStore),
+                Resolver(healthDataStore),
+                Observer(healthDataStore),
+            )
+        } else {
+            permissionListener.onException(
+                SamsungHealthTypeException(
+                    "User declined authorization, ${
+                        resultMap.map {
+                            "${it.key.dataType} - ${it.key.permissionType} - ${it.value}"
+                        }
+                    }"
+                )
             )
         }
     }
 
     fun authorize(
-        toReadTypes: Set<SamsungHealthType>,
-        toWriteTypes: Set<SamsungHealthType>
+        activity: Activity,
+        toReadTypes: Set<HealthType>,
+        toWriteTypes: Set<HealthType>
     ) {
         val keySetToRead = toReadTypes.map {
             it.asOriginal(HealthPermissionManager.PermissionType.READ)
@@ -69,7 +67,7 @@ class SamsungHealthManager(
             mPermissionManager.requestPermissions(permissionHashSet, activity)
                 .setResultListener(mPermissionListener)
         } else {
-            val permissionList = mutableSetOf<SamsungHealthType>()
+            val permissionList = mutableSetOf<HealthType>()
             toReadTypes.forEach {
                 permissionList.add(it)
             }
@@ -78,8 +76,8 @@ class SamsungHealthManager(
             }
             permissionListener.onPermissionAcquired(
                 permissionList,
-                SamsungHealthResolver(healthDataStore),
-                SamsungHealthObserver(healthDataStore),
+                Resolver(healthDataStore),
+                Observer(healthDataStore),
             )
         }
     }

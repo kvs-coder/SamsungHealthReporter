@@ -1,8 +1,8 @@
 package com.kvs.samsunghealthreporter.decorator
 
-import com.kvs.samsunghealthreporter.SamsungHealthType
+import com.kvs.samsunghealthreporter.HealthType
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 
-val HealthPermissionManager.PermissionKey.parsed: SamsungHealthType
+val HealthPermissionManager.PermissionKey.parsed: HealthType
     get() =
-        SamsungHealthType.initWith(this.dataType)
+        HealthType.initWith(this.dataType)

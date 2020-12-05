@@ -13,7 +13,7 @@ class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<Step
     override fun read(
         startTime: Date,
         endTime: Date,
-        filter: HealthDataResolver.Filter?,
+        filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
@@ -64,7 +64,7 @@ class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<Step
         startTime: Date,
         endTime: Date,
         timeGroup: Time.Group,
-        filter: HealthDataResolver.Filter?,
+        filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
