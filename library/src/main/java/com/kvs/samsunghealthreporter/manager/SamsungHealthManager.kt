@@ -4,15 +4,15 @@ import android.app.Activity
 import com.kvs.samsunghealthreporter.HealthType
 import com.kvs.samsunghealthreporter.SamsungHealthTypeException
 import com.kvs.samsunghealthreporter.decorator.parsed
-import com.kvs.samsunghealthreporter.observer.Observer
-import com.kvs.samsunghealthreporter.resolver.Resolver
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
+import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import com.samsung.android.sdk.healthdata.HealthPermissionManager
 import com.samsung.android.sdk.healthdata.HealthResultHolder
 
 class SamsungHealthManager(
     private val healthDataStore: HealthDataStore,
-    private val permissionListener: PermissionListener
+    private val permissionListener: SamsungHealthPermissionListener
 ) {
     private val mPermissionManager = HealthPermissionManager(healthDataStore)
     private val mPermissionListener = HealthResultHolder.ResultListener<HealthPermissionManager.PermissionResult> { result ->
@@ -30,8 +30,8 @@ class SamsungHealthManager(
             }
             permissionListener.onPermissionAcquired(
                 permissions,
-                Resolver(healthDataStore),
-                Observer(healthDataStore),
+                SamsungHealthResolver(healthDataStore),
+                SamsungHealthObserver(healthDataStore),
             )
         } else {
             permissionListener.onException(
@@ -76,8 +76,8 @@ class SamsungHealthManager(
             }
             permissionListener.onPermissionAcquired(
                 permissionList,
-                Resolver(healthDataStore),
-                Observer(healthDataStore),
+                SamsungHealthResolver(healthDataStore),
+                SamsungHealthObserver(healthDataStore),
             )
         }
     }

@@ -2,7 +2,7 @@ package com.kvs.samsunghealthreporter.resolver
 
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
-class Resolver(
+class SamsungHealthResolver(
     private val healthDataStore: HealthDataStore
 ) {
     val stepCountResolver

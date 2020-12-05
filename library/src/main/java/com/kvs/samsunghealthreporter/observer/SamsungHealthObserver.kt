@@ -3,7 +3,7 @@ package com.kvs.samsunghealthreporter.observer
 import com.kvs.samsunghealthreporter.*
 import com.samsung.android.sdk.healthdata.*
 
-class Observer(
+class SamsungHealthObserver(
     private val healthDataStore: HealthDataStore
 ) {
     private val mDataObserver: HealthDataObserver = object : HealthDataObserver(null) {
@@ -20,7 +20,7 @@ class Observer(
     private var mOnNext: ((HealthType) -> Unit)? = null
     private var mOnError: ((Exception) -> Unit)? = null
 
-    fun observe(type: HealthType): Observer {
+    fun observe(type: HealthType): SamsungHealthObserver {
         return this.apply {
             try {
                 HealthDataObserver.addObserver(healthDataStore, type.string, mDataObserver)

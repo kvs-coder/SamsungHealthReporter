@@ -2,16 +2,16 @@ package com.kvs.samsunghealthreporter
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.kvs.samsunghealthreporter.manager.ConnectionListener
+import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
-import com.kvs.samsunghealthreporter.manager.PermissionListener
+import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.samsung.android.sdk.healthdata.HealthConnectionErrorResult
 import com.samsung.android.sdk.healthdata.HealthDataStore
 
 class SamsungHealthReporter(
     private val context: Context,
-    private val connectionListener: ConnectionListener,
-    private val permissionListener: PermissionListener
+    private val connectionListener: SamsungHealthConnectionListener,
+    private val permissionListener: SamsungHealthPermissionListener
 ) {
     companion object {
         private const val SAMSUNG_HEALTH_PACKAGE = "com.sec.android.app.shealth"

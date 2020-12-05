@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.kvs.samsunghealthreporter.*
-import com.kvs.samsunghealthreporter.manager.ConnectionListener
+import com.kvs.samsunghealthreporter.manager.SamsungHealthConnectionListener
 import com.kvs.samsunghealthreporter.manager.SamsungHealthManager
-import com.kvs.samsunghealthreporter.manager.PermissionListener
+import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.HealthType
 import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
@@ -15,8 +15,8 @@ import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time
-import com.kvs.samsunghealthreporter.observer.Observer
-import com.kvs.samsunghealthreporter.resolver.Resolver
+import com.kvs.samsunghealthreporter.observer.SamsungHealthObserver
+import com.kvs.samsunghealthreporter.resolver.SamsungHealthResolver
 import com.samsung.android.sdk.healthdata.HealthConstants
 
 import java.lang.Exception
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "SAMSUNG_HEALTH"
     }
 
-    private val mConnectionListener = object : ConnectionListener {
+    private val mConnectionListener = object : SamsungHealthConnectionListener {
         override fun onConnected(manager: SamsungHealthManager) {
             Log.i(TAG, "onConnected")
             manager.authorize(
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "onConnectionFailed $exception")
         }
     }
-    private val mPermissionListener = object : PermissionListener {
+    private val mPermissionListener = object : SamsungHealthPermissionListener {
         override fun onPermissionAcquired(
             types: Set<HealthType>,
-            resolver: Resolver,
-            observer: Observer
+            resolver: SamsungHealthResolver,
+            observer: SamsungHealthObserver
         ) {
             Log.i(TAG, "onPermissionAcquired $types")
             Thread {
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleStepCount(resolver: Resolver) {
+    private fun handleStepCount(resolver: SamsungHealthResolver) {
         resolver.stepCountResolver.let { r ->
             r.read(Date().dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleHeartRate(resolver: Resolver) {
+    private fun handleHeartRate(resolver: SamsungHealthResolver) {
         resolver.heartRateResolver.let { r ->
             r.read(Date().dayStart.dayStart, Date().dayEnd, null, null).forEach {
                 Log.d(TAG, it.json)

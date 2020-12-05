@@ -2,7 +2,7 @@ package com.kvs.samsunghealthreporter.manager
 
 import com.kvs.samsunghealthreporter.SamsungHealthConnectionException
 
-interface ConnectionListener {
+interface SamsungHealthConnectionListener {
     fun onConnected(manager: SamsungHealthManager)
 
     fun onConnectionFailed(
