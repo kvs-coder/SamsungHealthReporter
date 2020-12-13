@@ -168,6 +168,15 @@ class MainActivity : AppCompatActivity() {
                                             Log.e(TAG, "onError: $it")
                                         }
                                     )
+                                observe(SessionType.HEART_RATE)
+                                    .subscribe(
+                                        onNext = {
+                                            Log.d(TAG, "onNext: ${it.string}")
+                                        },
+                                        onError = {
+                                            Log.e(TAG, "onError: $it")
+                                        }
+                                    )
                             }
                         }.start()
                     } else {
