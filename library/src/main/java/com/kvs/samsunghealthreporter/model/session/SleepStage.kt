@@ -54,9 +54,9 @@ class SleepStage :
 
     companion object : Common.Factory<SleepStage> {
         private const val MINUTE_UNIT = "min"
-        const val ALIAS_END_TIME = "alias_end_time"
-        const val ALIAS_START_TIME = "alias_start_time"
-        const val ALIAS_STAGE = "alias_stage"
+        private const val ALIAS_END_TIME = "end_time"
+        private const val ALIAS_START_TIME = "start_time"
+        private const val ALIAS_STAGE = "group_stage"
 
         override fun fromReadData(data: HealthData): SleepStage {
             return SleepStage().apply {

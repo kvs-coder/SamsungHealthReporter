@@ -2,9 +2,17 @@ package com.kvs.samsunghealthreporter.decorator
 
 import com.kvs.samsunghealthreporter.model.AggregateFunction
 import com.kvs.samsunghealthreporter.model.Time
+import com.kvs.samsunghealthreporter.model.session.SleepStage
+import com.samsung.android.sdk.healthdata.HealthConstants
 import com.samsung.android.sdk.healthdata.HealthDataResolver
 
 val HealthDataResolver.AggregateRequest.TimeGroupUnit.string : String get() = "${this.name}_aggregate"
+
+fun HealthDataResolver.AggregateRequest.Builder.addGrouping(type: String): HealthDataResolver.AggregateRequest.Builder {
+    return this.apply {
+        addGroup(type, "group_$type")
+    }
+}
 
 fun HealthDataResolver.AggregateRequest.Builder.addAggregateFunction(
     aggregateFunction: AggregateFunction,
