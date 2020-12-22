@@ -1,198 +1,99 @@
 package com.kvs.samsunghealthreporter.model
-//
-//enum class ExerciseType {
-//      0,
-//    Custom
-//    1001,
-//    Walking
-//    1002,
-//    Running
-//    2001,
-//    Baseball
-//    2002,
-//    Softball
-//    2003,
-//    Cricket
-//    3001,
-//    Golf
-//    3002,
-//    Billiards
-//    3003,
-//    Bowling
-//    4001,
-//    Hockey
-//    4002,
-//    Rugby
-//    4003,
-//    Basketball
-//    4004,
-//    Football
-//    4005,
-//    Handball
-//    4006,
-//    Soccer
-//    5001,
-//    Volleyball
-//    5002,
-//    Beach
-//    6001,
-//    Squash
-//    6002,
-//    Tennis
-//    6003,
-//    Badminton
-//    6004,
-//    Table tennis
-//    6005,
-//    Racquetball
-//    7002,
-//    Boxing
-//    7003,
-//    Martial
-//    8001,
-//    Ballet
-//    8002,
-//    Dancing
-//    8003,
-//    Ballroom dancing
-//    9001,
-//    Pilates
-//    9002,
-//    Yoga
-//    10001,
-//    Stretching
-//    10002,
-//    Jump rope
-//    10003,
-//    Hula-hooping
-//    10004,
-//    Push-ups (Press-ups)
-//    10005,
-//    Pull-ups (Chin-up)
-//    10006,
-//    Sit-ups
-//    10007,
-//    Circuit training
-//    10008,
-//    Mountain climbers
-//    10009,
-//    Jumping Jacks
-//    10010,
-//    Burpee
-//    10011,
-//    Bench press
-//    10012,
-//    Squats
-//    10013,
-//    Lunges
-//    10014,
-//    Leg presses
-//    10015,
-//    Leg extensions
-//    10016,
-//    Leg curls
-//    10017,
-//    Back extensions
-//    10018,
-//    Lat pull-downs
-//    10019,
-//    Deadlifts
-//    10020,
-//    Shoulder presses
-//    10021,
-//    Front raises
-//    10022,
-//    Lateral raises
-//    10023,
-//    Crunches
-//    10024,
-//    Leg raises
-//    10025,
-//    Plank
-//    10026,
-//    Arm curls
-//    10027,
-//    Arm extensions
-//    11001,
-//    Inline skating
-//    11002,
-//    Hang gliding
-//    11003,
-//    Pistol shooting
-//    11004,
-//    Archery
-//    11005,
-//    Horseback riding
-//    11007,
-//    Cycling
-//    11008,
-//    Flying disc
-//    11009,
-//    Roller skating
-//    12001,
-//    Aerobics
-//    13001,
-//    Hiking
-//    13002,
-//    Rock climbing
-//    13003,
-//    Backpacking
-//    13004,
-//    Mountain biking
-//    13005,
-//    Orienteering
-//    14001,
-//    Swimming
-//    14002,
-//    Aquarobics
-//    14003,
-//    Canoeing
-//    14004,
-//    Sailing
-//    14005,
-//    Scuba diving
-//    14006,
-//    Snorkeling
-//    14007,
-//    Kayaking
-//    14008,
-//    Kitesurfing
-//    14009,
-//    Rafting
-//    14010,
-//    Rowing machine
-//    14011,
-//    Windsurfing
-//    14012,
-//    Yachting
-//    14013,
-//    Water skiing
-//    15001,
-//    Step machine
-//    15002,
-//    Weight machine
-//    15003,
-//    Exercise bike
-//    15004,
-//    Rowing machine
-//    15005,
-//    Treadmill
-//    15006,
-//    Elliptical trainer
-//    16001,
-//    Cross-country skiing
-//    16002,
-//    Skiing
-//    16003,
-//    Ice dancing
-//    16004,
-//    Ice skating
-//    16006,
-//    Ice hockey
-//    16007,
-//    Snowboarding
-//    16008,
-//    Alpine skiing
-//    16009,
-//    Snowshoeing
-//}
+enum class ExerciseType(val id: Int, val description: String) {
+    Custom(0, "Custom"),
+    Walking(1001, "Walking"),
+    Running(1002, "Running"),
+    Baseball(2001, "Baseball"),
+    Softball(2002, "Softball"),
+    Cricket(2003, "Cricket"),
+    Golf(3001, "Golf"),
+    Billiards(3002, "Billiards"),
+    Bowling(3003, "Bowling"),
+    Hockey(4001, "Hockey"),
+    Rugby(4002, "Rugby"),
+    Basketball(4003, "Basketball"),
+    Football(4004, "Football"),
+    Handball(4005, "Handball"),
+    Soccer(4006, "Soccer"),
+    Volleyball(5001, "Volleyball"),
+    Beach(5002, "Beach"),
+    Squash(6001, "Squash"),
+    Tennis(6002, "Tennis"),
+    Badminton(6003, "Badminton"),
+    Table(6004, "Table tennis"),
+    Racquetball(6005, "Racquetball"),
+    Boxing(7002, "Boxing"),
+    Martial(7003, "Martial"),
+    Ballet(8001, "Ballet"),
+    Dancing(8002, "Dancing"),
+    BallroomDancing(8003, "Ballroom dancing"),
+    Pilates(9001, "Pilates"),
+    Yoga(9002, "Yoga"),
+    Stretching(10001, "Stretching"),
+    JumpRope(10002, "Jump rope"),
+    HulaHooping(10003, "Hula hooping"),
+    PushUps(10004, "Push ups"),
+    PullUps(10005, "Pull ups"),
+    SitUps(10006, "Sit ups"),
+    CircuitTraining(10007, "Circuit training"),
+    MountainClimbers(10008, "Mountain climbers"),
+    JumpingJacks(10009, "Jumping Jacks"),
+    Burpee(10010, "Burpee"),
+    BenchPress(10011, "Bench press"),
+    Squats(10012, "Squats"),
+    Lunges(10013, "Lunges"),
+    LegPresses(10014, "Leg presses"),
+    LegExtensions(10015, "Leg extensions"),
+    LegCurls(10016, "Leg curls"),
+    BackExtensions(10017, "Back extensions"),
+    LatPulLDowns(10018, "Lat pull-downs"),
+    Deadlifts(10019, "Deadlifts"),
+    ShoulderPresses(10020, "Shoulder presses"),
+    FrontRaises(10021, "Front raises"),
+    LateralRaises(10022, "Lateral raises"),
+    Crunches(10023, "Crunches"),
+    LegRaises(10024, "Leg raises"),
+    Plank(10025, "Plank"),
+    ArmCurls(10026, "Arm curls"),
+    ArmExtensions(10027, "Arm extensions"),
+    InlineSkating(11001, "Inline skating"),
+    HangGliding(11002, "Hang gliding"),
+    PistolShooting(11003, "Pistol shooting"),
+    Archery(11004, "Archery"),
+    HorsebackRiding(11005, "Horseback riding"),
+    Cycling(11007, "Cycling"),
+    FlyingDisc(11008, "Flying disc"),
+    RollerSkating(11009, "Roller skating"),
+    Aerobics(12001, "Aerobics"),
+    Hiking(13001, "Hiking"),
+    Rock(13002, "Rock climbing"),
+    Backpacking(13003, "Backpacking"),
+    Mountain(13004, "Mountain biking"),
+    Orienteering(13005, "Orienteering"),
+    Swimming(14001, "Swimming"),
+    Aquarobics(14002, "Aquarobics"),
+    Canoeing(14003, "Canoeing"),
+    Sailing(14004, "Sailing"),
+    Scuba(14005, "Scuba diving"),
+    Snorkeling(14006, "Snorkeling"),
+    Kayaking(14007, "Kayaking"),
+    Kitesurfing(14008, "Kitesurfing"),
+    Rafting(14009, "Rafting"),
+    Windsurfing(14011, "Windsurfing"),
+    Yachting(14012, "Yachting"),
+    WaterSkiing(14013, "Water skiing"),
+    StepMachine(15001, "Step machine"),
+    WeightMachine(15002, "Weight machine"),
+    ExerciseBike(15003, "Exercise bike"),
+    RowingMachine(15004, "Rowing machine"),
+    Treadmill(15005, "Treadmill"),
+    EllipticalTrainer(15006, "Elliptical trainer"),
+    CrossCountrySkiing(16001, "Cross country skiing"),
+    Skiing(16002, "Skiing"),
+    IceDancing(16003, "Ice dancing"),
+    IceSkating(16004, "Ice skating"),
+    IceHosckey(16006, "Ice hockey"),
+    Snowboarding(16007, "Snowboarding"),
+    AlpineSkiing(16008, "Alpine skiing"),
+    Snowshoeing(16009, "Snowshoeing"),
+}
