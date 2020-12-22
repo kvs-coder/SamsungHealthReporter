@@ -69,7 +69,6 @@ class Electrocardiogram :
         data class HeartRate(
             val min: Float,
             val max: Float,
-            val avg: Float,
             val unit: String
         )
     }
@@ -79,9 +78,21 @@ class Electrocardiogram :
         override val startDate: Date,
         override val timeOffset: Long,
         override val endDate: Date,
-        val heartRate: Float,
-        val beatCount: Int
-    ) : Session.InsertResult
+        val comment: String?,
+        val heartRate: HeartRate,
+        val sample: Sample
+    ) : Session.InsertResult {
+        data class Sample(
+            val frequency: Int,
+            val count: Int
+        )
+
+        data class HeartRate(
+            val min: Float,
+            val mean: Float,
+            val max: Float,
+        )
+    }
 
     companion object : Common.Factory<Electrocardiogram> {
         private const val BPM_UNIT = "bpm"
@@ -89,7 +100,6 @@ class Electrocardiogram :
         private const val HERTZ_UNIT = "Hz"
         private const val ALIAS_MIN_HEART_RATE = "heart_rate_min"
         private const val ALIAS_MAX_HEART_RATE = "heart_rate_max"
-        private const val ALIAS_AVG_HEART_RATE = "heart_rate_avg"
         private const val ALIAS_MIN_SAMPLE_FREQUENCY = "sample_frequency_min"
         private const val ALIAS_MAX_SAMPLE_FREQUENCY = "sample_frequency_max"
         private const val ALIAS_AVG_SAMPLE_FREQUENCY = "sample_frequency_avg"
@@ -157,7 +167,6 @@ class Electrocardiogram :
                     AggregateResult.HeartRate(
                         data.getFloat(ALIAS_MIN_HEART_RATE),
                         data.getFloat(ALIAS_MAX_HEART_RATE),
-                        data.getFloat(ALIAS_AVG_HEART_RATE),
                         BPM_UNIT
                     )
                 )
@@ -188,7 +197,12 @@ class Electrocardiogram :
             putLong(HealthConstants.Electrocardiogram.START_TIME, insertResult.startDate.time)
             putLong(HealthConstants.Electrocardiogram.TIME_OFFSET, insertResult.timeOffset)
             putLong(HealthConstants.Electrocardiogram.END_TIME, insertResult.endDate.time)
+            putString(HealthConstants.Electrocardiogram.COMMENT, insertResult.comment)
+            putInt(HealthConstants.Electrocardiogram.SAMPLE_FREQUENCY, insertResult.sample.frequency)
+            putInt(HealthConstants.Electrocardiogram.SAMPLE_COUNT, insertResult.sample.count)
+            putFloat(HealthConstants.Electrocardiogram.MIN_HEART_RATE, insertResult.heartRate.min)
+            putFloat(HealthConstants.Electrocardiogram.MEAN_HEART_RATE, insertResult.heartRate.mean)
+            putFloat(HealthConstants.Electrocardiogram.MAX_HEART_RATE, insertResult.heartRate.max)
         }
     }
-
 }
