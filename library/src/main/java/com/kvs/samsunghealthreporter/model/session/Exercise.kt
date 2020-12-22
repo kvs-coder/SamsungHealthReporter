@@ -592,8 +592,14 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
             putFloat(HealthConstants.Exercise.INCLINE_DISTANCE, insertResult.distance.incline)
             putFloat(HealthConstants.Exercise.DECLINE_DISTANCE, insertResult.distance.decline)
             putFloat(HealthConstants.Exercise.CALORIE, insertResult.calorie.value)
-            putFloat(HealthConstants.Exercise.MEAN_CALORICBURN_RATE, insertResult.calorie.meanBurnRate)
-            putFloat(HealthConstants.Exercise.MAX_CALORICBURN_RATE, insertResult.calorie.maxBurnRate)
+            putFloat(
+                HealthConstants.Exercise.MEAN_CALORICBURN_RATE,
+                insertResult.calorie.meanBurnRate
+            )
+            putFloat(
+                HealthConstants.Exercise.MAX_CALORICBURN_RATE,
+                insertResult.calorie.maxBurnRate
+            )
             putLong(HealthConstants.Exercise.DURATION, insertResult.duration)
             putFloat(HealthConstants.Exercise.ALTITUDE_GAIN, insertResult.altitude.gain)
             putFloat(HealthConstants.Exercise.ALTITUDE_LOSS, insertResult.altitude.loss)
