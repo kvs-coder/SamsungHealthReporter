@@ -1,6 +1,5 @@
 package com.kvs.samsunghealthreporter.model.session
 
-import android.os.PowerManager
 import com.google.gson.annotations.*
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.model.*
