@@ -1,5 +1,6 @@
 package com.kvs.samsunghealthreporter.model.session
 
+import android.os.PowerManager
 import com.google.gson.annotations.*
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
 import com.kvs.samsunghealthreporter.model.*
@@ -116,7 +117,7 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         override val startTime: Long,
         override val timeOffset: Long,
         override val endTime: Long,
-        val type: Int,
+        val type: Type,
         val customType: String,
         val speed: Speed,
         val distance: Distance,
@@ -133,6 +134,12 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         val location: Location?,
         val additional: Additional?
     ) : Session.ReadResult {
+        data class Type(val id: Int) {
+            val description: String = ExerciseType.values().first {
+                it.id == id
+            }.description
+        }
+
         data class Speed(
             val mean: Float,
             val max: Float,
@@ -336,7 +343,68 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         override val startDate: Date,
         override val timeOffset: Long,
         override val endDate: Date,
-    ) : Session.InsertResult
+        val comment: String?,
+        val type: Type,
+        val duration: Long,
+        val speed: Speed,
+        val distance: Distance,
+        val calorie: Calorie,
+        val altitude: Altitude,
+        val count: Count,
+        val cadence: Cadence,
+        val heartRate: HeartRate,
+        val power: Power,
+        val rpm: RPM
+    ) : Session.InsertResult {
+        data class Type(val exerciseType: ExerciseType)
+
+        data class Speed(
+            val mean: Float,
+            val max: Float,
+        )
+
+        data class Distance(
+            val value: Float,
+            val incline: Float,
+            val decline: Float,
+        )
+
+        data class Calorie(
+            val value: Float,
+            val meanBurnRate: Float,
+            val maxBurnRate: Float,
+        )
+
+        data class Altitude(
+            val gain: Float,
+            val loss: Float,
+            val min: Float,
+            val max: Float,
+        )
+
+        data class Count(val value: Int, val type: Int)
+
+        data class Cadence(
+            val mean: Float,
+            val max: Float,
+        )
+
+        data class HeartRate(
+            val min: Float,
+            val mean: Float,
+            val max: Float,
+        )
+
+        data class Power(
+            val mean: Float,
+            val max: Float,
+        )
+
+        data class RPM(
+            val mean: Float,
+            val max: Float,
+        )
+    }
 
     companion object : Common.Factory<Exercise> {
         private const val SPEED_UNIT = "m/s"
@@ -393,7 +461,7 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
                     data.getLong(HealthConstants.Exercise.START_TIME),
                     data.getLong(HealthConstants.Exercise.TIME_OFFSET),
                     data.getLong(HealthConstants.Exercise.END_TIME),
-                    data.getInt(HealthConstants.Exercise.EXERCISE_TYPE),
+                    ReadResult.Type(data.getInt(HealthConstants.Exercise.EXERCISE_TYPE)),
                     data.getString(HealthConstants.Exercise.EXERCISE_CUSTOM_TYPE),
                     ReadResult.Speed(
                         data.getFloat(HealthConstants.Exercise.MEAN_SPEED),
@@ -517,6 +585,32 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
             putLong(HealthConstants.Exercise.START_TIME, insertResult.startDate.time)
             putLong(HealthConstants.Exercise.TIME_OFFSET, insertResult.timeOffset)
             putLong(HealthConstants.Exercise.END_TIME, insertResult.endDate.time)
+            putString(HealthConstants.Exercise.COMMENT, insertResult.comment)
+            putInt(HealthConstants.Exercise.EXERCISE_TYPE, insertResult.type.exerciseType.id)
+            putFloat(HealthConstants.Exercise.MEAN_SPEED, insertResult.speed.mean)
+            putFloat(HealthConstants.Exercise.MAX_SPEED, insertResult.speed.max)
+            putFloat(HealthConstants.Exercise.DISTANCE, insertResult.distance.value)
+            putFloat(HealthConstants.Exercise.INCLINE_DISTANCE, insertResult.distance.incline)
+            putFloat(HealthConstants.Exercise.DECLINE_DISTANCE, insertResult.distance.decline)
+            putFloat(HealthConstants.Exercise.CALORIE, insertResult.calorie.value)
+            putFloat(HealthConstants.Exercise.MEAN_CALORICBURN_RATE, insertResult.calorie.meanBurnRate)
+            putFloat(HealthConstants.Exercise.MAX_CALORICBURN_RATE, insertResult.calorie.maxBurnRate)
+            putLong(HealthConstants.Exercise.DURATION, insertResult.duration)
+            putFloat(HealthConstants.Exercise.ALTITUDE_GAIN, insertResult.altitude.gain)
+            putFloat(HealthConstants.Exercise.ALTITUDE_LOSS, insertResult.altitude.loss)
+            putFloat(HealthConstants.Exercise.MIN_ALTITUDE, insertResult.altitude.min)
+            putFloat(HealthConstants.Exercise.MAX_ALTITUDE, insertResult.altitude.max)
+            putInt(HealthConstants.Exercise.COUNT, insertResult.count.value)
+            putInt(HealthConstants.Exercise.COUNT_TYPE, insertResult.count.type)
+            putFloat(HealthConstants.Exercise.MEAN_CADENCE, insertResult.cadence.mean)
+            putFloat(HealthConstants.Exercise.MAX_CADENCE, insertResult.cadence.max)
+            putFloat(HealthConstants.Exercise.MIN_HEART_RATE, insertResult.heartRate.min)
+            putFloat(HealthConstants.Exercise.MEAN_HEART_RATE, insertResult.heartRate.mean)
+            putFloat(HealthConstants.Exercise.MAX_HEART_RATE, insertResult.heartRate.max)
+            putFloat(HealthConstants.Exercise.MEAN_POWER, insertResult.power.mean)
+            putFloat(HealthConstants.Exercise.MAX_POWER, insertResult.power.max)
+            putFloat(HealthConstants.Exercise.MEAN_RPM, insertResult.rpm.mean)
+            putFloat(HealthConstants.Exercise.MAX_RPM, insertResult.rpm.max)
         }
     }
 }
