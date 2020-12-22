@@ -34,8 +34,8 @@ class Sleep : Session<Sleep.ReadResult, Sleep.AggregateResult, Sleep.InsertResul
 
     companion object : Common.Factory<Sleep> {
         private const val MINUTE_UNIT = "min"
-        const val ALIAS_END_TIME = "alias_end_time"
-        const val ALIAS_START_TIME = "alias_start_time"
+        private const val ALIAS_END_TIME = "end_time"
+        private const val ALIAS_START_TIME = "start_time"
 
         override fun fromReadData(data: HealthData): Sleep {
             return Sleep().apply {
