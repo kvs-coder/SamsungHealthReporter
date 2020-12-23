@@ -11,7 +11,7 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
-class OxygenSaturationResolver(healthDataStore: HealthDataStore) : SessionResolver<OxygenSaturation>(healthDataStore) {
+class OxygenSaturationResolver(healthDataStore: HealthDataStore) : CommonResolver<OxygenSaturation>(healthDataStore) {
     override val type: String
         get() = HealthConstants.OxygenSaturation.HEALTH_DATA_TYPE
 

@@ -11,7 +11,7 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
-class SleepResolver(healthDataStore: HealthDataStore) : SessionResolver<Sleep>(healthDataStore) {
+class SleepResolver(healthDataStore: HealthDataStore) : CommonResolver<Sleep>(healthDataStore) {
     override val type: String
         get() = HealthConstants.Sleep.HEALTH_DATA_TYPE
 

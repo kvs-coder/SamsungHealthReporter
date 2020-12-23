@@ -6,7 +6,7 @@ import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-class StepCountResolver(healthDataStore: HealthDataStore) : SessionResolver<StepCount>(healthDataStore) {
+class StepCountResolver(healthDataStore: HealthDataStore) : CommonResolver<StepCount>(healthDataStore) {
     override val type: String
         get() = HealthConstants.StepCount.HEALTH_DATA_TYPE
 
