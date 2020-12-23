@@ -314,7 +314,6 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
         )
 
         data class Speed(
-            val min: Float,
             val max: Float,
             val avg: Float,
             val unit: String
@@ -537,7 +536,6 @@ class Exercise : Session<Exercise.ReadResult, Exercise.AggregateResult, Exercise
                         CALORIE_UNIT
                     ),
                     AggregateResult.Speed(
-                        data.getFloat(ALIAS_MIN_SPEED),
                         data.getFloat(ALIAS_MAX_SPEED),
                         data.getFloat(ALIAS_AVG_SPEED),
                         SPEED_UNIT

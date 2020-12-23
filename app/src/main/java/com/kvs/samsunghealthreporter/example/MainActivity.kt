@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleStepCount(resolver: SamsungHealthResolver) {
-        resolver.stepCountResolver.let { r ->
+        resolver.stepCount.let { r ->
             val readResult = r.read(Date().dayStart, Date().dayEnd, null, null)
             Log.i(TAG, readResult.toJson())
             val aggregateResult = r.aggregate(
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleHeartRate(resolver: SamsungHealthResolver) {
-        resolver.heartRateResolver.let { r ->
+        resolver.heartRate.let { r ->
             val readResult = r.read(
                 Date().dayStart.dayStart,
                 Date().dayEnd,

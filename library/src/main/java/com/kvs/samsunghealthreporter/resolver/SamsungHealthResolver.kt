@@ -5,8 +5,18 @@ import com.samsung.android.sdk.healthdata.HealthDataStore
 class SamsungHealthResolver(
     private val healthDataStore: HealthDataStore
 ) {
-    val stepCountResolver
+    val stepCount
         get() = StepCountResolver(healthDataStore)
-    val heartRateResolver
+    val heartRate
         get() = HeartRateResolver(healthDataStore)
+    val electrocardiogram
+        get() = ElectrocardiogramResolver(healthDataStore)
+    val oxygenSaturation
+        get() = OxygenSaturationResolver(healthDataStore)
+    val sleep
+        get() = SleepResolver(healthDataStore)
+    val sleepStage
+        get() = SleepStageResolver(healthDataStore)
+    val exercise
+        get() = ExerciseResolver(healthDataStore)
 }
