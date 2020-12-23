@@ -6,7 +6,7 @@ import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-class HeartRateResolver(healthDataStore: HealthDataStore) : SessionResolver<HeartRate>(healthDataStore) {
+class HeartRateResolver(healthDataStore: HealthDataStore) : CommonResolver<HeartRate>(healthDataStore) {
     override val type: String
         get() = HealthConstants.HeartRate.HEALTH_DATA_TYPE
 

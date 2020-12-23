@@ -11,7 +11,7 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
-class ExerciseResolver(healthDataStore: HealthDataStore) : SessionResolver<Exercise>(healthDataStore) {
+class ExerciseResolver(healthDataStore: HealthDataStore) : CommonResolver<Exercise>(healthDataStore) {
     override val type: String
         get() = HealthConstants.Exercise.HEALTH_DATA_TYPE
 

@@ -11,7 +11,7 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
-class FloorsClimbedResolver(healthDataStore: HealthDataStore) : SessionResolver<FloorsClimbed>(healthDataStore) {
+class FloorsClimbedResolver(healthDataStore: HealthDataStore) : CommonResolver<FloorsClimbed>(healthDataStore) {
     override val type: String
         get() = HealthConstants.FloorsClimbed.HEALTH_DATA_TYPE
 

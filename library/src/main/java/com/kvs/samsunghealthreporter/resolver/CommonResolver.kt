@@ -6,7 +6,7 @@ import com.kvs.samsunghealthreporter.model.*
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-abstract class SessionResolver<SessionResult>(protected val healthDataStore: HealthDataStore) where SessionResult : Common {
+abstract class CommonResolver<Value : Common>(protected val healthDataStore: HealthDataStore) {
     abstract val type: String
 
     init {
@@ -21,7 +21,7 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
         endTime: Date,
         filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
-    ): List<SessionResult>
+    ): List<Value>
 
     @Throws(IllegalArgumentException::class, IllegalStateException::class)
     abstract fun aggregate(
@@ -30,14 +30,14 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
         timeGroup: Time.Group,
         filter: Filter?,
         sort: Pair<String, HealthDataResolver.SortOrder>?
-    ): List<SessionResult>
+    ): List<Value>
 
     @Throws(
         IllegalArgumentException::class,
         IllegalStateException::class,
         SamsungHealthWriteException::class
     )
-    fun insert(value: SessionResult): Boolean {
+    fun insert(value: Value): Boolean {
         val data = value.asOriginal(healthDataStore)
         val request = HealthDataResolver.InsertRequest.Builder()
             .setDataType(type)
@@ -53,7 +53,7 @@ abstract class SessionResolver<SessionResult>(protected val healthDataStore: Hea
         IllegalStateException::class,
         SamsungHealthWriteException::class
     )
-    fun update(value: SessionResult, filter: Filter): Boolean {
+    fun update(value: Value, filter: Filter): Boolean {
         val data = value.asOriginal(healthDataStore)
         val request = HealthDataResolver.UpdateRequest.Builder()
             .setDataType(type)

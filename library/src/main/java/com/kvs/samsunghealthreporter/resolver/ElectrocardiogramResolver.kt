@@ -11,7 +11,7 @@ import com.samsung.android.sdk.healthdata.HealthDataResolver
 import com.samsung.android.sdk.healthdata.HealthDataStore
 import java.util.*
 
-class ElectrocardiogramResolver(healthDataStore: HealthDataStore) : SessionResolver<Electrocardiogram>(healthDataStore) {
+class ElectrocardiogramResolver(healthDataStore: HealthDataStore) : CommonResolver<Electrocardiogram>(healthDataStore) {
     override val type: String
         get() = HealthConstants.Electrocardiogram.HEALTH_DATA_TYPE
 
