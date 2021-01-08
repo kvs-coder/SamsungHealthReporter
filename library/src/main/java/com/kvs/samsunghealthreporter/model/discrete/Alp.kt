@@ -6,7 +6,7 @@ import com.kvs.samsunghealthreporter.model.Time
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
 
-class Albumin: Discrete<Albumin.ReadResult, Albumin.AggregateResult, Albumin.InsertResult> {
+class Alp: Discrete<Alp.ReadResult, Alp.AggregateResult, Alp.InsertResult> {
     data class ReadResult(
         override val uuid: String,
         override val packageName: String,
@@ -16,16 +16,16 @@ class Albumin: Discrete<Albumin.ReadResult, Albumin.AggregateResult, Albumin.Ins
         override val updateTime: Long,
         override val startTime: Long,
         override val timeOffset: Long,
-        val albumin: Albumin,
+        val alp: Alp,
     ) : Discrete.ReadResult {
-        data class Albumin(val value: Float, val unit: String)
+        data class Alp(val value: Float, val unit: String)
     }
 
     data class AggregateResult(
         override val time: Time,
-        val albumin: Albumin,
+        val alp: Alp,
     ) : Discrete.AggregateResult {
-        data class Albumin(
+        data class Alp(
             val min: Int,
             val max: Int,
             val avg: Int,
@@ -39,40 +39,41 @@ class Albumin: Discrete<Albumin.ReadResult, Albumin.AggregateResult, Albumin.Ins
         override val packageName: String,
         override val startDate: Date,
         override val timeOffset: Long,
-        val albumin: Float,
+        val alp: Float,
     ) : Discrete.InsertResult
 
-    companion object : Common.Factory<Albumin> {
+    companion object : Common.Factory<Alp> {
+        private const val INTERNATIONAL_UNIT_PER_LITER = "IU/L"
         private const val ALIAS_MIN_ALBUMIN = "albumin_min"
         private const val ALIAS_MAX_ALBUMIN = "albumin_max"
         private const val ALIAS_AVG_ALBUMIN = "albumin_avg"
         private const val ALIAS_SUM_ALBUMIN = "albumin_sum"
         private const val ALIAS_COUNT_ALBUMIN = "albumin_count"
 
-        override fun fromReadData(data: HealthData): Albumin {
-            return Albumin().apply {
+        override fun fromReadData(data: HealthData): Alp {
+            return Alp().apply {
                 readResult = ReadResult(
-                    data.getString(HealthConstants.Albumin.UUID),
-                    data.getString(HealthConstants.Albumin.PACKAGE_NAME),
-                    data.getString(HealthConstants.Albumin.DEVICE_UUID),
-                    data.getString(HealthConstants.Albumin.CUSTOM),
-                    data.getLong(HealthConstants.Albumin.CREATE_TIME),
-                    data.getLong(HealthConstants.Albumin.UPDATE_TIME),
-                    data.getLong(HealthConstants.Albumin.START_TIME),
-                    data.getLong(HealthConstants.Albumin.TIME_OFFSET),
-                    ReadResult.Albumin(
-                        data.getFloat(HealthConstants.Albumin.ALBUMIN),
-                        HealthDataUnit.GRAMS_PER_DECILITER.unitName
+                    data.getString(HealthConstants.Alp.UUID),
+                    data.getString(HealthConstants.Alp.PACKAGE_NAME),
+                    data.getString(HealthConstants.Alp.DEVICE_UUID),
+                    data.getString(HealthConstants.Alp.CUSTOM),
+                    data.getLong(HealthConstants.Alp.CREATE_TIME),
+                    data.getLong(HealthConstants.Alp.UPDATE_TIME),
+                    data.getLong(HealthConstants.Alp.START_TIME),
+                    data.getLong(HealthConstants.Alp.TIME_OFFSET),
+                    ReadResult.Alp(
+                        data.getFloat(HealthConstants.Alp.ALP),
+                        INTERNATIONAL_UNIT_PER_LITER
                     ),
                 )
             }
         }
 
-        override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): Albumin {
-            return Albumin().apply {
+        override fun fromAggregateData(data: HealthData, timeGroup: Time.Group): Alp {
+            return Alp().apply {
                 aggregateResult = AggregateResult(
                     Time(data.getString(timeGroup.alias), timeGroup),
-                    AggregateResult.Albumin(
+                    AggregateResult.Alp(
                         data.getInt(ALIAS_MIN_ALBUMIN),
                         data.getInt(ALIAS_MAX_ALBUMIN),
                         data.getInt(ALIAS_AVG_ALBUMIN),
@@ -85,7 +86,7 @@ class Albumin: Discrete<Albumin.ReadResult, Albumin.AggregateResult, Albumin.Ins
         }
     }
 
-    override val type = HealthConstants.Albumin.HEALTH_DATA_TYPE
+    override val type = HealthConstants.Alp.HEALTH_DATA_TYPE
     override var readResult: ReadResult? = null
     override var aggregateResult: AggregateResult? = null
     override var insertResult: InsertResult? = null
@@ -104,11 +105,11 @@ class Albumin: Discrete<Albumin.ReadResult, Albumin.AggregateResult, Albumin.Ins
         val deviceUuid = HealthDeviceManager(healthDataStore).localDevice.uuid
         return HealthData().apply {
             sourceDevice = deviceUuid
-            putString(HealthConstants.Albumin.DEVICE_UUID, deviceUuid)
-            putString(HealthConstants.Albumin.PACKAGE_NAME, insertResult.packageName)
-            putLong(HealthConstants.Albumin.START_TIME, insertResult.startDate.time)
-            putLong(HealthConstants.Albumin.TIME_OFFSET, insertResult.timeOffset)
-            putFloat(HealthConstants.Albumin.ALBUMIN, insertResult.albumin)
+            putString(HealthConstants.Alp.DEVICE_UUID, deviceUuid)
+            putString(HealthConstants.Alp.PACKAGE_NAME, insertResult.packageName)
+            putLong(HealthConstants.Alp.START_TIME, insertResult.startDate.time)
+            putLong(HealthConstants.Alp.TIME_OFFSET, insertResult.timeOffset)
+            putFloat(HealthConstants.Alp.ALP, insertResult.alp)
         }
     }
 }
