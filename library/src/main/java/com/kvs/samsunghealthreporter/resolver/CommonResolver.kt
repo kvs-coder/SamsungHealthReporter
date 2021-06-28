@@ -2,6 +2,8 @@ package com.kvs.samsunghealthreporter.resolver
 
 import android.os.Looper
 import com.kvs.samsunghealthreporter.SamsungHealthWriteException
+import com.kvs.samsunghealthreporter.decorator.Filter
+import com.kvs.samsunghealthreporter.decorator.SortOrder
 import com.kvs.samsunghealthreporter.model.*
 import com.samsung.android.sdk.healthdata.*
 import java.util.*
@@ -20,7 +22,7 @@ abstract class CommonResolver<Value : Common>(protected val healthDataStore: Hea
         startTime: Date,
         endTime: Date,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<Value>
 
     @Throws(IllegalArgumentException::class, IllegalStateException::class)
@@ -29,7 +31,7 @@ abstract class CommonResolver<Value : Common>(protected val healthDataStore: Hea
         endTime: Date,
         timeGroup: Time.Group,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<Value>
 
     @Throws(

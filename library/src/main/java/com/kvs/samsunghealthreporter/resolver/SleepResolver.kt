@@ -1,9 +1,10 @@
 package com.kvs.samsunghealthreporter.resolver
 
+import com.kvs.samsunghealthreporter.decorator.Filter
+import com.kvs.samsunghealthreporter.decorator.SortOrder
 import com.kvs.samsunghealthreporter.decorator.addAggregateFunction
 import com.kvs.samsunghealthreporter.decorator.setTimeUnit
 import com.kvs.samsunghealthreporter.model.AggregateFunction
-import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.model.session.Sleep
 import com.samsung.android.sdk.healthdata.HealthConstants
@@ -19,7 +20,7 @@ class SleepResolver(healthDataStore: HealthDataStore) : CommonResolver<Sleep>(he
         startTime: Date,
         endTime: Date,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<Sleep> {
         val list = mutableListOf<Sleep>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
@@ -66,7 +67,7 @@ class SleepResolver(healthDataStore: HealthDataStore) : CommonResolver<Sleep>(he
         endTime: Date,
         timeGroup: Time.Group,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<Sleep> {
         val list = mutableListOf<Sleep>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()

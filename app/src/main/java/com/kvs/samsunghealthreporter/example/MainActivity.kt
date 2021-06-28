@@ -9,8 +9,8 @@ import com.kvs.samsunghealthreporter.manager.SamsungHealthPermissionListener
 import com.kvs.samsunghealthreporter.decorator.addMinutes
 import com.kvs.samsunghealthreporter.decorator.dayEnd
 import com.kvs.samsunghealthreporter.decorator.dayStart
+import com.kvs.samsunghealthreporter.decorator.Filter
 import com.kvs.samsunghealthreporter.decorator.toJson
-import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.session.HeartRate
 import com.kvs.samsunghealthreporter.model.session.StepCount
 import com.kvs.samsunghealthreporter.model.Time

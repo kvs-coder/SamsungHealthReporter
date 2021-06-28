@@ -1,9 +1,10 @@
 package com.kvs.samsunghealthreporter.resolver
 
+import com.kvs.samsunghealthreporter.decorator.Filter
+import com.kvs.samsunghealthreporter.decorator.SortOrder
 import com.kvs.samsunghealthreporter.decorator.addAggregateFunction
 import com.kvs.samsunghealthreporter.decorator.setTimeUnit
 import com.kvs.samsunghealthreporter.model.AggregateFunction
-import com.kvs.samsunghealthreporter.model.Filter
 import com.kvs.samsunghealthreporter.model.Time
 import com.kvs.samsunghealthreporter.model.session.OxygenSaturation
 import com.samsung.android.sdk.healthdata.HealthConstants
@@ -19,7 +20,7 @@ class OxygenSaturationResolver(healthDataStore: HealthDataStore) : CommonResolve
         startTime: Date,
         endTime: Date,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<OxygenSaturation> {
         val list = mutableListOf<OxygenSaturation>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
@@ -69,7 +70,7 @@ class OxygenSaturationResolver(healthDataStore: HealthDataStore) : CommonResolve
         endTime: Date,
         timeGroup: Time.Group,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<OxygenSaturation> {
         val list = mutableListOf<OxygenSaturation>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()

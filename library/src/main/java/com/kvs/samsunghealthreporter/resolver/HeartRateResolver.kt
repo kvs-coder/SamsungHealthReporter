@@ -14,7 +14,7 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : CommonResolver<Heart
         startTime: Date,
         endTime: Date,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<HeartRate> {
         val list = mutableListOf<HeartRate>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
@@ -66,7 +66,7 @@ class HeartRateResolver(healthDataStore: HealthDataStore) : CommonResolver<Heart
         endTime: Date,
         timeGroup: Time.Group,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<HeartRate> {
         val list = mutableListOf<HeartRate>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()

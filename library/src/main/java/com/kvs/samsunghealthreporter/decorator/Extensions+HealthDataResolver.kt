@@ -6,6 +6,9 @@ import com.kvs.samsunghealthreporter.model.session.SleepStage
 import com.samsung.android.sdk.healthdata.HealthConstants
 import com.samsung.android.sdk.healthdata.HealthDataResolver
 
+typealias Filter = HealthDataResolver.Filter
+typealias SortOrder = HealthDataResolver.SortOrder
+
 val HealthDataResolver.AggregateRequest.TimeGroupUnit.string : String get() = "${this.name}_aggregate"
 
 fun HealthDataResolver.AggregateRequest.Builder.addGrouping(type: String): HealthDataResolver.AggregateRequest.Builder {

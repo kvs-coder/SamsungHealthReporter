@@ -14,7 +14,7 @@ class StepCountResolver(healthDataStore: HealthDataStore) : CommonResolver<StepC
         startTime: Date,
         endTime: Date,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.ReadRequest.Builder()
@@ -65,7 +65,7 @@ class StepCountResolver(healthDataStore: HealthDataStore) : CommonResolver<StepC
         endTime: Date,
         timeGroup: Time.Group,
         filter: Filter?,
-        sort: Pair<String, HealthDataResolver.SortOrder>?
+        sort: Pair<String, SortOrder>?
     ): List<StepCount> {
         val list = mutableListOf<StepCount>()
         val requestBuilder = HealthDataResolver.AggregateRequest.Builder()
