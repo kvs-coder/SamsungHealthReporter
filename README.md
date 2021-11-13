@@ -18,7 +18,5 @@ dependencies {
 }
 ```
 
-## Donation
-The project is currently under construction, if you think that it is worth to support, please donate :-)
-
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/VictorKachalov/5EUR)
+## Sponsorhip
+If you think that my repo helped you to solve the issues you struggle with, please don't be shy and sponsor :-)
