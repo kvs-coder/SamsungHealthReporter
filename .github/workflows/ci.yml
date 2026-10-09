@@ -16,7 +16,7 @@ permissions:
 jobs:
   release-guard:
     name: Version / Changelog
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Top CHANGELOG.md entry matches the release manifest
@@ -31,7 +31,7 @@ jobs:
 
   build:
     name: Lint, test, API check, build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v6

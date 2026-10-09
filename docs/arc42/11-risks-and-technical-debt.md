@@ -17,6 +17,7 @@
 
 | Debt | Where | Proposed fix |
 | :--- | :--- | :--- |
+| AGP 8.13 caps Gradle at 9.5: AGP 9 (needed for Gradle 9.6+) replaces the `kotlin-android` plugin with built-in Kotlin, which the binary-compatibility validator (`apiCheck`) can't hook into, and Kotlin 2.4.21's own ABI validation dumps nothing for built-in-Kotlin Android libraries | `gradle/libs.versions.toml`, `build.gradle.kts` | Move to AGP 9 once Kotlin ABI validation supports AGP built-in Kotlin, replacing `apiCheck` with `checkKotlinAbi` |
 | Sleep associated reads (`associatedReadRequestBuilder`), device registration and swimming logs of the SDK are not wrapped | `service/`, `Exercise` payload | Add when a consumer needs them |
 | `Exercise` sessions drop `swimmingLog` | `model/payload/Exercise.kt` | Model `SwimmingLog` / `SwimmingInterval` |
 | No callback / `CompletableFuture` façade for Java and Flutter channel code | `service/` | Thin layer over the suspend API (ADR 0002) |

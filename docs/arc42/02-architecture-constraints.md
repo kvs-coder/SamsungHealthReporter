@@ -10,7 +10,7 @@
 | The SDK AAR is login-gated and may not be redistributed | It is `compileOnly`, git-ignored and never published; consumers add it themselves; CI fetches it from a private repository; without it the build uses `samsung-health-data-stub` (ADR 0003). |
 | The SDK needs `kotlin-parcelize` runtime and Gson at runtime | Consumer apps apply the parcelize plugin and add Gson; library tests add both. |
 | SDK write request builders parcel data points | Writer unit tests run under Robolectric. |
-| Kotlin 2.2, AGP 8.13, Gradle 8.14, `explicitApi()` | Every public declaration states its visibility and has KDoc. |
+| Kotlin 2.4, AGP 8.13, Gradle 9.5 (the newest Gradle AGP 8 runs on), `explicitApi()` | Every public declaration states its visibility and has KDoc. |
 
 ## 2.2 Organizational Constraints
 
