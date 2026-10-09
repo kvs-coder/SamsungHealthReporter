@@ -281,7 +281,7 @@ dependencies {
 
 ## Development
 
-The library compiles against the real SDK when `library/libs/samsung-health-data-api*.aar` exists, and otherwise against `samsung-health-data-stub/`, a stand-in written from the SDK's public API reference that is never published. Build, test and lint as described in [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
+The library compiles against the real SDK when `library/libs/samsung-health-data-api*.aar` exists, and otherwise against `samsung-health-data-stub/`, a stand-in written from the SDK's public API reference that is never published. Build, test and lint as described in [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md); the architecture is documented with arc42 in [docs/arc42](docs/arc42/README.md).
 
 ## Releasing
 

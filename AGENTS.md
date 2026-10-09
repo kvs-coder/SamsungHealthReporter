@@ -86,6 +86,7 @@ library/api/library.api                 (binary-compatibility-validator dump of 
 library/libs/                           (Samsung Health Data SDK AAR — git-ignored, compileOnly, never bundled)
 samsung-health-data-stub/               (documented-API stand-in for the AAR; never published)
 docs/adr/                               (architecture decisions, Nygard format)
+docs/arc42/                             (architecture documentation; update it with every structural change)
 
 app/                                    (Compose MVVM demo app)
 └── src/main/kotlin/com/kvs/samsunghealthreporter/example/
