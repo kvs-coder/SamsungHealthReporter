@@ -1,0 +1,2334 @@
+public abstract class com/kvs/samsunghealthreporter/SamsungHealthException : java/lang/Exception {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthException$InvalidType : com/kvs/samsunghealthreporter/SamsungHealthException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthException$InvalidValue : com/kvs/samsunghealthreporter/SamsungHealthException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthException$NotAuthorized : com/kvs/samsunghealthreporter/SamsungHealthException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthException$Platform : com/kvs/samsunghealthreporter/SamsungHealthException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getErrorCode ()Ljava/lang/Integer;
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthException$Resolvable : com/kvs/samsunghealthreporter/SamsungHealthException {
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthReporter {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/SamsungHealthReporter$Companion;
+	public fun <init> (Landroid/content/Context;)V
+	public final fun getManager ()Lcom/kvs/samsunghealthreporter/service/SamsungHealthManager;
+	public final fun getObserver ()Lcom/kvs/samsunghealthreporter/service/SamsungHealthObserver;
+	public final fun getReader ()Lcom/kvs/samsunghealthreporter/service/SamsungHealthReader;
+	public final fun getWriter ()Lcom/kvs/samsunghealthreporter/service/SamsungHealthWriter;
+}
+
+public final class com/kvs/samsunghealthreporter/SamsungHealthReporter$Companion {
+	public final fun isAvailable (Landroid/content/Context;)Z
+}
+
+public final class com/kvs/samsunghealthreporter/model/Aggregate : com/kvs/samsunghealthreporter/model/Payload {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/Aggregate$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/Aggregation;JJLjava/lang/Double;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/kvs/samsunghealthreporter/model/type/Aggregation;JJLjava/lang/Double;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/lang/Double;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/Aggregation;JJLjava/lang/Double;Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/Aggregate;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/Aggregate;Lcom/kvs/samsunghealthreporter/model/type/Aggregation;JJLjava/lang/Double;Ljava/lang/String;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/Aggregate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAggregation ()Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public final fun getEndTimestamp ()J
+	public fun getJson ()Ljava/lang/String;
+	public final fun getStartTimestamp ()J
+	public final fun getUnit ()Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/Double;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/Aggregate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/Aggregate$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/Aggregate;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/Aggregate;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Aggregate$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/ChangeSet : com/kvs/samsunghealthreporter/model/Payload {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/ChangeSet$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJLjava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJLjava/util/List;Ljava/util/List;)Lcom/kvs/samsunghealthreporter/model/ChangeSet;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/ChangeSet;Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJLjava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/ChangeSet;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeletedUids ()Ljava/util/List;
+	public fun getJson ()Ljava/lang/String;
+	public final fun getSince ()J
+	public final fun getType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public final fun getUntil ()J
+	public final fun getUpserted ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun isEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/ChangeSet$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/ChangeSet$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/ChangeSet;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/ChangeSet;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/ChangeSet$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/DataSource {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/DataSource$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/DataSource;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAppId ()Ljava/lang/String;
+	public final fun getDeviceId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/DataSource$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/DataSource$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/DataSource$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Device : com/kvs/samsunghealthreporter/model/Payload {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/Device$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/Device;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/Device;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/Device;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ljava/lang/String;
+	public fun getJson ()Ljava/lang/String;
+	public final fun getManufacturer ()Ljava/lang/String;
+	public final fun getModel ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/Device$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/Device$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/Device;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/Device;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Device$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Ordering : java/lang/Enum {
+	public static final field ASCENDING Lcom/kvs/samsunghealthreporter/model/Ordering;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/Ordering$Companion;
+	public static final field DESCENDING Lcom/kvs/samsunghealthreporter/model/Ordering;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/Ordering;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/Ordering;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Ordering$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Page {
+	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/util/List;Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/Page;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/Page;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/Page;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getItems ()Ljava/util/List;
+	public final fun getNextPageToken ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/kvs/samsunghealthreporter/model/Payload {
+	public abstract fun getJson ()Ljava/lang/String;
+}
+
+public abstract class com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public fun <init> (Lkotlin/jvm/functions/Function0;)V
+	public final fun collect (Ljava/util/List;)Ljava/util/List;
+	public final fun decode (Ljava/lang/String;)Ljava/lang/Object;
+	public final fun make (Ljava/util/Map;)Ljava/lang/Object;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Permission {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/Permission$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/type/AccessType;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public final fun component2 ()Lcom/kvs/samsunghealthreporter/model/type/AccessType;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/type/AccessType;)Lcom/kvs/samsunghealthreporter/model/Permission;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/Permission;Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/type/AccessType;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/Permission;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccess ()Lcom/kvs/samsunghealthreporter/model/type/AccessType;
+	public final fun getType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/Permission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/Permission$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/Permission;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/Permission;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/Permission$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class com/kvs/samsunghealthreporter/model/SourceFilter {
+}
+
+public final class com/kvs/samsunghealthreporter/model/SourceFilter$App : com/kvs/samsunghealthreporter/model/SourceFilter {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/SourceFilter$App;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/SourceFilter$App;Ljava/lang/String;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/SourceFilter$App;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAppId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/kvs/samsunghealthreporter/model/SourceFilter$LocalDevice : com/kvs/samsunghealthreporter/model/SourceFilter {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/SourceFilter$LocalDevice;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/kvs/samsunghealthreporter/model/SourceFilter$SamsungHealth : com/kvs/samsunghealthreporter/model/SourceFilter {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/SourceFilter$SamsungHealth;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/kvs/samsunghealthreporter/model/TimeGroup {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/TimeGroup$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;I)V
+	public synthetic fun <init> (Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public final fun component2 ()I
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;I)Lcom/kvs/samsunghealthreporter/model/TimeGroup;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/TimeGroup;Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;IILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/TimeGroup;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMultiplier ()I
+	public final fun getUnit ()Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/TimeGroup$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/TimeGroup$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/TimeGroup;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/TimeGroup;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/TimeGroup$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/TimeRange : com/kvs/samsunghealthreporter/model/Payload {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/TimeRange$Companion;
+	public fun <init> (JJ)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun copy (JJ)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/TimeRange;JJILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnd ()J
+	public fun getJson ()Ljava/lang/String;
+	public final fun getStart ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/TimeRange$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/TimeRange$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/TimeRange;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/TimeRange$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun day (J)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public static synthetic fun day$default (Lcom/kvs/samsunghealthreporter/model/TimeRange$Companion;JILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public final fun lastDays (IJ)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public static synthetic fun lastDays$default (Lcom/kvs/samsunghealthreporter/model/TimeRange$Companion;IJILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/TimeRange;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodGlucose : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized$Companion;
+	public fun <init> (FLcom/kvs/samsunghealthreporter/model/type/MealStatus;Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;Ljava/lang/Float;Ljava/lang/Long;Ljava/lang/Boolean;Ljava/util/List;)V
+	public synthetic fun <init> (FLcom/kvs/samsunghealthreporter/model/type/MealStatus;Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;Ljava/lang/Float;Ljava/lang/Long;Ljava/lang/Boolean;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public final fun component4 ()Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+	public final fun component5 ()Ljava/lang/Float;
+	public final fun component6 ()Ljava/lang/Long;
+	public final fun component7 ()Ljava/lang/Boolean;
+	public final fun component8 ()Ljava/util/List;
+	public final fun copy (FLcom/kvs/samsunghealthreporter/model/type/MealStatus;Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;Ljava/lang/Float;Ljava/lang/Long;Ljava/lang/Boolean;Ljava/util/List;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;FLcom/kvs/samsunghealthreporter/model/type/MealStatus;Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;Ljava/lang/Float;Ljava/lang/Long;Ljava/lang/Boolean;Ljava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGlucoseLevel ()F
+	public final fun getInsulinInjected ()Ljava/lang/Float;
+	public final fun getMealStatus ()Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public final fun getMealTimestamp ()Ljava/lang/Long;
+	public final fun getMeasurementType ()Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public final fun getMedicationTaken ()Ljava/lang/Boolean;
+	public final fun getSampleSource ()Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+	public final fun getSeries ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series$Companion;
+	public fun <init> (FJ)V
+	public final fun component1 ()F
+	public final fun component2 ()J
+	public final fun copy (FJ)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series;FJILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGlucose ()F
+	public final fun getTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodGlucose$Series$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodOxygen : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen;JJLcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized$Companion;
+	public fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;)V
+	public synthetic fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMax ()Ljava/lang/Float;
+	public final fun getMin ()Ljava/lang/Float;
+	public final fun getOxygenSaturation ()F
+	public final fun getSeries ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series$Companion;
+	public fun <init> (FFFJJ)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun copy (FFFJJ)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series;FFFJJILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndTimestamp ()J
+	public final fun getMax ()F
+	public final fun getMin ()F
+	public final fun getOxygenSaturation ()F
+	public final fun getStartTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodOxygen$Series$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodPressure : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodPressure$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodPressure$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized$Companion;
+	public fun <init> (FFFLjava/lang/Integer;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (FFFLjava/lang/Integer;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/Boolean;
+	public final fun copy (FFFLjava/lang/Integer;Ljava/lang/Boolean;)Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;FFFLjava/lang/Integer;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDiastolic ()F
+	public final fun getMean ()F
+	public final fun getMedicationTaken ()Ljava/lang/Boolean;
+	public final fun getPulseRate ()Ljava/lang/Integer;
+	public final fun getSystolic ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BloodPressure$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyComposition : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BodyComposition$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyComposition$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized$Companion;
+	public fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;)V
+	public synthetic fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component10 ()Ljava/lang/Float;
+	public final fun component11 ()Ljava/lang/Float;
+	public final fun component12 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/Float;
+	public final fun component6 ()Ljava/lang/Float;
+	public final fun component7 ()Ljava/lang/Float;
+	public final fun component8 ()Ljava/lang/Float;
+	public final fun component9 ()Ljava/lang/Float;
+	public final fun copy (FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;)Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBasalMetabolicRate ()Ljava/lang/Integer;
+	public final fun getBodyFat ()Ljava/lang/Float;
+	public final fun getBodyFatMass ()Ljava/lang/Float;
+	public final fun getBodyMassIndex ()Ljava/lang/Float;
+	public final fun getFatFree ()Ljava/lang/Float;
+	public final fun getFatFreeMass ()Ljava/lang/Float;
+	public final fun getHeight ()Ljava/lang/Float;
+	public final fun getMuscleMass ()Ljava/lang/Float;
+	public final fun getSkeletalMuscle ()Ljava/lang/Float;
+	public final fun getSkeletalMuscleMass ()Ljava/lang/Float;
+	public final fun getTotalBodyWater ()Ljava/lang/Float;
+	public final fun getWeight ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyComposition$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyTemperature : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BodyTemperature$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyTemperature$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized$Companion;
+	public fun <init> (F)V
+	public final fun component1 ()F
+	public final fun copy (F)Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;FILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTemperature ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/BodyTemperature$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/EnergyScore : com/kvs/samsunghealthreporter/model/payload/Sample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/EnergyScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/EnergyScore$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized$Companion;
+	public fun <init> (F)V
+	public final fun component1 ()F
+	public final fun copy (F)Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;FILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getScore ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/EnergyScore$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Exercise;JJLcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Exercise$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Exercise$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Exercise;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;Ljava/util/List;Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCustomTitle ()Ljava/lang/String;
+	public final fun getExerciseType ()Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public final fun getSessions ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Location {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location$Companion;
+	public fun <init> (JFFLjava/lang/Float;Ljava/lang/Float;)V
+	public synthetic fun <init> (JFFLjava/lang/Float;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/Float;
+	public final fun copy (JFFLjava/lang/Float;Ljava/lang/Float;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location;JFFLjava/lang/Float;Ljava/lang/Float;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccuracy ()Ljava/lang/Float;
+	public final fun getAltitude ()Ljava/lang/Float;
+	public final fun getLatitude ()F
+	public final fun getLongitude ()F
+	public final fun getTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Exercise$Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Location;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Location$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Log {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log$Companion;
+	public fun <init> (JLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/Float;)V
+	public synthetic fun <init> (JLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/Float;
+	public final fun component6 ()Ljava/lang/Float;
+	public final fun copy (JLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/Float;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log;JLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Integer;Ljava/lang/Float;Ljava/lang/Float;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCadence ()Ljava/lang/Float;
+	public final fun getCount ()Ljava/lang/Integer;
+	public final fun getHeartRate ()Ljava/lang/Float;
+	public final fun getPower ()Ljava/lang/Float;
+	public final fun getSpeed ()Ljava/lang/Float;
+	public final fun getTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Exercise$Log$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Log;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Log$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Session {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;JJJFLjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;JJJFLjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public final fun component10 ()Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public final fun component11 ()Ljava/lang/Float;
+	public final fun component12 ()Ljava/lang/Float;
+	public final fun component13 ()Ljava/lang/Float;
+	public final fun component14 ()Ljava/lang/Float;
+	public final fun component15 ()Ljava/lang/Float;
+	public final fun component16 ()Ljava/lang/Float;
+	public final fun component17 ()Ljava/lang/Float;
+	public final fun component18 ()Ljava/lang/Float;
+	public final fun component19 ()Ljava/lang/Float;
+	public final fun component2 ()J
+	public final fun component20 ()Ljava/lang/Float;
+	public final fun component21 ()Ljava/lang/Float;
+	public final fun component22 ()Ljava/lang/Float;
+	public final fun component23 ()Ljava/lang/Float;
+	public final fun component24 ()Ljava/lang/Float;
+	public final fun component25 ()Ljava/lang/Float;
+	public final fun component26 ()Ljava/lang/Float;
+	public final fun component27 ()Ljava/lang/Float;
+	public final fun component28 ()Ljava/lang/Float;
+	public final fun component29 ()Ljava/lang/Float;
+	public final fun component3 ()J
+	public final fun component30 ()Ljava/lang/Float;
+	public final fun component31 ()Ljava/util/List;
+	public final fun component32 ()Ljava/util/List;
+	public final fun component4 ()J
+	public final fun component5 ()F
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/Float;
+	public final fun component9 ()Ljava/lang/Integer;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;JJJFLjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/util/List;Ljava/util/List;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session;Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;JJJFLjava/lang/String;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAltitudeGain ()Ljava/lang/Float;
+	public final fun getAltitudeLoss ()Ljava/lang/Float;
+	public final fun getCalories ()F
+	public final fun getComment ()Ljava/lang/String;
+	public final fun getCount ()Ljava/lang/Integer;
+	public final fun getCountType ()Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public final fun getCustomTitle ()Ljava/lang/String;
+	public final fun getDeclineDistance ()Ljava/lang/Float;
+	public final fun getDistance ()Ljava/lang/Float;
+	public final fun getDurationMillis ()J
+	public final fun getEndTimestamp ()J
+	public final fun getExerciseType ()Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public final fun getInclineDistance ()Ljava/lang/Float;
+	public final fun getLog ()Ljava/util/List;
+	public final fun getMaxAltitude ()Ljava/lang/Float;
+	public final fun getMaxCadence ()Ljava/lang/Float;
+	public final fun getMaxCalorieBurnRate ()Ljava/lang/Float;
+	public final fun getMaxHeartRate ()Ljava/lang/Float;
+	public final fun getMaxPower ()Ljava/lang/Float;
+	public final fun getMaxRpm ()Ljava/lang/Float;
+	public final fun getMaxSpeed ()Ljava/lang/Float;
+	public final fun getMeanCadence ()Ljava/lang/Float;
+	public final fun getMeanCalorieBurnRate ()Ljava/lang/Float;
+	public final fun getMeanHeartRate ()Ljava/lang/Float;
+	public final fun getMeanPower ()Ljava/lang/Float;
+	public final fun getMeanRpm ()Ljava/lang/Float;
+	public final fun getMeanSpeed ()Ljava/lang/Float;
+	public final fun getMinAltitude ()Ljava/lang/Float;
+	public final fun getMinHeartRate ()Ljava/lang/Float;
+	public final fun getRoute ()Ljava/util/List;
+	public final fun getStartTimestamp ()J
+	public final fun getVo2Max ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Exercise$Session$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Exercise$Session;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Exercise$Session$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/FloorsClimbed : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed;JJLcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/FloorsClimbed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized$Companion;
+	public fun <init> (F)V
+	public final fun component1 ()F
+	public final fun copy (F)Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;FILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFloor ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/FloorsClimbed$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/HeartRate : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/HeartRate;JJLcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/HeartRate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/HeartRate;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/HeartRate$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized$Companion;
+	public fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;)V
+	public synthetic fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHeartRate ()F
+	public final fun getMax ()Ljava/lang/Float;
+	public final fun getMin ()Ljava/lang/Float;
+	public final fun getSeries ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/HeartRate$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/HeartRate$Series {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series$Companion;
+	public fun <init> (FFFJJ)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun copy (FFFJJ)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series;FFFJJILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndTimestamp ()J
+	public final fun getHeartRate ()F
+	public final fun getMax ()F
+	public final fun getMin ()F
+	public final fun getStartTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/HeartRate$Series$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/HeartRate$Series;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/HeartRate$Series$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification : com/kvs/samsunghealthreporter/model/payload/Sample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;)Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStatus ()Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/IrregularHeartRhythmNotification$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Nutrition : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/Nutrition;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Nutrition;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Nutrition;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Nutrition$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Nutrition;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Nutrition;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Nutrition$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized$Companion;
+	public fun <init> (Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/MealType;FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/MealType;FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/Float;
+	public final fun component11 ()Ljava/lang/Float;
+	public final fun component12 ()Ljava/lang/Float;
+	public final fun component13 ()Ljava/lang/Float;
+	public final fun component14 ()Ljava/lang/Float;
+	public final fun component15 ()Ljava/lang/Float;
+	public final fun component16 ()Ljava/lang/Float;
+	public final fun component17 ()Ljava/lang/Float;
+	public final fun component18 ()Ljava/lang/Float;
+	public final fun component19 ()Ljava/lang/Float;
+	public final fun component2 ()Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public final fun component3 ()F
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/Float;
+	public final fun component6 ()Ljava/lang/Float;
+	public final fun component7 ()Ljava/lang/Float;
+	public final fun component8 ()Ljava/lang/Float;
+	public final fun component9 ()Ljava/lang/Float;
+	public final fun copy (Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/MealType;FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;)Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/MealType;FLjava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;Ljava/lang/Float;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCalcium ()Ljava/lang/Float;
+	public final fun getCalories ()F
+	public final fun getCarbohydrate ()Ljava/lang/Float;
+	public final fun getCholesterol ()Ljava/lang/Float;
+	public final fun getDietaryFiber ()Ljava/lang/Float;
+	public final fun getIron ()Ljava/lang/Float;
+	public final fun getMealType ()Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public final fun getMonounsaturatedFat ()Ljava/lang/Float;
+	public final fun getPolyunsaturatedFat ()Ljava/lang/Float;
+	public final fun getPotassium ()Ljava/lang/Float;
+	public final fun getProtein ()Ljava/lang/Float;
+	public final fun getSaturatedFat ()Ljava/lang/Float;
+	public final fun getSodium ()Ljava/lang/Float;
+	public final fun getSugar ()Ljava/lang/Float;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getTotalFat ()Ljava/lang/Float;
+	public final fun getTransFat ()Ljava/lang/Float;
+	public final fun getVitaminA ()Ljava/lang/Float;
+	public final fun getVitaminC ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Nutrition$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/kvs/samsunghealthreporter/model/payload/Sample : com/kvs/samsunghealthreporter/model/Payload {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Sample$Companion;
+	public abstract fun getClientDataId ()Ljava/lang/String;
+	public abstract fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public abstract fun getEndTimestamp ()Ljava/lang/Long;
+	public abstract fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public abstract fun getStartTimestamp ()J
+	public abstract fun getUid ()Ljava/lang/String;
+	public abstract fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sample$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SkinTemperature : com/kvs/samsunghealthreporter/model/payload/Sample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature;JJLcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized$Companion;
+	public fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;)V
+	public synthetic fun <init> (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()F
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;FLjava/lang/Float;Ljava/lang/Float;Ljava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMax ()Ljava/lang/Float;
+	public final fun getMin ()Ljava/lang/Float;
+	public final fun getSeries ()Ljava/util/List;
+	public final fun getSkinTemperature ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series$Companion;
+	public fun <init> (FFFJJ)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun copy (FFFJJ)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series;FFFJJILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndTimestamp ()J
+	public final fun getMax ()F
+	public final fun getMin ()F
+	public final fun getSkinTemperature ()F
+	public final fun getStartTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SkinTemperature$Series$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JJLcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Sleep;JJLcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Sleep$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Sleep$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Sleep;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized$Companion;
+	public fun <init> (JLjava/util/List;Ljava/lang/Integer;)V
+	public synthetic fun <init> (JLjava/util/List;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun copy (JLjava/util/List;Ljava/lang/Integer;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;JLjava/util/List;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDurationMillis ()J
+	public final fun getSessions ()Ljava/util/List;
+	public final fun getSleepScore ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Session {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session$Companion;
+	public fun <init> (JJJLjava/util/List;)V
+	public synthetic fun <init> (JJJLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy (JJJLjava/util/List;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session;JJJLjava/util/List;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDurationMillis ()J
+	public final fun getEndTimestamp ()J
+	public final fun getStages ()Ljava/util/List;
+	public final fun getStartTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Sleep$Session$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Session;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Session$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Stage {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage$Companion;
+	public fun <init> (JJLcom/kvs/samsunghealthreporter/model/type/SleepStageType;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public final fun copy (JJLcom/kvs/samsunghealthreporter/model/type/SleepStageType;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage;JJLcom/kvs/samsunghealthreporter/model/type/SleepStageType;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndTimestamp ()J
+	public final fun getStage ()Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public final fun getStartTimestamp ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/Sleep$Stage$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/Sleep$Stage;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/Sleep$Stage$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SleepApnea : com/kvs/samsunghealthreporter/model/payload/Sample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/SleepApnea$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SleepApnea$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized$Companion;
+	public fun <init> (Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;)V
+	public final fun component1 ()Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+	public final fun copy (Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;)Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDetectedSign ()Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/SleepApnea$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/UserProfile : com/kvs/samsunghealthreporter/model/Payload {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/UserProfile$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/Gender;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/Gender;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/kvs/samsunghealthreporter/model/type/Gender;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()Ljava/lang/Float;
+	public final fun copy (Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/Gender;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;)Lcom/kvs/samsunghealthreporter/model/payload/UserProfile;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/UserProfile;Ljava/lang/String;Lcom/kvs/samsunghealthreporter/model/type/Gender;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Float;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/UserProfile;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDateOfBirth ()Ljava/lang/String;
+	public final fun getGender ()Lcom/kvs/samsunghealthreporter/model/type/Gender;
+	public final fun getHeight ()Ljava/lang/Float;
+	public fun getJson ()Ljava/lang/String;
+	public final fun getNickname ()Ljava/lang/String;
+	public final fun getWeight ()Ljava/lang/Float;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/UserProfile$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/UserProfile$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/UserProfile;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/UserProfile;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/UserProfile$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/WaterIntake : com/kvs/samsunghealthreporter/model/payload/WritableSample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Companion;
+	public fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)V
+	public synthetic fun <init> (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public final fun copy (JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;)Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake;JLjava/lang/Long;Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/DataSource;ILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getClientDataId ()Ljava/lang/String;
+	public fun getDataSource ()Lcom/kvs/samsunghealthreporter/model/DataSource;
+	public fun getEndTimestamp ()Ljava/lang/Long;
+	public final fun getHarmonized ()Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;
+	public fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public fun getJson ()Ljava/lang/String;
+	public fun getStartTimestamp ()J
+	public fun getUid ()Ljava/lang/String;
+	public fun getZoneOffsetSeconds ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/WaterIntake$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/WaterIntake$Companion : com/kvs/samsunghealthreporter/model/Payload$Factory {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized$Companion;
+	public fun <init> (F)V
+	public final fun component1 ()F
+	public final fun copy (F)Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;
+	public static synthetic fun copy$default (Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;FILjava/lang/Object;)Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAmount ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/WaterIntake$Harmonized$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class com/kvs/samsunghealthreporter/model/payload/WritableSample : com/kvs/samsunghealthreporter/model/payload/Sample {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/payload/WritableSample$Companion;
+}
+
+public final class com/kvs/samsunghealthreporter/model/payload/WritableSample$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/AccessType : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/AccessType$Companion;
+	public static final field READ Lcom/kvs/samsunghealthreporter/model/type/AccessType;
+	public static final field WRITE Lcom/kvs/samsunghealthreporter/model/type/AccessType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/AccessType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/AccessType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/AccessType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/Aggregation : java/lang/Enum {
+	public static final field ACTIVE_CALORIES_BURNED_GOAL_LAST Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field ACTIVE_TIME_GOAL_LAST Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field ACTIVITY_SUMMARY_TOTAL_ACTIVE_CALORIES_BURNED Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field ACTIVITY_SUMMARY_TOTAL_ACTIVE_TIME Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field ACTIVITY_SUMMARY_TOTAL_CALORIES_BURNED Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field ACTIVITY_SUMMARY_TOTAL_DISTANCE Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/Aggregation$Companion;
+	public static final field EXERCISE_TOTAL_CALORIES Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field EXERCISE_TOTAL_DURATION Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field FLOORS_CLIMBED_TOTAL Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field HEART_RATE_MAX Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field HEART_RATE_MIN Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field NUTRITION_GOAL_LAST_CALORIES Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field NUTRITION_TOTAL_CALORIES Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field SLEEP_GOAL_LAST_BED_TIME Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field SLEEP_GOAL_LAST_WAKE_UP_TIME Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field SLEEP_TOTAL_DURATION Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field STEPS_GOAL_LAST Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field STEPS_TOTAL Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field WATER_INTAKE_GOAL_LAST Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static final field WATER_INTAKE_TOTAL Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getHealthType ()Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public final fun getSupportsTimeGrouping ()Z
+	public final fun getUnit ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/Aggregation$Companion {
+	public final fun make (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/Aggregation;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/ExerciseCountType : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType$Companion;
+	public static final field REPETITION Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public static final field STRIDE Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public static final field STROKE Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public static final field SWING Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/ExerciseCountType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/ExerciseCountType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/ExerciseType : java/lang/Enum {
+	public static final field AEROBICS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ALPINE_SKIING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field AMERICAN_FOOTBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field AQUABIKE Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field AQUATHLON Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field AQUA_AEROBICS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ARCHERY Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ARM_CURLS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ARM_EXTENSIONS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BACKPACKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BACK_EXTENSIONS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BADMINTON Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BALLET Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BALLROOM_DANCING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BASEBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BASKETBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BEACH_VOLLEYBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BENCH_PRESS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BIKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BOWLING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BOXING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BREAK Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field BURPEES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CANOEING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CIRCUIT_TRAINING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field COOL_DOWN Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CRICKET Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CROSS_COUNTRY_SKIING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CROSS_DUATHLON Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CROSS_TRIATHLON Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field CRUNCH Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/ExerciseType$Companion;
+	public static final field DANCING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field DEADLIFTS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field DUATHLON Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ELLIPTICAL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field FLYING_DISC Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field FRONT_RAISES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field GOLF Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HANDBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HANG_GLIDING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HIGH_KNEES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HIKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HOCKEY Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HORSEBACK_RIDING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field HULA_HOOPING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ICE_DANCING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ICE_HOCKEY Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ICE_SKATING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field INLINE_SKATING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field JUMPING_JACKS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field JUMP_ROPE Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field KAYAKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field KITESURFING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LATERAL_RAISES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LAT_PULLDOWNS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LEG_CURLS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LEG_EXTENSIONS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LEG_PRESSES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LEG_RAISES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field LUNGES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field MARTIAL_ARTS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field MOUNTAIN_BIKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field MOUNTAIN_CLIMBERS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field OPEN_WATER_SWIMMING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ORIENTEERING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field OTHER Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field PILATES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field PLANK Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field POOL_SWIMMING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field PULL_UPS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field PUSH_UPS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field RACQUETBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field RAFTING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ROCK_CLIMBING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ROLLER_SKATING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ROWING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ROWING_MACHINE Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field RUGBY Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field RUNNING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SAILING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SCUBA_DIVING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SHOULDER_PRESSES Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SIT_UPS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SKATERS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SKIING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SNORKELING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SNOWBOARDING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SNOWSHOEING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SOCCER Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SOFTBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SQUASH Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field SQUATS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field STAIR_CLIMBING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field STAIR_CLIMBING_MACHINE Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field STATIONARY_BIKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field STEP_MACHINE Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field STRETCHING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field TABLE_TENNIS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field TENNIS Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field TRACK_RUNNING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field TRANSITION Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field TREADMILL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field TRIATHLON Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field VOLLEYBALL Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field WALKING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field WARM_UP Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field WATER_SKIING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field WEIGHT_MACHINE Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field WINDSURFING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field YACHTING Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field YOGA Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static final field ZUMBA Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/ExerciseType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/ExerciseType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/Gender : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/Gender$Companion;
+	public static final field GENDER_FEMALE Lcom/kvs/samsunghealthreporter/model/type/Gender;
+	public static final field GENDER_MALE Lcom/kvs/samsunghealthreporter/model/type/Gender;
+	public static final field GENDER_UNKNOWN Lcom/kvs/samsunghealthreporter/model/type/Gender;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/Gender;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/Gender;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/Gender$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType$Companion;
+	public static final field PLASMA Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public static final field SERUM Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public static final field WHOLE_BLOOD Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/GlucoseMeasurementType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/GlucoseSampleSource : java/lang/Enum {
+	public static final field CAPILLARY Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource$Companion;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+	public static final field VENOUS Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/GlucoseSampleSource;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/GlucoseSampleSource$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/HealthType : java/lang/Enum {
+	public static final field ACTIVE_CALORIES_BURNED_GOAL Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field ACTIVE_TIME_GOAL Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field ACTIVITY_SUMMARY Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field BLOOD_GLUCOSE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field BLOOD_OXYGEN Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field BLOOD_PRESSURE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field BODY_COMPOSITION Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field BODY_TEMPERATURE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/HealthType$Companion;
+	public static final field ENERGY_SCORE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field EXERCISE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field EXERCISE_LOCATION Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field FLOORS_CLIMBED Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field HEART_RATE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field IRREGULAR_HEART_RHYTHM_NOTIFICATION Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field NUTRITION Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field NUTRITION_GOAL Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field SKIN_TEMPERATURE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field SLEEP Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field SLEEP_APNEA Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field SLEEP_GOAL Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field STEPS Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field STEPS_GOAL Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field USER_PROFILE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field WATER_INTAKE Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static final field WATER_INTAKE_GOAL Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public final fun getAggregations ()Ljava/util/List;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getIdentifier ()Ljava/lang/String;
+	public final fun isObservable ()Z
+	public final fun isReadable ()Z
+	public final fun isWritable ()Z
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/HealthType$Companion {
+	public final fun make (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/HealthType;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus$Companion;
+	public static final field DETECTED Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/IrregularHeartRhythmStatus$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/MealStatus : java/lang/Enum {
+	public static final field AFTER_BED_TIME Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field AFTER_BREAKFAST Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field AFTER_DINNER Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field AFTER_LUNCH Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field AFTER_MEAL Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field AFTER_SNACK Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field BEFORE_BREAKFAST Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field BEFORE_DINNER Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field BEFORE_LUNCH Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field BEFORE_MEAL Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field BEFORE_SLEEP Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/MealStatus$Companion;
+	public static final field FASTING Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field GENERAL Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/MealStatus;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/MealStatus$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/MealType : java/lang/Enum {
+	public static final field AFTERNOON_SNACK Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static final field BREAKFAST Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/MealType$Companion;
+	public static final field DINNER Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static final field EVENING_SNACK Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static final field LUNCH Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static final field MORNING_SNACK Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/MealType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/MealType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/MealType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/SleepApneaSign : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign$Companion;
+	public static final field DETECTED Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+	public static final field NOT_DETECTED Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/SleepApneaSign;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/SleepApneaSign$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/SleepStageType : java/lang/Enum {
+	public static final field AWAKE Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/SleepStageType$Companion;
+	public static final field DEEP Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public static final field LIGHT Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public static final field REM Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public static final field UNDEFINED Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/SleepStageType;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/SleepStageType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/TimeGroupUnit : java/lang/Enum {
+	public static final field Companion Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit$Companion;
+	public static final field DAILY Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static final field HOURLY Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static final field MINUTELY Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static final field MONTHLY Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static final field WEEKLY Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static final field YEARLY Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+	public static fun values ()[Lcom/kvs/samsunghealthreporter/model/type/TimeGroupUnit;
+}
+
+public final class com/kvs/samsunghealthreporter/model/type/TimeGroupUnit$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/kvs/samsunghealthreporter/service/SamsungHealthManager {
+	public final fun device (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun devices (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun grantedPermissions (Ljava/util/Set;Ljava/util/Set;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun grantedPermissions$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthManager;Ljava/util/Set;Ljava/util/Set;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun isAuthorized (Ljava/util/Set;Ljava/util/Set;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun isAuthorized$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthManager;Ljava/util/Set;Ljava/util/Set;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun localDevice (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun requestPermissions (Landroid/app/Activity;Ljava/util/Set;Ljava/util/Set;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun requestPermissions$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthManager;Landroid/app/Activity;Ljava/util/Set;Ljava/util/Set;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun resolve (Landroid/app/Activity;Lcom/kvs/samsunghealthreporter/SamsungHealthException$Resolvable;)Z
+}
+
+public final class com/kvs/samsunghealthreporter/service/SamsungHealthObserver {
+	public final fun changes (Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun changes$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthObserver;Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun observe-SxA4cEA (Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJ)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun observe-SxA4cEA$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthObserver;Lcom/kvs/samsunghealthreporter/model/type/HealthType;JJILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class com/kvs/samsunghealthreporter/service/SamsungHealthReader {
+	public static final field DEFAULT_PAGE_SIZE I
+	public final fun read (Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/TimeRange;Lcom/kvs/samsunghealthreporter/model/Ordering;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/SourceFilter;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun read$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthReader;Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/TimeRange;Lcom/kvs/samsunghealthreporter/model/Ordering;Ljava/lang/Integer;Lcom/kvs/samsunghealthreporter/model/SourceFilter;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun readPage (Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/TimeRange;ILjava/lang/String;Lcom/kvs/samsunghealthreporter/model/Ordering;Lcom/kvs/samsunghealthreporter/model/SourceFilter;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun readPage$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthReader;Lcom/kvs/samsunghealthreporter/model/type/HealthType;Lcom/kvs/samsunghealthreporter/model/TimeRange;ILjava/lang/String;Lcom/kvs/samsunghealthreporter/model/Ordering;Lcom/kvs/samsunghealthreporter/model/SourceFilter;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun userProfile (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/kvs/samsunghealthreporter/service/SamsungHealthReader_AggregateKt {
+	public static final fun aggregate (Lcom/kvs/samsunghealthreporter/service/SamsungHealthReader;Lcom/kvs/samsunghealthreporter/model/type/Aggregation;Lcom/kvs/samsunghealthreporter/model/TimeRange;Lcom/kvs/samsunghealthreporter/model/TimeGroup;Lcom/kvs/samsunghealthreporter/model/Ordering;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun aggregate$default (Lcom/kvs/samsunghealthreporter/service/SamsungHealthReader;Lcom/kvs/samsunghealthreporter/model/type/Aggregation;Lcom/kvs/samsunghealthreporter/model/TimeRange;Lcom/kvs/samsunghealthreporter/model/TimeGroup;Lcom/kvs/samsunghealthreporter/model/Ordering;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/kvs/samsunghealthreporter/service/SamsungHealthWriter {
+	public final fun delete (Lcom/kvs/samsunghealthreporter/model/payload/Sample;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun delete (Lcom/kvs/samsunghealthreporter/model/type/HealthType;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun deleteByClientDataIds (Lcom/kvs/samsunghealthreporter/model/type/HealthType;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun insert (Lcom/kvs/samsunghealthreporter/model/payload/WritableSample;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun insert (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun update (Lcom/kvs/samsunghealthreporter/model/payload/WritableSample;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun update (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

@@ -1,0 +1,30 @@
+build:
+  maxIssues: 0
+
+complexity:
+  LongParameterList:
+    active: false
+  TooManyFunctions:
+    active: false
+  CyclomaticComplexMethod:
+    threshold: 25
+  LongMethod:
+    threshold: 80
+
+naming:
+  MatchingDeclarationName:
+    active: false
+  FunctionNaming:
+    ignoreAnnotated: [ 'Composable' ]
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    maxLineLength: 120
+  ReturnCount:
+    max: 4
+  ForbiddenImport:
+    active: false
+  UnnecessaryAbstractClass:
+    active: false

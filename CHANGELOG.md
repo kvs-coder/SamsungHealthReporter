@@ -1,3 +1,5 @@
-## [1.0.0] - 28.10.2020.
+# Changelog
 
-* Initial release. The SamsungHealthReporter library to make easy data reading and writing for SamsungHealth
+## [0.0.6] - 05.12.2020.
+
+* Pre-release on the Samsung Health SDK for Android 1.4.0 (steps, heart rate, sleep, exercise, oxygen saturation, ECG, floors climbed).

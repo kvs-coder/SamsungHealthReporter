@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  release-guard:
+    name: Version / Changelog
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Top CHANGELOG.md entry matches the release manifest
+        run: |
+          version=$(jq -r '."."' .release-please-manifest.json)
+          header=$(grep -m1 '^## ' CHANGELOG.md)
+          echo "manifest: $version, changelog: $header"
+          [[ "$header" =~ ^"## [$version] - "[0-9]{2}\.[0-9]{2}\.[0-9]{4}\.$ ]] || {
+            echo "::error file=CHANGELOG.md,line=1::Expected '## [$version] - dd.MM.yyyy.', got '$header'"
+            exit 1
+          }
+
+  build:
+    name: Lint, test, API check, build
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: corretto
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      # Samsung's license forbids redistributing the SDK, so the real AAR lives in the private repository
+      # kvs-coder/samsung-health-sdk, read with a read-only deploy key. Without the key (fork PRs), the build uses
+      # the samsung-health-data-stub module written from the SDK's API reference.
+      - name: Provide the Samsung Health Data SDK
+        env:
+          SAMSUNG_HEALTH_SDK_DEPLOY_KEY: ${{ secrets.SAMSUNG_HEALTH_SDK_DEPLOY_KEY }}
+        run: |
+          if [ -z "$SAMSUNG_HEALTH_SDK_DEPLOY_KEY" ]; then
+            echo "::warning::SAMSUNG_HEALTH_SDK_DEPLOY_KEY is not set; building against the SDK stub"
+            exit 0
+          fi
+          key="$RUNNER_TEMP/samsung-health-sdk-key"
+          printf '%s\n' "$SAMSUNG_HEALTH_SDK_DEPLOY_KEY" > "$key"
+          chmod 600 "$key"
+          GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
+            git clone --depth 1 git@github.com:kvs-coder/samsung-health-sdk.git "$RUNNER_TEMP/samsung-health-sdk"
+          rm -f "$key"
+          mkdir -p library/libs
+          cp "$RUNNER_TEMP"/samsung-health-sdk/samsung-health-data-api-*.aar library/libs/
+          ls library/libs
+      - name: Lint
+        run: ./gradlew ktlintCheck detekt :library:lintDebug
+      - name: Test with coverage gate
+        run: ./gradlew :library:testDebugUnitTest :library:koverXmlReport :library:koverVerify
+      - name: Test against the SDK stub too, so it keeps matching the real SDK
+        if: hashFiles('library/libs/*.aar') != ''
+        run: ./gradlew :library:testDebugUnitTest -PsamsungHealthDataStub
+      - name: Public API check
+        run: ./gradlew :library:apiCheck
+      - name: Build library and example app
+        run: ./gradlew :library:assembleRelease :app:assembleDebug
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reports
+          path: |
+            library/build/reports
+            library/build/test-results
+          if-no-files-found: ignore
