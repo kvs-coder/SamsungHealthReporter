@@ -57,7 +57,8 @@ kotlin {
 dependencies {
     // Samsung's license forbids redistribution: consumers add the AAR themselves.
     compileOnly(samsungHealthData)
-    implementation(libs.kotlinx.coroutines.android)
+    // api: Flow is part of the public API (SamsungHealthObserver.observe).
+    api(libs.kotlinx.coroutines.android)
     api(libs.kotlinx.serialization.json)
 
     testImplementation(samsungHealthData)
