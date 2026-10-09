@@ -268,7 +268,7 @@ Before any commit or PR creation, the codebase must pass all gates:
 * **Before tagging**: run the test suite against the real AAR and the Example app on a device (the stub can't prove binary compatibility).
 * **SemVer**: breaking public API or serialization-contract changes → major; new types/features → minor; fixes → patch. The migration to the Data SDK ships as `1.0.0`.
 * Releases are automated by release-please (`.github/workflows/release.yml`, `release-please-config.json`). It derives the bump from Conventional Commits on `master` and keeps a `chore: release X.Y.Z` PR open that bumps `.release-please-manifest.json`, `VERSION_NAME` in `gradle.properties`, prepends the `## [X.Y.Z] - dd.MM.yyyy.` entry to `CHANGELOG.md` and updates the `x-release-please-version` line in `README.md`.
-* Merging the release PR creates the bare tag `X.Y.Z` (no `v` prefix) and the GitHub Release — JitPack builds that tag (`jitpack.yml`). Never tag, bump versions or edit released `CHANGELOG.md` entries by hand.
+* Merging the release PR creates the bare tag `X.Y.Z` (no `v` prefix) and the GitHub Release, then `release.yml` dispatches `publish.yml` on the tag, which builds it on JitPack (`jitpack.yml`) and fails when the build or the AAR is missing. The release workflow also rewrites release-please's changelog headers to `## [X.Y.Z] - dd.MM.yyyy.` on the release PR. Never tag, bump versions or edit released `CHANGELOG.md` entries by hand.
 * Commit messages are the changelog: write the summary for consumers.
 * New public API is documented in `README.md` with a usage snippet; the README states how to obtain and add the Samsung SDK AAR and that writing data needs Samsung partner approval.
 

@@ -42,7 +42,8 @@ same tests against the real AAR and the stub on every PR, which is what keeps th
 | :--- | :--- | :--- |
 | `.github/workflows/ci.yml` — Version / Changelog | PR to and push on `master` | Top `CHANGELOG.md` entry matches `.release-please-manifest.json`. |
 | `.github/workflows/ci.yml` — Lint, test, API check, build | PR to and push on `master` | Clone the AAR from `kvs-coder/samsung-health-sdk` with the `SAMSUNG_HEALTH_SDK_DEPLOY_KEY` deploy key (skipped for forks); ktlint, detekt, Android lint; unit tests + Kover gate; tests again with `-PsamsungHealthDataStub`; `apiCheck`; build library and Example app; upload reports. |
-| `.github/workflows/release.yml` | push on `master` | release-please keeps a `chore: release X.Y.Z` PR; merging it tags `X.Y.Z` and updates `CHANGELOG.md`, `README.md` and `VERSION_NAME` in `gradle.properties`. |
+| `.github/workflows/release.yml` | push on `master` | release-please keeps a `chore: release X.Y.Z` PR; merging it tags `X.Y.Z`, dispatches `publish.yml` and updates `CHANGELOG.md`, `README.md` and `VERSION_NAME` in `gradle.properties`. |
+| `.github/workflows/publish.yml` | dispatched by `release.yml` on the new tag (or a pushed `X.Y.Z` tag) | Requests the version from JitPack, which builds it; fails on a failed JitPack build and checks that the POM and AAR are served. |
 
 ## 7.3 Developer environments
 
