@@ -18,7 +18,7 @@ jobs:
     name: Version / Changelog
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Top CHANGELOG.md entry matches the release manifest
         run: |
           version=$(jq -r '."."' .release-please-manifest.json)
@@ -33,12 +33,12 @@ jobs:
     name: Lint, test, API check, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: corretto
           java-version: 17
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
       # Samsung's license forbids redistributing the SDK, so the real AAR lives in the private repository
       # kvs-coder/samsung-health-sdk, read with a read-only deploy key. Without the key (fork PRs), the build uses
       # the samsung-health-data-stub module written from the SDK's API reference.
@@ -72,7 +72,7 @@ jobs:
         run: ./gradlew :library:assembleRelease :app:assembleDebug
       - name: Upload reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: reports
           path: |
