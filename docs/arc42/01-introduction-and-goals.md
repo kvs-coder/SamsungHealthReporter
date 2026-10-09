@@ -27,7 +27,7 @@ Version 1.0.0 replaces the 0.0.x library, which wrapped the deprecated Samsung H
 | 1 | **Encapsulation of the SDK** | Consumers never see Samsung SDK types; the SDK can change (it already renamed types and changed nullability between 1.0.0 betas) without breaking consumers. Enforced by `library/api/library.api`. |
 | 2 | **Contract stability** | Payload JSON and map keys are consumed by other runtimes (Flutter, backends); renaming one is a major release. |
 | 3 | **Safety** | No blocking calls, no crashes from SDK exceptions: every failure is a typed `SamsungHealthException`. |
-| 4 | **Testability without a phone** | 67 JVM unit tests run against the real SDK AAR and against a documented-API stub; line coverage ≥ 98%. |
+| 4 | **Testability without a phone** | 97 JVM unit tests run against the real SDK AAR and against a documented-API stub; line coverage ≥ 99%, branch coverage ≥ 74%. |
 | 5 | **Parity with HealthKitReporter** | Cross-platform consumers (the Flutter plugins) map one mental model onto both platforms. |
 
 ## 1.3 Stakeholders

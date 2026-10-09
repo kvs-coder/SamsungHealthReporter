@@ -104,8 +104,12 @@ class ReadOnlySampleTest {
     }
 
     @Test
-    fun `aggregate-only type has no sample`() {
-        assertFailsWith<SamsungHealthException.InvalidType> { HealthType.STEPS.sample(pointWithoutRequiredFields()) }
+    fun `types without a sample payload throw`() {
+        HealthType.entries.filter { !it.isReadable }.forEach { type ->
+            assertFailsWith<SamsungHealthException.InvalidType>(
+                type.identifier,
+            ) { type.sample(pointWithoutRequiredFields()) }
+        }
     }
 
     @Test

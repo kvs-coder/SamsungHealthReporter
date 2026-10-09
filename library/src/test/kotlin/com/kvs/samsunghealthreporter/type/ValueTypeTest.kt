@@ -66,6 +66,25 @@ class ValueTypeTest {
     }
 
     @Test
+    fun `time group round trips and is validated when decoded`() {
+        val sut = TimeGroup(TimeGroupUnit.HOURLY, 2)
+        val json =
+            kotlinx.serialization.json.Json
+                .encodeToString(TimeGroup.serializer(), sut)
+        assertEquals(
+            sut,
+            kotlinx.serialization.json.Json
+                .decodeFromString(TimeGroup.serializer(), json),
+        )
+        assertFailsWith<SamsungHealthException.InvalidValue> {
+            kotlinx.serialization.json.Json.decodeFromString(
+                TimeGroup.serializer(),
+                """{"unit":"HOURLY","multiplier":0}""",
+            )
+        }
+    }
+
+    @Test
     fun `date groups reject time-of-day units`() {
         TimeGroupUnit.entries.forEach { TimeGroup(it).asLocalTimeGroup }
         assertFailsWith<SamsungHealthException.InvalidValue> { TimeGroup(TimeGroupUnit.HOURLY).asLocalDateGroup }

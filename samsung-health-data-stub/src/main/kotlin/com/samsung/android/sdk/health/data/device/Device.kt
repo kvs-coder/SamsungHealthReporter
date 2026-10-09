@@ -1,6 +1,6 @@
 package com.samsung.android.sdk.health.data.device
 
-interface DeviceType
+sealed interface DeviceType
 
 enum class DeviceGroup : DeviceType { OTHER, MOBILE, WATCH, RING, BAND, ACCESSORY }
 

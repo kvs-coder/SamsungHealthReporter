@@ -43,6 +43,7 @@ const val OFFSET = 7_200
 val source = DataSource(appId = "com.example", deviceId = "device-1")
 
 /** Parses JSON into the plain map a Flutter plugin would send. */
+@Suppress("UNCHECKED_CAST") // a JSON object always parses to a string-keyed map
 fun String.asMap(): Map<String, Any?> = Json.parseToJsonElement(this).plain as Map<String, Any?>
 
 private val JsonElement.plain: Any?

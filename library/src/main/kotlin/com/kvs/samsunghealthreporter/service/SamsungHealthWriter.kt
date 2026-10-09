@@ -32,7 +32,7 @@ public class SamsungHealthWriter internal constructor(
      * @throws SamsungHealthException.NotAuthorized when write permission is missing
      */
     public suspend fun insert(samples: List<WritableSample>): List<WritableSample> {
-        val identified = samples.map { it.clientDataId?.let { _ -> it } ?: it.withClientDataId(makeClientDataId()) }
+        val identified = samples.map { if (it.clientDataId != null) it else it.withClientDataId(makeClientDataId()) }
         identified.groupBy { it.healthType }.forEach { (type, group) ->
             val builder = type.writeable.insertDataRequestBuilder
             group.forEach { builder.addData(it.asOriginal) }

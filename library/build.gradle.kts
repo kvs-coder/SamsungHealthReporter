@@ -1,3 +1,5 @@
+import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -81,7 +83,10 @@ kover {
         }
         verify {
             rule {
-                minBound(98)
+                // Raise both to the measured level with every test PR; never lower them. Most missed branches
+                // are kotlinx.serialization-generated code (write${'$'}Self, decoding constructors), unreachable here.
+                minBound(99, CoverageUnit.LINE)
+                minBound(74, CoverageUnit.BRANCH)
             }
         }
     }

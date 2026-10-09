@@ -24,5 +24,5 @@
 | Q6 | The app lacks partner approval and requests write permissions | `NotAuthorized` with SDK code 2003 in `cause`; reads still work when requested separately | Verified on a Pixel 7a |
 | Q7 | A read of a large range runs on the main dispatcher | The UI stays responsive | Suspend calls only; no `runBlocking`, `Looper.prepare()` or blocking waits |
 | Q8 | A contributor without the SDK runs the build | Everything compiles and tests run against the stub | `./gradlew :library:testDebugUnitTest` without `library/libs` |
-| Q9 | A PR changes behavior | Unit tests run against the real SDK and the stub | 67 tests, line coverage ≥ 98% (Kover gate) |
+| Q9 | A PR changes behavior | Unit tests run against the real SDK and the stub | 97 tests; Kover gates ≥ 99% lines, ≥ 74% branches |
 | Q10 | A developer looks for how to call an API | README snippet and an Example app row exist | One demo row per public method |
