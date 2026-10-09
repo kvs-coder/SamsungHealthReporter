@@ -1,9 +1,9 @@
 # Changelog
 
-## [1.0.0](https://github.com/kvs-coder/SamsungHealthReporter/compare/0.0.6...1.0.0) (2026-10-09)
+## [1.0.0] - 09.10.2026.
 
 
-### ⚠ BREAKING CHANGES
+### BREAKING CHANGES
 
 * rebuild SamsungHealthReporter on the Samsung Health Data SDK ([#3](https://github.com/kvs-coder/SamsungHealthReporter/issues/3))
 
