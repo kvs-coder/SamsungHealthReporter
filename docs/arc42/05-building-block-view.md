@@ -29,7 +29,7 @@ flowchart TB
 | Building block | Responsibility | Location |
 | :--- | :--- | :--- |
 | **SamsungHealthReporter** | Entry point. `isAvailable(context)`; the public constructor gets one `HealthDataStore` from `HealthDataService.getStore` and injects it into all services. | `SamsungHealthReporter.kt` |
-| **SamsungHealthException** | Sealed error hierarchy: `NotAvailable`, `NotAuthorized`, `InvalidType`, `InvalidValue`, `Resolvable`, `Platform`. | `SamsungHealthException.kt` |
+| **SamsungHealthException** | Sealed error hierarchy: `NotAuthorized`, `InvalidType`, `InvalidValue`, `Resolvable`, `Platform`. | `SamsungHealthException.kt` |
 | **Services** | The only code that calls `HealthDataStore`. | `service/` |
 | **Types** | Library enums naming data types, aggregations and SDK value enums; no SDK imports. | `model/type/` |
 | **Payloads** | `@Serializable` data classes for samples and results; the JSON / map contract. | `model/payload/`, `model/` |

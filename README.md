@@ -64,7 +64,6 @@ lifecycleScope.launch {
 
 | Exception | Meaning |
 | :--- | :--- |
-| `NotAvailable` | Samsung Health or the feature isn't available |
 | `NotAuthorized` | a permission is missing, or the data belongs to another app |
 | `InvalidType` | the type doesn't support the operation (e.g. writing steps) |
 | `InvalidValue` | an input is invalid, or Samsung Health rejected it |

@@ -17,7 +17,6 @@
 
 | Debt | Where | Proposed fix |
 | :--- | :--- | :--- |
-| `SamsungHealthException.NotAvailable` is declared but never thrown | `SamsungHealthException.kt` | Throw it for features behind newer Samsung Health versions, or remove it before 1.0.0 |
 | Sleep associated reads (`associatedReadRequestBuilder`), device registration and swimming logs of the SDK are not wrapped | `service/`, `Exercise` payload | Add when a consumer needs them |
 | `Exercise` sessions drop `swimmingLog` | `model/payload/Exercise.kt` | Model `SwimmingLog` / `SwimmingInterval` |
 | No callback / `CompletableFuture` façade for Java and Flutter channel code | `service/` | Thin layer over the suspend API (ADR 0002) |

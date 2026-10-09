@@ -9,12 +9,6 @@ public sealed class SamsungHealthException(
     message: String,
     cause: Throwable? = null,
 ) : Exception(message, cause) {
-    /** Samsung Health or the requested feature is not available on this device. */
-    public class NotAvailable(
-        message: String,
-        cause: Throwable? = null,
-    ) : SamsungHealthException(message, cause)
-
     /** The user has not granted the permission the call needs. */
     public class NotAuthorized(
         message: String,

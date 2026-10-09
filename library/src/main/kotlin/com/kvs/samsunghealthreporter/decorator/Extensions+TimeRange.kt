@@ -4,7 +4,6 @@ import com.kvs.samsunghealthreporter.SamsungHealthException
 import com.kvs.samsunghealthreporter.model.TimeGroup
 import com.kvs.samsunghealthreporter.model.TimeRange
 import com.kvs.samsunghealthreporter.model.type.TimeGroupUnit
-import com.samsung.android.sdk.health.data.request.InstantTimeFilter
 import com.samsung.android.sdk.health.data.request.LocalDateFilter
 import com.samsung.android.sdk.health.data.request.LocalDateGroup
 import com.samsung.android.sdk.health.data.request.LocalDateGroupUnit
@@ -23,9 +22,6 @@ internal val Long.asLocalDate: LocalDate get() = asLocalDateTime.toLocalDate()
 
 internal val TimeRange.asLocalTimeFilter: LocalTimeFilter
     get() = LocalTimeFilter.of(start.asLocalDateTime, end.asLocalDateTime)
-
-internal val TimeRange.asInstantTimeFilter: InstantTimeFilter
-    get() = InstantTimeFilter.of(Instant.ofEpochMilli(start), Instant.ofEpochMilli(end))
 
 /** The local dates the range touches; the end date is the date of the range's last millisecond. */
 internal val TimeRange.asLocalDateFilter: LocalDateFilter
