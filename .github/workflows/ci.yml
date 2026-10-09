@@ -56,6 +56,7 @@ jobs:
           GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
             git clone --depth 1 git@github.com:kvs-coder/samsung-health-sdk.git "$RUNNER_TEMP/samsung-health-sdk"
           rm -f "$key"
+          mkdir -p library/libs
           cp "$RUNNER_TEMP"/samsung-health-sdk/samsung-health-data-api-*.aar library/libs/
           ls library/libs
       - name: Lint
