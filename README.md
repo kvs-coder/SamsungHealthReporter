@@ -29,7 +29,13 @@ dependencies {
 }
 ```
 
-3. To test, enable [developer mode](https://developer.samsung.com/health/data/guide/developer-mode.html) in the Samsung Health app. Reading works in developer mode; **writing, and distributing your app, needs Samsung partner approval** ([partner request](https://developer.samsung.com/health/data/overview.html)). Until you enter the access code Samsung issues with the partnership on the developer mode page, every write permission request fails with `SamsungHealthException.NotAuthorized` (SDK error 2003, `ERR_ACCESS_CONTROL`: "Permission is not allowed due to SDK policy"), so request read and write permissions separately. The Example app's *Request each permission alone* row lists which permissions your setup allows.
+3. To test, enable [developer mode](https://developer.samsung.com/health/data/guide/developer-mode.html) in the Samsung Health app:
+   1. In Samsung Health, tap **⋮** › **Settings** › **About Samsung Health**.
+   2. Tap the version line about 10 times until **Developer mode (Samsung Health Data SDK)** appears, open it and agree to the notice.
+   3. Turn on **Developer Mode for Data Read**.
+   4. For writes, enter your app's package name as **Client ID** and the partnership **Access Code** there.
+
+   Developer mode is for testing only; don't ask your app's users to turn it on. Reading works in developer mode; **writing, and distributing your app, needs Samsung partner approval** ([partner request](https://developer.samsung.com/health/data/overview.html)). Until you enter the access code Samsung issues with the partnership on the developer mode page, every write permission request fails with `SamsungHealthException.NotAuthorized` (SDK error 2003, `ERR_ACCESS_CONTROL`: "Permission is not allowed due to SDK policy"), so request read and write permissions separately. The Example app's *Request each permission alone* row lists which permissions your setup allows.
 
 Samsung Health 6.30.2 or later must be installed. The SDK works on Samsung and non-Samsung phones with Android 10 or later, but not on emulators.
 
