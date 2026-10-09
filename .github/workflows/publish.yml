@@ -1,0 +1,56 @@
+name: Publish
+
+# Builds the tagged release on JitPack and fails when JitPack can't build it. JitPack builds a version on its
+# first request, so asking for the POM publishes it; the log tells whether the build succeeded.
+on:
+  push:
+    tags: [ '[0-9]+.[0-9]+.[0-9]+' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  jitpack:
+    name: JitPack
+    runs-on: ubuntu-26.04
+    env:
+      VERSION: ${{ github.ref_name }}
+      BASE: https://jitpack.io/com/github/${{ github.repository_owner }}/${{ github.event.repository.name }}
+    steps:
+      - name: Require a release tag
+        run: |
+          [[ "$GITHUB_REF" == refs/tags/* && "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "::error::Run this workflow on a release tag X.Y.Z, got $GITHUB_REF"
+            exit 1
+          }
+
+      - name: Build on JitPack
+        run: |
+          name="${{ github.event.repository.name }}"
+          # The first request starts the build and returns when it ends (or times out); poll the log afterwards.
+          curl -s -o /dev/null --max-time 900 "$BASE/$VERSION/$name-$VERSION.pom" || true
+          for attempt in $(seq 1 60); do
+            log=$(curl -s --max-time 60 "$BASE/$VERSION/build.log" || true)
+            if grep -q "BUILD SUCCESSFUL" <<< "$log"; then
+              echo "JitPack build of $VERSION succeeded"
+              break
+            fi
+            if grep -q -E "BUILD FAILED|Build tool exit code: [1-9]" <<< "$log"; then
+              echo "$log" | tail -60
+              echo "::error::JitPack failed to build $VERSION: $BASE/$VERSION/build.log"
+              exit 1
+            fi
+            sleep 15
+          done
+          grep -q "BUILD SUCCESSFUL" <<< "$log" || { echo "::error::JitPack build of $VERSION timed out"; exit 1; }
+
+      - name: Verify the published artifacts
+        run: |
+          name="${{ github.event.repository.name }}"
+          for file in "$name-$VERSION.pom" "$name-$VERSION.aar"; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 120 "$BASE/$VERSION/$file")
+            echo "$file: $status"
+            [ "$status" = 200 ] || { echo "::error::$file is not available on JitPack"; exit 1; }
+          done
+          echo "### Published com.github.${{ github.repository_owner }}:$name:$VERSION on JitPack" >> "$GITHUB_STEP_SUMMARY"

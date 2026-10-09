@@ -290,7 +290,7 @@ The library compiles against the real SDK when `library/libs/samsung-health-data
 
 ## Releasing
 
-Releases are automated by [release-please](https://github.com/googleapis/release-please): Conventional Commits on `master` keep a release PR open, and merging it tags `X.Y.Z`, which JitPack builds.
+Releases are automated by [release-please](https://github.com/googleapis/release-please): Conventional Commits on `master` keep a release PR open, and merging it tags `X.Y.Z` and runs the `Publish` workflow, which builds that tag on JitPack and fails if JitPack can't.
 
 ## Author
 
