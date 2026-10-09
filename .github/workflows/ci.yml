@@ -39,18 +39,25 @@ jobs:
           distribution: corretto
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-      # Samsung's license forbids redistributing the SDK, so the real AAR only comes from a secret. Without it
-      # (fork PRs, no secret yet) the build uses the samsung-health-data-stub module written from the API reference.
+      # Samsung's license forbids redistributing the SDK, so the real AAR lives in the private repository
+      # kvs-coder/samsung-health-sdk, read with a read-only deploy key. Without the key (fork PRs), the build uses
+      # the samsung-health-data-stub module written from the SDK's API reference.
       - name: Provide the Samsung Health Data SDK
         env:
-          SAMSUNG_HEALTH_DATA_AAR_BASE64: ${{ secrets.SAMSUNG_HEALTH_DATA_AAR_BASE64 }}
+          SAMSUNG_HEALTH_SDK_DEPLOY_KEY: ${{ secrets.SAMSUNG_HEALTH_SDK_DEPLOY_KEY }}
         run: |
-          if [ -n "$SAMSUNG_HEALTH_DATA_AAR_BASE64" ]; then
-            echo "$SAMSUNG_HEALTH_DATA_AAR_BASE64" | base64 --decode > library/libs/samsung-health-data-api.aar
-            echo "Building against the real Samsung Health Data SDK"
-          else
-            echo "::warning::SAMSUNG_HEALTH_DATA_AAR_BASE64 is not set; building against the SDK stub"
+          if [ -z "$SAMSUNG_HEALTH_SDK_DEPLOY_KEY" ]; then
+            echo "::warning::SAMSUNG_HEALTH_SDK_DEPLOY_KEY is not set; building against the SDK stub"
+            exit 0
           fi
+          key="$RUNNER_TEMP/samsung-health-sdk-key"
+          printf '%s\n' "$SAMSUNG_HEALTH_SDK_DEPLOY_KEY" > "$key"
+          chmod 600 "$key"
+          GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
+            git clone --depth 1 git@github.com:kvs-coder/samsung-health-sdk.git "$RUNNER_TEMP/samsung-health-sdk"
+          rm -f "$key"
+          cp "$RUNNER_TEMP"/samsung-health-sdk/samsung-health-data-api-*.aar library/libs/
+          ls library/libs
       - name: Lint
         run: ./gradlew ktlintCheck detekt :library:lintDebug
       - name: Test with coverage gate
