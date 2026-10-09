@@ -90,3 +90,6 @@ lint/tmp/
 
 # Samsung Health Data SDK: license forbids redistribution, add it locally (see README)
 library/libs/*.aar
+
+# IDE state
+.idea/
