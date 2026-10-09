@@ -1,33 +1,13 @@
-## Status
-READY/IN DEVELOPMENT/HOLD
+## Summary
+<!-- BLUF: what changes and why, in one or two sentences. -->
 
-## Migrations
-YES | NO
+## Changes
+- `<file_path>`: <details>
 
-## Description
-A few sentences describing the overall goals of the pull request's commits.
+## Tests
+- Unit tests: <executed / failed>, coverage <percent>
+- ktlint / detekt / Android lint: clean
+- apiCheck: <passes | library.api regenerated>
+- Example app build: <passes | not applicable — no public API change>
 
-## Related PRs
-List related PRs against other branches:
-
-branch	PR
-other_pr_production	link
-other_pr_master	link
-Todos
- Tests
- Documentation
- 
-## Deploy Notes
-Notes regarding deployment the contained body of work. These should note any db migrations, etc.
-
-## Steps to Test or Reproduce
-Outline the steps to test or reproduce the PR here.
-
-git pull --prune
-git checkout <feature_branch>
-
-## Impacted Areas in Application
-Small description about what will be changed in the app if this PR will be merged
-
-## List general components of the application that this PR will affect:
-The direct changes inside the app made by this PR
+Refs: #<issue>

@@ -87,3 +87,6 @@ lint/tmp/
 # Android Profiling
 *.hprof
 .idea/jarRepositories.xml
+
+# Samsung Health Data SDK: license forbids redistribution, add it locally (see README)
+library/libs/*.aar
