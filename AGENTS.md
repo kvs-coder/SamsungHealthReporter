@@ -366,7 +366,7 @@ Refs: #<issue>
 * `Refs: #<issue>` is required whenever an issue exists.
 
 ### Local Issues
-Work not yet on GitHub lives in `ISSUE-<slug>.md` files at the repo root, titled with the Conventional Commit header the work will ship under. File one on GitHub with the `github-create` skill (or `gh issue create --body-file ISSUE-<slug>.md`), then delete the local file in the PR that references it.
+Work not yet on GitHub lives in `ISSUE-<slug>.md` files at the repo root, titled with the Conventional Commit header the work will ship under. They are for local use only: git-ignored, never committed or referenced from committed files. File one on GitHub with the `github-create` skill (or `gh issue create --body-file ISSUE-<slug>.md`) when it should become public.
 
 ---
 

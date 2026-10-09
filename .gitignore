@@ -93,3 +93,6 @@ library/libs/*.aar
 
 # IDE state
 .idea/
+
+# Local task notes, not for the repository
+ISSUE-*.md

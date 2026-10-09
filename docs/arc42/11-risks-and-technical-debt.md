@@ -22,4 +22,3 @@
 | `Exercise` sessions drop `swimmingLog` | `model/payload/Exercise.kt` | Model `SwimmingLog` / `SwimmingInterval` |
 | No callback / `CompletableFuture` façade for Java and Flutter channel code | `service/` | Thin layer over the suspend API (ADR 0002) |
 | CI actions still target Node.js 20 (deprecation annotations) | `.github/workflows/` | Bump `actions/checkout`, `setup-java`, `upload-artifact`, `gradle/actions` to Node 24 versions |
-| Local `ISSUE-*.md` files at the repo root | repo root | File remaining items on GitHub, delete the files |
