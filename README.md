@@ -279,7 +279,7 @@ App's **build.gradle.kts**
 
 ```kotlin
 dependencies {
-    implementation("com.github.kvs-coder:SamsungHealthReporter:0.0.6") // x-release-please-version
+    implementation("com.github.kvs-coder:SamsungHealthReporter:1.0.0") // x-release-please-version
     implementation(files("libs/samsung-health-data-api.aar"))
 }
 ```
